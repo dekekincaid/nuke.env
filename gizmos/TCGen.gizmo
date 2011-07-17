@@ -1,0 +1,65 @@
+#! created 08/24/08 by michael@yawpitchroll.com
+version 5.0200
+Gizmo {
+ help "Allows a timecode string to be generated from a user preset.  TC will increment per project FPS and an be used to drive TC burn-in or to drive write out of TC data to formats that support it."
+ label "\[value timecode]"
+ addUserKnob {20 tcTab l "TC Controls"}
+ addUserKnob {3 HH t "Preset TC Hour (00 - 23)"}
+ HH 0
+ addUserKnob {3 MM t "Preset TC Minute (00-59)"}
+ MM 0
+ addUserKnob {3 SS t "Preset TC Second (00-59)"}
+ SS 0
+ addUserKnob {3 FF t "Preset TC Frame (00 - (FPS-1))"}
+ FF 0
+ addUserKnob {26 "" l ""}
+ addUserKnob {3 startFrame l Slate t "Initial slate frame the TC is relative to (ie the frame number that the HH:MM:SS:FF preset defines)"}
+ startFrame 0
+ addUserKnob {32 setStart l "  Set to this Frame  " t "Press to set the Slate frame to the current frame in your timeline." T "set ff \[frame]\nknob startFrame \[expr int(\$ff)]"}
+ addUserKnob {6 overlaySwitch l "Burn-in TC" t "Burn-in visible TC data"}
+ overlaySwitch true
+ addUserKnob {26 "" l ""}
+ addUserKnob {1 Expr t "Expression to copy and paste into knobs that need to reference the timecode value (ie write.timecode)."}
+ Expr ""
+ addUserKnob {32 exprSet l "  Generate TC Expression  " t "Generates a value for Expr that can be used to directly copy and paste into expressions that need to reference the TC string." T "set nameVal \[value name]\nset startVal \"\\\[value \"\nset endVal \".timecode\\]\"\n\nknob Expr \[format \"%s%s%s\" \$startVal \$nameVal \$endVal]"}
+ addUserKnob {1 timecode l INVISIBLE}
+ timecode "\[value TCText.message]"
+ addUserKnob {3 HHRes l INVISIBLE}
+ HHRes {{"\[expression fmod(int(HH+(floor(int(MM+floor((SS+floor((FF+(frame-startFrame))/root.fps))/60))/60))),24)]"}}
+ addUserKnob {3 MMRes l INVISIBLE}
+ MMRes {{"\[expression fmod(int(MM+floor((SS+floor((FF+(frame-startFrame))/root.fps))/60)),60)]"}}
+ addUserKnob {3 SSRes l INVISIBLE}
+ SSRes {{"\[expression fmod(int(SS+floor((FF+(frame-startFrame))/root.fps)),60)]"}}
+ addUserKnob {3 FFRes l INVISIBLE}
+ FFRes {{"\[expression int(fmod(FF+(frame-startFrame),root.fps))]"}}
+ addUserKnob {20 burnOptions l "Burn-in Options"}
+ addUserKnob {41 font T TCText.font}
+ addUserKnob {41 size T TCText.size}
+ addUserKnob {41 translate T TCText.translate}
+ addUserKnob {41 rotate T TCText.rotate}
+ addUserKnob {41 scale T TCText.scale}
+ addUserKnob {41 color T TCText.color}
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos 350
+  ypos -153
+ }
+ Text {
+  message "\[format %02d:%02d:%02d:%02d \[value HHRes] \[value MMRes] \[value SSRes] \[value FFRes]]"
+  Font 1
+  font /Library/Fonts/Arial.ttf
+  size {{translate.x i}}
+  translate {{"floor(height * .05)" i} {translate.x i}}
+  name TCText
+  xpos 350
+  ypos -112
+  disable {{!overlaySwitch}}
+ }
+ Output {
+  name Output1
+  xpos 350
+  ypos -13
+ }
+end_group

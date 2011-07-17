@@ -1,0 +1,229 @@
+#! /Applications/Nuke5.1v2/Nuke5.1v2.app/Contents/MacOS/Nuke5.1v2 -nx
+version 5.1200
+Gizmo {
+ note_font "Verdana Bold Bold"
+ note_font_size 14
+ note_font_color 0xaf5600ff
+ addUserKnob {20 Basic}
+ addUserKnob {26 ""}
+ addUserKnob {41 which l SelectRGBCMY t "Slide left to right to hift through red, green, blue, cyan, magenta, and yellow colors. Works best if rendered as default pure colors from a 3D package on surfaceShaders.\n" T Switch1.which}
+ addUserKnob {41 whitepoint l Attenuation T ATT.whitepoint}
+ addUserKnob {41 size l EdgeBlur T EdgeBlur1.size}
+ addUserKnob {26 ""}
+ addUserKnob {26 "" -STARTLINE T "St.Rub's.March\[2009].v0.12\n\n•donaldstrubler.tk\n•dstrubler@fullsail.edu\n\nmade for "}
+ addUserKnob {20 Advanced}
+ addUserKnob {20 Red n 1}
+ addUserKnob {41 range T RED.range}
+ addUserKnob {41 output T RED.output}
+ addUserKnob {41 invert T RED.invert}
+ addUserKnob {20 endGroup n -1}
+ addUserKnob {26 ""}
+ addUserKnob {20 Green n 1}
+ Green 0
+ addUserKnob {41 range_1 l range T GREEN.range}
+ addUserKnob {41 output_1 l output T GREEN.output}
+ addUserKnob {41 invert_1 l invert T GREEN.invert}
+ addUserKnob {20 endGroup_1 l endGroup n -1}
+ addUserKnob {26 ""}
+ addUserKnob {20 Blue n 1}
+ Blue 0
+ addUserKnob {41 range_2 l range T BLUE.range}
+ addUserKnob {41 output_2 l output T BLUE.output}
+ addUserKnob {41 invert_2 l invert T BLUE.invert}
+ addUserKnob {20 endGroup_2 l endGroup n -1}
+ addUserKnob {26 ""}
+ addUserKnob {41 filter T EdgeBlur1.filter}
+ addUserKnob {26 ""}
+ addUserKnob {26 "" T "Using the r,g,b sliders in the advanced menu, \nyou can adjust the local value falloff for the\nindividual color. CMY will be affected by the\nRGB, so it saves time and calculation."}
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos 366
+  ypos 213
+ }
+ Dot {
+  name inputID_matte
+  label inputID
+  note_font_size 16
+  xpos 366
+  ypos 253
+ }
+set N1e211d90 [stack 0]
+ Keyer {
+  input rgba
+  operation "green keyer"
+  name GREENALL
+  xpos 452
+  ypos 368
+ }
+push $N1e211d90
+ Keyer {
+  input rgba
+  invert true
+  name GREEN
+  xpos 207
+  ypos 367
+ }
+set N1e206680 [stack 0]
+ Merge2 {
+  inputs 2
+  operation minus
+  name Merge2
+  xpos 336
+  ypos 502
+ }
+set N1e20eba0 [stack 0]
+push $N1e211d90
+ Keyer {
+  input rgba
+  operation "blue keyer"
+  name BLUEALL
+  xpos 535
+  ypos 369
+ }
+push $N1e211d90
+ Keyer {
+  input rgba
+  invert true
+  operation bluescreen
+  name BLUE
+  xpos 289
+  ypos 369
+ }
+set N1e20ce60 [stack 0]
+ Merge2 {
+  inputs 2
+  operation minus
+  name Merge3
+  xpos 463
+  ypos 501
+ }
+set N1a9ddfb0 [stack 0]
+ Merge2 {
+  inputs 2
+  operation minus
+  name YELLOW
+  xpos 463
+  ypos 595
+ }
+ Dot {
+  name Dot8
+  xpos 497
+  ypos 675
+ }
+push $N1e211d90
+ Keyer {
+  input rgba
+  operation "red keyer"
+  name REDALL
+  xpos 371
+  ypos 368
+ }
+push $N1e211d90
+ Keyer {
+  input rgba
+  invert true
+  operation redscreen
+  range {0 0.992647 1 1}
+  name RED
+  xpos 124
+  ypos 366
+ }
+set N1fb89400 [stack 0]
+ Merge2 {
+  inputs 2
+  operation minus
+  name Merge1
+  xpos 217
+  ypos 504
+ }
+push $N1e20eba0
+ Merge2 {
+  inputs 2
+  operation minus
+  name MAGENTA
+  xpos 217
+  ypos 590
+ }
+set N1fb8f5e0 [stack 0]
+ Dot {
+  name Dot9
+  xpos 251
+  ypos 706
+ }
+push $N1a9ddfb0
+ Dot {
+  name Dot2
+  xpos 437
+  ypos 593
+ }
+push $N1fb8f5e0
+ Merge2 {
+  inputs 2
+  operation minus
+  name CYAN
+  xpos 335
+  ypos 590
+ }
+push $N1e20ce60
+ Dot {
+  name Dot6
+  xpos 193
+  ypos 464
+ }
+ Dot {
+  name Dot7
+  xpos 193
+  ypos 697
+ }
+push $N1e206680
+ Dot {
+  name Dot4
+  xpos 175
+  ypos 460
+ }
+ Dot {
+  name Dot5
+  xpos 175
+  ypos 708
+ }
+push $N1fb89400
+ Dot {
+  name Dot3
+  xpos 158
+  ypos 716
+ }
+ Switch {
+  inputs 6
+  which 1.24
+  name Switch1
+  xpos 335
+  ypos 778
+ }
+ Shuffle {
+  red alpha
+  green alpha
+  blue alpha
+  name Shuffle1
+  xpos 335
+  ypos 812
+ }
+ Grade {
+  channels all
+  name ATT
+  xpos 333
+  ypos 855
+ }
+ EdgeBlur {
+  size 0
+  name EdgeBlur1
+  xpos 333
+  ypos 906
+ }
+ Output {
+  name Output1
+  xpos 333
+  ypos 1006
+ }
+end_group

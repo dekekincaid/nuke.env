@@ -1,0 +1,99 @@
+#! C:/Program Files/Nuke4.8v2/nuke4.8.exe -nx
+version 4.8200
+Gizmo {
+ inputs 1
+ addUserKnob {20 Crumple l Settings}
+ addUserKnob {41 channels T IDistortintern.channels}
+ addUserKnob {26 "" l ""}
+ addUserKnob {41 type_1 l type T NoiseDistort.type}
+ addUserKnob {7 Strength R 0 100}
+ Strength 30
+ addUserKnob {16 Size R 0 100}
+ Size 20
+ addUserKnob {41 Octaves T NoiseDistort.octaves}
+ addUserKnob {41 Lacunarity T NoiseDistort.lacunarity}
+ addUserKnob {7 Aspect R -1 1}
+ addUserKnob {7 Speed R 0 100}
+ addUserKnob {26 "" l ""}
+ addUserKnob {6 hlghts l "enable Highlights"}
+ hlghts true
+ addUserKnob {41 gain T NoiseHighlights.gain}
+ addUserKnob {41 gamma_1 l gamma T NoiseHighlights.gamma}
+ addUserKnob {41 color l "color 1" T NoiseHighlights.color}
+ addUserKnob {41 octaves T NoiseHighlights.octaves}
+ addUserKnob {26 "" l ""}
+ addUserKnob {41 filter T IDistortintern.filter}
+ addUserKnob {20 Transform}
+ addUserKnob {12 translate}
+ addUserKnob {7 rotate}
+ addUserKnob {14 scale R 0 100}
+ scale 1
+ addUserKnob {12 center}
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos -214
+  ypos -283
+ }
+add_layer {distortchannel distortchannel.u distortchannel.v}
+ Noise {
+  output distortchannel
+  cliptype format
+  type turbulence
+  size {{Size+(Size*(Aspect+0.1))} {Size-(Size*(Aspect+0.1))}}
+  zoffset {{frame/100*(Speed/1)}}
+  octaves 1
+  lacunarity 1
+  gain 0.535
+  gamma 0.885
+  translate {{parent.translate.x} {parent.translate.y}}
+  rotate {{parent.rotate}}
+  scale {{parent.scale.w}}
+  center {{parent.center.x} {parent.center.y}}
+  p1 {100 400}
+  p0 {100 100}
+  name NoiseDistort
+  xpos -214
+  ypos -228
+ }
+ Noise {
+  output rgb
+  cliptype format
+  type turbulence
+  size {{Size+(Size*(Aspect+0.1))} {Size-(Size*(Aspect+0.1))}}
+  zoffset {{frame/100*(Speed/1)}}
+  octaves 1
+  lacunarity 1.78
+  gamma 0.25
+  translate {{parent.translate.x} {parent.translate.y}}
+  rotate {{parent.rotate}}
+  scale {{parent.scale.w}}
+  center {{parent.center.x} {parent.center.y}}
+  p1 {100 400}
+  p0 {100 100}
+  name NoiseHighlights
+  selected true
+  xpos -214
+  ypos -169
+  disable {{"equal(\[numvalue hlghts],0)"}}
+ }
+add_layer {p_MegaTK_specialC3 p_MegaTK_specialC3.red p_MegaTK_specialC3.green p_MegaTK_specialC3.blue}
+ IDistort {
+  channels rgb
+  uv distortchannel
+  uv_offset {{uv_scale.w/500}}
+  uv_scale {{Strength}}
+  blur_scale 0
+  mask -p_MegaTK_specialC3.red
+  filter Keys
+  name IDistortintern
+  xpos -214
+  ypos -104
+ }
+ Output {
+  name Output1
+  xpos -214
+  ypos -39
+ }
+end_group

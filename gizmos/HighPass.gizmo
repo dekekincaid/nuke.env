@@ -1,0 +1,114 @@
+#! //applications/Applications/Nuke/5.1/64Bit/5.1v3/Nuke5.1.exe -nx
+version 5.1300
+Gizmo {
+ tile_color 0x41705eff
+ label "dug v1.0"
+ help "The HighPass gizmo is designed to emulate the same function in Adobe's Photoshop. It should be good to go right out of the box. But if tweaking is necessary controls for the size of the HighPass, as well as sharpen, and contrast are included."
+ addUserKnob {20 User}
+ addUserKnob {20 MainControls l "Main Controls" n 1}
+ MainControls 0
+ addUserKnob {41 hp_size l Size T Blur1.size}
+ addUserKnob {20 endGroup_1 l endGroup n -1}
+ addUserKnob {26 ""}
+ addUserKnob {20 AuxControls l "Aux Controls" n 1}
+ AuxControls 0
+ addUserKnob {26 ""}
+ addUserKnob {41 hp_sharp_size l Sharpen T Sharpen1.size}
+ addUserKnob {26 ""}
+ addUserKnob {41 multiply T Grade1.multiply}
+ addUserKnob {41 gamma T Grade1.gamma}
+ addUserKnob {20 endGroup n -1}
+ addUserKnob {26 ""}
+ addUserKnob {41 mix T Merge2.mix}
+ addUserKnob {6 hp_effectonly l "effect only" +STARTLINE}
+ addUserKnob {26 ""}
+ addUserKnob {32 Default l "Reset to Default" T "knob hp_size 20\nknob hp_sharp_size 100\nknob multiply 1.5\nknob gamma .7" +STARTLINE}
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos 10
+  ypos -377
+ }
+ Dot {
+  name Dot2
+  xpos 44
+  ypos -308
+ }
+set N21543740 [stack 0]
+ Invert {
+  name Invert1
+  xpos -128
+  ypos -318
+ }
+ Blur {
+  size 20
+  name Blur1
+  xpos -128
+  ypos -279
+ }
+push $N21543740
+ Merge2 {
+  inputs 2
+  operation average
+  output rgb
+  name Merge1
+  xpos 10
+  ypos -273
+ }
+ Saturation {
+  saturation 0
+  name Saturation1
+  xpos 10
+  ypos -246
+ }
+ Sharpen {
+  size 100
+  name Sharpen1
+  xpos 10
+  ypos -197
+ }
+ Grade {
+  multiply 1.5
+  gamma 0.7
+  name Grade1
+  xpos 10
+  ypos -158
+ }
+set N2082dfe0 [stack 0]
+push $N2082dfe0
+push $N21543740
+ Dot {
+  name Dot1
+  xpos 168
+  ypos -308
+ }
+ Merge2 {
+  inputs 2
+  operation multiply
+  output rgb
+  name Merge2
+  xpos 131
+  ypos -158
+ }
+ Switch {
+  inputs 2
+  which {{hp_effectonly==0?0:1 i}}
+  name Switch1
+  xpos 131
+  ypos -105
+ }
+set N2b268170 [stack 0]
+ Output {
+  name Output1
+  xpos 131
+  ypos 31
+ }
+push $N2b268170
+ Viewer {
+  name Viewer1
+  selected true
+  xpos -158
+  ypos 69
+ }
+end_group

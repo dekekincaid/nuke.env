@@ -1,0 +1,47 @@
+#! created 06/22/08 by michael@yawpitchroll.com
+version 4.7000
+Gizmo {
+ help "Provides basic trigonometric data about two arbitrary points."
+ addUserKnob {20 MathTab l Math}
+ addUserKnob {41 pA l "Point A" T Pythag.pA}
+ addUserKnob {41 pB l "Point B" T Pythag.pB}
+ addUserKnob {26 "" l "Calculated Data" t "Do not delete or modify the following fields.  Reference them via expression in other nodes."}
+ addUserKnob {41 dX l "Delta X" t "The delta in X (run)." T Pythag.dX}
+ addUserKnob {41 dY l "Delta Y" t "The delta in Y (rise)." T Pythag.dY}
+ addUserKnob {41 rad l "Angle (Rad)" t "The angle between pA and pB, in radians above / below horizontal." T Pythag.rad}
+ addUserKnob {41 deg l "Angle (Deg)" t "The angle between pA and pB, in degrees above / below horizontal." T Pythag.deg}
+ addUserKnob {41 hypot l "Hypotenuse" t "The distance between pA and pB." T Pythag.hypot}
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos -63
+  ypos -99
+ }
+ NoOp {
+  name Pythag
+  selected true
+  xpos -63
+  ypos -59
+  addUserKnob {20 Math}
+  addUserKnob {12 pA l "Point A"}
+  pA {250 250}
+  addUserKnob {12 pB l "Point B"}
+  pB {500 250}
+  addUserKnob {7 dX l "Delta X" R -1000 1000}
+  dX {{pB.x-pA.x i}}
+  addUserKnob {7 dY l "Delta Y" R -1000 1000}
+  dY {{pB.y-pA.y i}}
+  addUserKnob {7 rad l "Angle (Rad)" R 0 3.14159}
+  rad {{atan2(dY,dX) i}}
+  addUserKnob {7 deg l "Angle (Deg)" R -180 180}
+  deg {{degrees(rad) i}}
+  addUserKnob {7 hypot l Hypotenuse R -1000 1000}
+  hypot {{sqrt(pow2(dX)+pow2(dY)) i}}
+ }
+ Output {
+  name Output1
+  xpos -63
+  ypos 41
+ }
+end_group

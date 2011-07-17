@@ -1,0 +1,103 @@
+#! C:/Program Files/Nuke5.1v5/Nuke5.1.exe -nx
+version 5.1500
+Gizmo {
+ addUserKnob {20 User}
+ addUserKnob {41 size_inside T Gamma_inside.value}
+ addUserKnob {41 size_outside T Gamma_outside.value}
+ addUserKnob {41 blur_inside T Blur5.size}
+ addUserKnob {41 blur_outside T Blur6.size}
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos -10
+  ypos 149
+ }
+ Dot {
+  name Dot20
+  xpos -10
+  ypos 189
+ }
+set N1bea1fb0 [stack 0]
+ Dot {
+  name Dot21
+  xpos -10
+  ypos 239
+ }
+set N1bea2200 [stack 0]
+push $N1bea1fb0
+ Blur {
+  channels alpha
+  size 18
+  name Blur5
+  xpos 108
+  ypos 179
+ }
+ Gamma {
+  channels rgba
+  value 0.14
+  name Gamma_inside
+  xpos 216
+  ypos 180
+ }
+ Merge2 {
+  inputs 2
+  operation out
+  name Out
+  xpos 210
+  ypos 235
+ }
+push $N1bea2200
+ Dot {
+  name Dot23
+  xpos -10
+  ypos 300
+ }
+set N1bea2b40 [stack 0]
+ Blur {
+  channels alpha
+  size 12.5
+  name Blur6
+  xpos 33
+  ypos 290
+ }
+ Gamma {
+  channels rgba
+  value 1.8
+  name Gamma_outside
+  xpos 113
+  ypos 296
+ }
+push $N1bea2b40
+ Dot {
+  name Dot22
+  xpos -10
+  ypos 384
+ }
+ Merge2 {
+  inputs 2
+  operation out
+  name Out1
+  xpos 113
+  ypos 380
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  name Plus1
+  xpos 210
+  ypos 380
+ }
+set N1bea36d0 [stack 0]
+ Output {
+  name Output1
+  xpos 210
+  ypos 480
+ }
+push $N1bea36d0
+ Viewer {
+  name Viewer1
+  xpos 210
+  ypos 407
+ }
+end_group

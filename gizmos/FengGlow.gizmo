@@ -1,0 +1,105 @@
+#! /Applications/Nuke5.1v3/Nuke5.1v3.app/Contents/MacOS/Nuke5.1v3 -nx
+version 5.1300
+Gizmo {
+ inputs 2
+ help "FengGlow is a flexible diffuse glow to stylize your images in a beauty look.\nDesigned by Feng-Guo Tang and Christoph Hasche.\n\nUse the mask input to behold sharpness in areas like eyes or fine details."
+ addUserKnob {20 Adjustmens l FengGlow t "FengGlow is a flexible diffuse glow to stylize your images in a beauty look"}
+ addUserKnob {26 "" l "mask input" t "Use the mask input to bring back some sharpness to areas like eyes or fine details"}
+ addUserKnob {41 maskChannelMask l "use mask" -STARTLINE T Blur2.maskChannelMask}
+ addUserKnob {41 maskChannelInput l "" -STARTLINE T Blur2.maskChannelInput}
+ addUserKnob {41 blur l "feather mask" t "Blur the mask input" T featherMask.size}
+ addUserKnob {41 filter T featherMask.filter}
+ addUserKnob {26 ""}
+ addUserKnob {41 blur1size l "blur value 1" t "Blur value 1" T Blur1.size}
+ addUserKnob {41 blur1filter l filter T Blur1.filter}
+ addUserKnob {41 blur1quality l "" t "Blur value 1 quality" -STARTLINE T Blur1.quality}
+ addUserKnob {41 blur2size l "blur value 2" t "Blur value 1" T Blur2.size}
+ addUserKnob {41 blur2filter l filter T Blur2.filter}
+ addUserKnob {41 blur2quality l "" t "Blur value 2 quality" -STARTLINE T Blur2.quality}
+ addUserKnob {26 ""}
+ addUserKnob {41 multiply l "tint image" t "Set color to tint the image" T LowColor.multiply}
+ addUserKnob {26 ""}
+ addUserKnob {41 blackpoint T LowColor.blackpoint}
+ addUserKnob {41 whitepoint T LowColor.whitepoint}
+ addUserKnob {41 mix l "high value" t "Set the values for highlights" T Screen.mix}
+ addUserKnob {41 mix_1 l "low value" t "Set the value for shadows" T Overlay.mix}
+ addUserKnob {26 ""}
+ addUserKnob {26 "" l FengGlow t "FengGlow v1.0 by Christoph Hasche and Feng-Guo Tang" T v1.0}
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos -367
+  ypos -247
+ }
+ Shuffle {
+  name ShuffleInput
+  xpos -367
+  ypos -167
+ }
+set N1f8c2cb0 [stack 0]
+ Blur {
+  size 15
+  name Blur1
+  xpos -141
+  ypos -27
+ }
+ Grade {
+  blackpoint -0.035
+  whitepoint 1.1
+  multiply {1 0.9 0.4 1}
+  reverse true
+  name LowColor
+  xpos -141
+  ypos 43
+ }
+ Input {
+  inputs 0
+  name mask
+  xpos -149
+  ypos -251
+  number 1
+ }
+ Invert {
+  name InvertMask
+  xpos -141
+  ypos -190
+ }
+ Blur {
+  size 20
+  name featherMask
+  xpos -141
+  ypos -131
+ }
+push $N1f8c2cb0
+ Blur {
+  inputs 1+1
+  size 10
+  maskChannelMask -rgba.alpha
+  name Blur2
+  xpos -272
+  ypos -22
+ }
+push $N1f8c2cb0
+ Merge2 {
+  inputs 2
+  operation screen
+  mix 0.575
+  name Screen
+  xpos -367
+  ypos 75
+ }
+ Merge2 {
+  inputs 2
+  operation overlay
+  mix 0.325
+  name Overlay
+  xpos -259
+  ypos 175
+ }
+ Output {
+  name Output1
+  xpos -259
+  ypos 275
+ }
+end_group

@@ -1,0 +1,220 @@
+###
+### dg ©2006
+### diogogirondi@gmail.com
+### Guides v1.0
+### Nuke 4.5.27
+###
+version 4.5027
+Gizmo {
+ inputs 1
+ tile_color 0x7aa9ff00
+ label "@s-3 \[value mode]"
+ name VIEWER_INPUT
+ name Guides
+ addUserKnob {20 "" Settings}
+ addUserKnob {4 mode "Guide Type:" M {"Video Safe Areas" "Super 35 Guides"}}
+ addUserKnob {7 ls "Line size:" R 1 10}
+ ls 2
+ addUserKnob {18 gc "Guide Color:" R 0 1}
+ gc {0.3 0.6 0.8}
+ addUserKnob {20 "" "Video Options"}
+ addUserKnob {6 action "Draw Action Safe"}
+ action true
+ addUserKnob {6 title "Draw Title Safe"}
+ title true
+ addUserKnob {6 center "Draw Center Guides"}
+ center true
+ addUserKnob {7 sa "Action Safe *" R 0 0.2}
+ sa 0.05
+ addUserKnob {7 st "Title Safe *" R 0 0.2}
+ st 0.1
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos 320
+  ypos -69
+ }
+set N22682e0 [stack 0]
+ Rectangle {
+  output rgb
+  area {0 0 {input.format.w i} {input.format.h i}}
+  color {{parent.gc.r i} {parent.gc.g i} {parent.gc.b} 0}
+  p1 {100 400}
+  p0 {100 100}
+  name Rectangle5
+  tile_color 0xc0c0c000
+  xpos 115
+  ypos -69
+ }
+set N2271198 [stack 0]
+add_layer {alpha rgba.alpha}
+ Rectangle {
+  output alpha
+  area {{(width-(width*0.8945313))-(ls/2) i} 0 {(width-(width*0.8945313))+(ls/2) i} {height}}
+  p1 {100 400}
+  p0 {100 100}
+  name Rectangle6
+  xpos 183
+  ypos -5
+ }
+ Rectangle {
+  output alpha
+  area {{(width-(width*0.8945313))-(ls/2) i} 0 {(width-(width*0.8945313))+(ls/2) i} {height}}
+  p1 {100 400}
+  p0 {100 100}
+  name Rectangle7
+  xpos 183
+  ypos 35
+ }
+ Rectangle {
+  output alpha
+  area {{(width-(width*0.8945313))} {(height/2)-(ls/2) i} {width i} {(height/2)+(ls/2) i}}
+  p1 {100 400}
+  p0 {100 100}
+  name Rectangle8
+  xpos 183
+  ypos 75
+ }
+ Rectangle {
+  output alpha
+  area {{(width-(width*0.4482422))-(ls/2) i} 0 {(width-(width*0.4482422))+(ls/2)} {height i}}
+  p1 {100 400}
+  p0 {100 100}
+  name Rectangle9
+  xpos 183
+  ypos 115
+ }
+ Text {
+  output alpha
+  message "O\nP\nT\nI\nC\nA\nL\n\nT\nR\nA\nC\nK\n\nA\nR\nE\nA"
+  font C:/WINDOWS/Fonts/Arial.ttf
+  size {{0.023*height i}}
+  xjustify center
+  translate {{0.055*width i} {0.7*height i}}
+  p1 {100 400}
+  p0 {100 100}
+  name Text3
+  xpos 183
+  ypos 155
+ }
+ Premult {
+  channels rgb
+  name Premult2
+  xpos 183
+  ypos 195
+ }
+push $N2271198
+ Rectangle {
+  output alpha
+  area {{input.format.w*parent.sa i} {input.format.h*parent.sa i} {input.format.w-(input.format.w*parent.sa) i} {input.format.h-(input.format.h*parent.sa) i}}
+  p1 {100 400}
+  p0 {100 100}
+  name Rectangle2
+  tile_color 0xc0c0c000
+  xpos 62
+  ypos -2
+  disable {{parent.action-1}}
+ }
+ Rectangle {
+  output alpha
+  area {{input.format.w*parent.sa+parent.ls i} {input.format.h*parent.sa+parent.ls i} {input.format.w-(input.format.w*parent.sa)-parent.ls i} {input.format.h-(input.format.h*parent.sa)-parent.ls i}}
+  color 0
+  p1 {100 400}
+  p0 {100 100}
+  name Rectangle3
+  tile_color 0xc0c0c000
+  xpos 62
+  ypos 38
+  disable {{parent.action-1}}
+ }
+ Rectangle {
+  output alpha
+  area {{input.format.w*parent.st i} {input.format.h*parent.st i} {input.format.w-(input.format.w*parent.st) i} {input.format.h-(input.format.h*parent.st) i}}
+  p1 {100 400}
+  p0 {100 100}
+  name Rectangle1
+  tile_color 0xc0c0c000
+  xpos 62
+  ypos 78
+  disable {{parent.title-1}}
+ }
+ Rectangle {
+  output alpha
+  area {{input.format.w*parent.st+parent.ls i} {input.format.h*parent.st+parent.ls i} {input.format.w-(input.format.w*parent.st)-parent.ls i} {input.format.h-(input.format.h*parent.st)-parent.ls i}}
+  color 0
+  p1 {100 400}
+  p0 {100 100}
+  name Rectangle4
+  tile_color 0xc0c0c000
+  xpos 62
+  ypos 118
+  disable {{parent.title-1}}
+ }
+ Grid {
+  output alpha
+  number 2
+  size {{parent.ls}}
+  p1 {100 400}
+  p0 {100 100}
+  name Grid1
+  xpos 62
+  ypos 158
+  disable {{parent.center-1 i}}
+ }
+ Text {
+  output alpha
+  message "Action Safe"
+  font C:/Windows/Fonts/Arial.ttf
+  size {{input.format.h*0.025 i}}
+  translate {{input.format.h*0.10 i} {input.format.h*0.06 i}}
+  p1 {100 400}
+  p0 {100 100}
+  name Text1
+  tile_color 0xc0c0c000
+  xpos 62
+  ypos 198
+  disable {{parent.action-1}}
+ }
+ Text {
+  output alpha
+  message "Title Safe"
+  font C:/Windows/Fonts/Arial.ttf
+  size {{input.format.h*0.025 i}}
+  translate {{input.format.h*0.19 i} {input.format.h*0.11 i}}
+  p1 {100 400}
+  p0 {100 100}
+  name Text2
+  tile_color 0xc0c0c000
+  xpos 62
+  ypos 238
+  disable {{parent.title-1}}
+ }
+ Premult {
+  name Premult1
+  xpos 62
+  ypos 278
+ }
+ Switch {
+  inputs 2
+  which {{parent.mode}}
+  name Switch1
+  xpos 183
+  ypos 350
+ }
+push $N22682e0
+ Merge {
+  inputs 2
+  operation "nl over"
+  name Merge1
+  tile_color 0x4b5ec600
+  label "(rgba / )"
+  xpos 320
+  ypos 343
+ }
+ Output {
+  name Output1
+  xpos 320
+  ypos 432
+ }
+end_group

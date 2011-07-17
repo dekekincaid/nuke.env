@@ -1,0 +1,82 @@
+Gizmo {
+ onCreate nuke.thisNode().knob('addshortcut').execute()
+ tile_color 0xff3f3fff
+ gl_color 0xff3f3fff
+ label DEL
+ addUserKnob {20 MatteSubtract l Matter t "This is a cutdown RotoPaint node and used for deleting regions of the Matte"}
+ addUserKnob {22 addshortcut l INVISIBLE -STARTLINE +INVISIBLE T "m = nuke.menu(\"&Matter\")\nif not m:\n  mbar=nuke.menu(\"Nuke\") \n  m = mbar.addMenu(\"&Matter\")\n\ndef toggleMatterMode(arg):\n  if arg==0:\n    for n in nuke.allNodes('Matter'):\n      n\['remove_alpha'].execute()\n  else:\n    for n in nuke.allNodes('Matter'):\n      n\['add_alpha'].execute()\n\nif m.findItem(\"Matter\") is None:  \n  m.addCommand(\"Matter Gizmo\", \"nuke.tcl('Matter')\", \"#+p\")\n  m.addCommand(\"Remove Matte\", \"toggleMatterMode(0)\", \"#+q\")\n  m.addCommand(\"Add Matte\", \"toggleMatterMode(1)\", \"#+a\")"}
+ addUserKnob {26 Mode l "" -STARTLINE T "Alpha Paint Mode:"}
+ addUserKnob {22 remove_alpha l @FilterErod.png t "Click here to enter alpha deletion paint mode (Paint zero alpha). Shortcut = Alt+Shift+Q" -STARTLINE T "nuke.toNode('Matter').knob('toolbar_paint_color').setValue(\[1.0, 1.0, 1.0, 0.0])\nnuke.thisNode().knob('gl_color').setValue(-12632065)\nnuke.thisNode().knob('tile_color').setValue(-12632065)\nnuke.updateUI()\nnuke.thisNode().knob('label').setValue('REMOVE')"}
+ addUserKnob {22 add_alpha l @filter.png t "Click here to Enter alpha addition paint mode. (Paint white into alpha). Shortcut = Alt+Shift+A" -STARTLINE T "nuke.toNode('Matter').knob('toolbar_paint_color').setValue(\[1.0, 1.0, 1.0, 1.0])\nnuke.thisNode().knob('gl_color').setValue(1476345855)\nnuke.thisNode().knob('tile_color').setValue(1476345855)\nnuke.updateUI()\nnuke.thisNode().knob('label').setValue('ADD')"}
+ addUserKnob {41 toolbar_brush_hardness l " hardness:" -STARTLINE T Matter.toolbar_brush_hardness}
+ addUserKnob {41 toolbar_lifetime_type l @Time.png t "Lifetime of stroke" -STARTLINE T Matter.toolbar_lifetime_type}
+ addUserKnob {41 toolbar_lifetime_start l from -STARTLINE T Matter.toolbar_lifetime_start}
+ addUserKnob {41 toolbar_lifetime_end l to -STARTLINE T Matter.toolbar_lifetime_end}
+ addUserKnob {26 ""}
+ addUserKnob {41 toolbar_show_paint_selection l "allow selection" T Matter.toolbar_show_paint_selection}
+ addUserKnob {41 toolbox l "" +STARTLINE T Matter.toolbox}
+ addUserKnob {41 curves l "" -STARTLINE T Matter.curves}
+ addUserKnob {41 toolbar_paint_color l INVISIBLE -STARTLINE +INVISIBLE T Matter.toolbar_paint_color}
+ addUserKnob {20 Edit}
+ addUserKnob {41 curves_1 l "" -STARTLINE T Matter.curves}
+ addUserKnob {41 lifetime_type l "lifetime type" T Matter.lifetime_type}
+ addUserKnob {41 lifetime_start l from -STARTLINE T Matter.lifetime_start}
+ addUserKnob {41 lifetime_end l to -STARTLINE T Matter.lifetime_end}
+ addUserKnob {41 brush_size l "brush size" T Matter.brush_size}
+ addUserKnob {41 brush_hardness l "brush hardness" T Matter.brush_hardness}
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos 51
+  ypos -23
+ }
+ RotoPaint {
+  output alpha
+  curves {AnimTree: "" {
+ Version: 1.2
+ Flag: 0
+ RootNode: 1
+ Node: {
+  NodeName: "Root" {
+   Flag: 576
+   NodeType: 1
+   NumOfAttributes: 1
+   "vis" S 0 1
+  }
+  NumOfChildren: 0
+ }
+}
+}
+  toolbox {selectAll {
+  { undefined tt -1 }
+  { selectAll ltt 2 }
+  { createBezier ltt 2 tt 4 }
+  { addPoints ltt 2 tt 8 }
+  { brush a 0 bs 178 h 0.5 tt 14 }
+  { eraser tt 15 }
+  { clone tt 16 }
+  { dodge tt 18 }
+  { blur tt 20 }
+} }
+  toolbar_show_paint_selection true
+  toolbar_paint_color {1 1 1 0}
+  toolbar_brush_hardness 0.5
+  toolbar_source_transform_scale {1 1}
+  color {1 1 1 0}
+  view {}
+  scale {1 1}
+  brush_size 100
+  brush_hardness 0.5
+  source_black_outside true
+  name Matter
+  label @FilterErod.png
+  xpos 51
+  ypos 17
+ }
+ Output {
+  name Output1
+  xpos 51
+  ypos 117
+ }
+end_group

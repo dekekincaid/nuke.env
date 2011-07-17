@@ -1,0 +1,194 @@
+#! /Applications/Nuke5.0v1/Nuke5.0v1.app/Contents/MacOS/Nuke5.0 -nx
+version 5.0100
+Group {
+ name H_Vignette2
+inputs 1
+ tile_color 0xff911800
+ label 0.4
+ note_font_size 9
+ help "In photography and optics, \nvignetting is a reduction of \nan image's brightness or \nsaturation at the periphery \ncompared to the image center.\nWikipedia"
+ addUserKnob {20 "" l "H_Vignette "}
+ addUserKnob {26 "" l "Version 0.4.0"}
+ addUserKnob {20 Vignette n 1}
+ Vignette 0
+ addUserKnob {6 DisableVignetting l "Disable Vignetting"}
+ addUserKnob {41 in l "What layer?" t "What layer do you what to apply the vignette? " T Shuffle1.in}
+ addUserKnob {41 Amount l "Amount of Vignette" t "Defines amount of darkness of Vignette" T Radial1.opacity}
+ addUserKnob {41 softness l "Softness of Vignette" t "Feathering of Vignette " T Radial1.softness}
+ addUserKnob {41 Tint l "Tint the Vignette" T Grade1.gamma}
+ addUserKnob {41 plinear l "perceptually linear" T Radial1.plinear}
+ addUserKnob {20 endGroup_1 l endGroup n -1}
+ addUserKnob {20 Saturation n 1}
+ Saturation 0
+ addUserKnob {6 Disable_Saturation l "Disable Saturation"}
+ Disable_Saturation true
+ addUserKnob {41 desaturation l De-saturation t "Saturation of Vignette area" T Saturation1.saturation}
+ addUserKnob {20 endGroup_2 l endGroup n -1}
+ addUserKnob {20 DefocusVignette l "Defocus Vignette" n 1}
+ DefocusVignette 0
+ addUserKnob {41 quality T Defocus1.quality}
+ addUserKnob {6 Disable_Defocus l "Disable Defocus"}
+ Disable_Defocus true
+ addUserKnob {41 setup_mode l "focal-plane setup" T Defocus1.setup_mode}
+ addUserKnob {41 center l "focus plane (C)" T Defocus1.center}
+ addUserKnob {41 dof l depth-of-field T Defocus1.dof}
+ addUserKnob {41 size T Defocus1.size}
+ addUserKnob {41 max_size l maximum T Defocus1.max_size}
+ addUserKnob {41 shape l "filter shape" T Defocus1.shape}
+ addUserKnob {41 mix_1 l mix T Defocus1.mix}
+ addUserKnob {20 endGroup n -1}
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos -725
+  ypos -1114
+ }
+set N6d458d0 [stack 0]
+push $N6d458d0
+ Radial {
+  inputs 0
+  output depth
+  area {{curve i} {curve i} {format.r i} {format.h i}}
+  name Vignette_Z
+  xpos -73
+  ypos -520
+ }
+ Grade {
+  channels depth
+  black 0.2
+  name Grade2
+  xpos -73
+  ypos -472
+ }
+push $N6d458d0
+ Shuffle {
+  name Shuffle1
+  xpos -288
+  ypos -1066
+ }
+set N6d460d0 [stack 0]
+add_layer {mask mask.mask}
+ Radial {
+  output mask
+  invert true
+  area {{0-format.w/5 i x1 4 x44 -200} {0-format.h/5 i x44 -144} {format.w+format.w/5 i x44 1536} {format.h+format.h/5 i x44 864}}
+  softness 0.8
+  name Radial1
+  selected true
+  xpos -288
+  ypos -976
+ }
+set N6da71c0 [stack 0]
+ Shuffle {
+  in mask
+  name Shuffle2
+  xpos -94
+  ypos -691
+ }
+ Transform {
+  center {640 360}
+  black_outside false
+  name Transform1
+  xpos -94
+  ypos -664
+ }
+ Shuffle {
+  out mask
+  name Shuffle3
+  xpos -94
+  ypos -637
+ }
+push $N6da71c0
+ Copy {
+  inputs 2
+  from0 mask.mask
+  to0 mask.mask
+  name Copy2
+  xpos -288
+  ypos -625
+ }
+ Premult {
+  channels rgba
+  alpha mask.mask
+  invert true
+  name Premult1
+  xpos -288
+  ypos -563
+  disable {{DisableVignetting i}}
+ }
+ Crop {
+  box {{curve} {curve} {Input1.format.w} {Input1.format.h}}
+  name Crop2
+  xpos -288
+  ypos -513
+ }
+ Grade {
+  maskChannel mask.mask
+  maskFrom input
+  name Grade1
+  xpos -288
+  ypos -486
+  disable {{DisableVignetting}}
+ }
+ Copy {
+  inputs 2
+  from0 depth.Z
+  to0 depth.Z
+  name Copy4
+  xpos -288
+  ypos -419
+ }
+ ZBlur {
+  channels rgba
+  center 0.745098
+  dof 1
+  size 4
+  max_size 4
+  name Defocus1
+  xpos -288
+  ypos -355
+  disable {{Disable_Defocus i}}
+ }
+ Crop {
+  box {{curve} {curve} {Input1.format.w} {Input1.format.h}}
+  name Crop1
+  xpos -288
+  ypos -304
+ }
+ Saturation {
+  saturation 0.5
+  maskChannel mask.mask
+  maskFrom input
+  name Saturation1
+  xpos -288
+  ypos -253
+  disable {{Disable_Saturation i}}
+ }
+ Copy {
+  inputs 2
+  channels alpha
+  name Copy1
+  xpos -398
+  ypos -164
+ }
+ Copy {
+  inputs 2
+  channels depth
+  name Copy3
+  xpos -455
+  ypos -62
+ }
+ Output {
+  name Output1
+  xpos -398
+  ypos 59
+ }
+push $N6d460d0
+ Viewer {
+  channels mask
+  name Viewer1
+  xpos -421
+  ypos -338
+ }
+end_group

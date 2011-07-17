@@ -1,0 +1,158 @@
+#! C:/Program Files/Nuke5.1v4/Nuke5.1.exe -nx
+version 5.1400
+Gizmo {
+ addUserKnob {20 User}
+ addUserKnob {41 detailScale T Defocus3.scale}
+ addUserKnob {41 detailAmp T Defocus3.defocus}
+ addUserKnob {26 ""}
+ addUserKnob {20 soft l "extra soften" n 1}
+ addUserKnob {41 range l "red range" T Keyer1.range}
+ addUserKnob {41 size_2 l "red range blur" T Blur4.size}
+ addUserKnob {41 minimum l wrinkleMin T Soften2.minimum}
+ addUserKnob {41 maximum l wrinkleMax T Soften2.maximum}
+ addUserKnob {41 amount T Soften2.amount}
+ addUserKnob {41 size T Soften2.size}
+ addUserKnob {20 endGroup_1 l endGroup n -1}
+ addUserKnob {26 ""}
+ addUserKnob {41 blackpoint l "contrast blackpoint" T Grade3.blackpoint}
+ addUserKnob {41 whitepoint l "contrast whitepoint" T Grade3.whitepoint}
+ addUserKnob {26 ""}
+ addUserKnob {20 hlights l highlights n 1}
+ addUserKnob {41 size_1 l "blur size" T Blur4.size}
+ addUserKnob {41 mix l "highlight mix" T Merge1.mix}
+ addUserKnob {41 gain T ColorCorrect3.gain}
+ addUserKnob {41 contrast T ColorCorrect3.contrast}
+ addUserKnob {41 gamma T ColorCorrect3.gamma}
+ addUserKnob {20 endGroup n -1}
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos 462
+  ypos -397
+ }
+ Dot {
+  name Dot2
+  xpos 496
+  ypos -273
+ }
+set N4d54fe0 [stack 0]
+ ColorCorrect {
+  saturation 0.38
+  contrast 1.4
+  gamma 0.27
+  gain 4
+  midtones.gamma 0.78
+  highlights.contrast 0.44
+  highlights.gain 1.05
+  name ColorCorrect3
+  xpos 633
+  ypos -178
+ }
+ Blur {
+  size 9.5
+  quality 10
+  name Blur4
+  xpos 633
+  ypos -135
+ }
+push $N4d54fe0
+push $N4d54fe0
+ Invert {
+  name Invert5
+  xpos 360
+  ypos -169
+ }
+ Defocus {
+  defocus 300
+  scale 0.06
+  quality 60
+  name Defocus3
+  xpos 360
+  ypos -102
+ }
+ Blend {
+  inputs 2
+  name Blend3
+  xpos 459
+  ypos -102
+ }
+ Grade {
+  blackpoint 0.1
+  whitepoint 0.7
+  gamma 0.88
+  name Grade3
+  xpos 462
+  ypos 88
+ }
+ Invert {
+  name Invert6
+  xpos 462
+  ypos 129
+ }
+push $N4d54fe0
+add_layer {lumablur lumablur.mask}
+ Keyer {
+  output lumablur.mask
+  operation "red keyer"
+  range {0.360729 0.462362 1 1}
+  name Keyer1
+  xpos 141
+  ypos -252
+ }
+ Erode {
+  channels lumablur
+  size 8
+  blur 5
+  quality 8
+  name Erode2
+  xpos 141
+  ypos -165
+ }
+ Colorspace {
+  colorspace_in sRGB
+  colorspace_out CIE-Lab
+  name Colorspace3
+  xpos 136
+  ypos 75
+ }
+ Soften {
+  channels {rgba.red -rgba.green -rgba.blue}
+  maximum 0.65
+  amount 0.89
+  size 4
+  quality 8
+  maskChannelInput lumablur.mask
+  name Soften2
+  xpos 136
+  ypos 127
+ }
+ Colorspace {
+  colorspace_in CIE-Lab
+  colorspace_out sRGB
+  name Colorspace4
+  xpos 136
+  ypos 183
+ }
+ Merge2 {
+  inputs 2
+  operation overlay
+  name overlayOrig1
+  xpos 462
+  ypos 183
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  maskChannelInput lumablur.mask
+  mix 0.715
+  name Merge1
+  xpos 633
+  ypos 183
+ }
+ Output {
+  name Output1
+  xpos 462
+  ypos 346
+ }
+end_group

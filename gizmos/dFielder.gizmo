@@ -1,0 +1,585 @@
+#! C:/Program Files/Nuke5.2v2/Nuke5.2.exe -nx
+# Created by Diogo Girondi
+# diogogirondi@gmail.com
+version 5.2200
+Gizmo {
+ help "@b; dFielder v2 \n@n; for Nuke 6.0v1\n\nThis node provides the basic sets of tools to\ndeal with interlaced footage in Nuke. Read the\nincluded PDF file if you need more info on it's\nfunctions.\n\n   ● Deinterlace\n   ● Interlace\n   ● Invert Dominance\n\nCreated by Diogo Girondi ©2009\ndiogogirondi@gmail.com"
+ knobChanged "n = nuke.thisNode()\nk = nuke.thisKnob()\n\nif k.name() == 'op' or k.name() == 'showPanel':\n    op = n\['op'].value()\n    if op == 'Deinterlace':\n        n\['method'].setVisible(True)\n        md = n\['method'].value()\n        if md == 'Blend Fields':\n            n\['blend'].setVisible(True)\n            n\['shutter'].setVisible(False)\n            n\['show_vectors'].setEnabled(False)\n            n\['correct_luma'].setEnabled(False)\n            n\['vector_detail'].setEnabled(False)\n            n\['smoothness'].setEnabled(False)\n            n\['blocksize'].setEnabled(False)\n            n\['r_weight'].setEnabled(False)\n            n\['g_weight'].setEnabled(False)\n            n\['b_weight'].setEnabled(False)\n        elif md == 'Motion Estimated':\n            n\['blend'].setVisible(False)\n            n\['shutter'].setVisible(True)\n            n\['show_vectors'].setEnabled(True)\n            n\['correct_luma'].setEnabled(True)\n            n\['vector_detail'].setEnabled(True)\n            n\['smoothness'].setEnabled(True)\n            n\['blocksize'].setEnabled(True)\n            n\['r_weight'].setEnabled(True)\n            n\['g_weight'].setEnabled(True)\n            n\['b_weight'].setEnabled(True)\n        else:\n            n\['blend'].setVisible(False)\n            n\['shutter'].setVisible(False)\n            n\['show_vectors'].setEnabled(False)\n            n\['correct_luma'].setEnabled(False)\n            n\['vector_detail'].setEnabled(False)\n            n\['smoothness'].setEnabled(False)\n            n\['blocksize'].setEnabled(False)\n            n\['r_weight'].setEnabled(False)\n            n\['g_weight'].setEnabled(False)\n            n\['b_weight'].setEnabled(False)\n        \n    else:\n        n\['method'].setVisible(False)\n        n\['blend'].setVisible(False)\n        n\['shutter'].setVisible(False)\n        n\['show_vectors'].setEnabled(False)\n        n\['correct_luma'].setEnabled(False)\n        n\['vector_detail'].setEnabled(False)\n        n\['smoothness'].setEnabled(False)\n        n\['blocksize'].setEnabled(False)\n        n\['r_weight'].setEnabled(False)\n        n\['g_weight'].setEnabled(False)\n        n\['b_weight'].setEnabled(False)\n\nif k.name() == 'method' or k.name() == 'showPanel':\n    md = n\['method'].value()\n    if md == 'Blend Fields':\n        n\['blend'].setVisible(True)\n        n\['shutter'].setVisible(False)\n        n\['show_vectors'].setEnabled(False)\n        n\['correct_luma'].setEnabled(False)\n        n\['vector_detail'].setEnabled(False)\n        n\['smoothness'].setEnabled(False)\n        n\['blocksize'].setEnabled(False)\n        n\['r_weight'].setEnabled(False)\n        n\['g_weight'].setEnabled(False)\n        n\['b_weight'].setEnabled(False)\n    elif md == 'Motion Estimated':\n        n\['blend'].setVisible(False)\n        n\['shutter'].setVisible(True)\n        n\['show_vectors'].setEnabled(True)\n        n\['correct_luma'].setEnabled(True)\n        n\['vector_detail'].setEnabled(True)\n        n\['smoothness'].setEnabled(True)\n        n\['blocksize'].setEnabled(True)\n        n\['r_weight'].setEnabled(True)\n        n\['g_weight'].setEnabled(True)\n        n\['b_weight'].setEnabled(True)\n    else:\n        n\['blend'].setVisible(False)\n        n\['shutter'].setVisible(False)\n        n\['show_vectors'].setEnabled(False)\n        n\['correct_luma'].setEnabled(False)\n        n\['vector_detail'].setEnabled(False)\n        n\['smoothness'].setEnabled(False)\n        n\['blocksize'].setEnabled(False)\n        n\['r_weight'].setEnabled(False)\n        n\['g_weight'].setEnabled(False)\n        n\['b_weight'].setEnabled(False)"
+ tile_color 0xbff309ff
+ label "\[value this.op_label]"
+ addUserKnob {20 dfielder l "dFielder v1"}
+ addUserKnob {1 op_label l INVISIBLE}
+ op_label "\[ if \{ \[numvalue this.op] == 2 \} \{ return \"Invert Dom.\" \} else \{ return \[knob this.op] \} ]"
+ addUserKnob {4 dominance l Dominance M {"Upper  (Field 1 - Odd)" "Lower (Field 2 - Even)  " "" "" "" "" "" "" "" "" "" "" "" ""}}
+ addUserKnob {4 op l Operation M {Deinterlace Interlace "Invert Dominance          " "" "" "" "" "" "" "" "" ""}}
+ addUserKnob {4 method l " " -STARTLINE M {"Fill with Black" "Discard Field" "Duplicate Field" "Interpolate Field" "Blend Fields" "Motion Estimated" "Fields to Frames (2x - Duplicate)" "Fields to Frames (2x - Interpolate)  " ""}}
+ addUserKnob {26 ""}
+ addUserKnob {7 blend l "Blend Mix"}
+ blend 0.5
+ addUserKnob {7 shutter l Shutter}
+ shutter 0.5
+ addUserKnob {20 options l Options}
+ addUserKnob {26 moest l "@b;Motion Estimated"}
+ addUserKnob {6 show_vectors l "Show Vectors" +DISABLED +STARTLINE}
+ addUserKnob {6 correct_luma l "Correct Luminance" -STARTLINE +DISABLED}
+ addUserKnob {7 vector_detail l "Vector Detail" +DISABLED}
+ vector_detail 0.2
+ addUserKnob {7 smoothness l Smoothness +DISABLED}
+ smoothness 0.5
+ addUserKnob {7 blocksize l "Block Size" +DISABLED R 0 100}
+ blocksize 6
+ addUserKnob {7 r_weight l "Weight R" +DISABLED}
+ r_weight 0.3
+ addUserKnob {7 g_weight l "Weight G" +DISABLED}
+ g_weight 0.6
+ addUserKnob {7 b_weight l "Weight B" +DISABLED}
+ b_weight 0.1
+}
+ Input {
+  inputs 0
+  name Input
+  xpos 434
+  ypos -563
+ }
+add_layer {fields fields.dom fields.upper fields.lower}
+ Expression {
+  channel0 {fields.dom -fields.upper -fields.lower}
+  expr0 parent.dominance==0?!fmod(y,2):fmod(y,2)
+  channel1 {-fields.dom fields.upper -fields.lower}
+  expr1 !fmod(y,2)
+  channel2 {-fields.dom -fields.upper fields.lower}
+  expr2 fmod(y,2)
+  channel3 none
+  name Fields
+  tile_color 0xff005fff
+  xpos 434
+  ypos -482
+ }
+set N19e45690 [stack 0]
+ Dot {
+  name Dot30
+  xpos 772
+  ypos -204
+ }
+set N19f319a8 [stack 0]
+ Dot {
+  name Dot34
+  xpos 908
+  ypos -204
+ }
+ Dot {
+  name Dot33
+  xpos 908
+  ypos -61
+ }
+set N549a1e0 [stack 0]
+ Dot {
+  name Dot18
+  xpos 908
+  ypos 129
+ }
+push $N549a1e0
+push $N19f319a8
+ TransformMasked {
+  translate {0 1}
+  black_outside false
+  maskChannelInput fields.lower
+  name Lower
+  xpos 788
+  ypos -147
+ }
+ ShuffleCopy {
+  inputs 2
+  in fields
+  red red
+  green green
+  blue blue
+  alpha black
+  out fields
+  name ShuffleCopy2
+  xpos 788
+  ypos -66
+ }
+ Premult {
+  channels all
+  alpha fields.lower
+  name Premult2
+  xpos 788
+  ypos -37
+ }
+push $N19f319a8
+ Dot {
+  name Dot31
+  xpos 639
+  ypos -204
+ }
+ Dot {
+  name Dot32
+  xpos 639
+  ypos -62
+ }
+push $N19f319a8
+ TransformMasked {
+  translate {0 -1}
+  black_outside false
+  maskChannelInput fields.upper
+  name Upper
+  xpos 688
+  ypos -148
+ }
+ ShuffleCopy {
+  inputs 2
+  in fields
+  red red
+  green green
+  blue blue
+  alpha black
+  out fields
+  name ShuffleCopy1
+  xpos 688
+  ypos -67
+ }
+ Premult {
+  channels all
+  alpha fields.upper
+  name Premult3
+  xpos 688
+  ypos -38
+ }
+ Merge2 {
+  inputs 2
+  also_merge all
+  name Merge5
+  xpos 740
+  ypos 52
+ }
+ CopyBBox {
+  inputs 2
+  name CopyBBox1
+  xpos 740
+  ypos 124
+ }
+ Dot {
+  name Dot17
+  xpos 774
+  ypos 556
+ }
+ Dot {
+  name Dot16
+  label "Inverrt Dominance"
+  xpos 645
+  ypos 556
+ }
+push $N19e45690
+ Dot {
+  name Dot13
+  xpos 468
+  ypos -204
+ }
+set N19bb39f8 [stack 0]
+ TimeWarp {
+  lookup {{int((frame-input.first_frame)*2)+input.first_frame+1 i}}
+  length 0
+  filter nearest
+  name GetNonDom
+  xpos 480
+  ypos -143
+ }
+ Premult {
+  channels all
+  alpha fields.dom
+  name Premult6
+  xpos 480
+  ypos -114
+ }
+push $N19bb39f8
+ TimeWarp {
+  lookup {{int((frame-input.first_frame)*2)+input.first_frame i}}
+  length 0
+  filter nearest
+  name GetDom
+  xpos 385
+  ypos -143
+ }
+ Premult {
+  channels all
+  alpha fields.dom
+  invert true
+  name Premult5
+  xpos 385
+  ypos -114
+ }
+ Merge2 {
+  inputs 2
+  also_merge all
+  name Merge1
+  xpos 434
+  ypos -38
+ }
+ FrameRange {
+  first_frame {{input.first_frame i}}
+  last_frame {{"int(input.first_frame+(\[python len(range(nuke.thisNode().input(0).firstFrame(), nuke.thisNode().input(0).lastFrame()))]/2))" i}}
+  name FrameRange2
+  xpos 434
+  ypos -9
+ }
+ Dot {
+  name Dot15
+  label Interlace
+  xpos 468
+  ypos 556
+ }
+push $N19e45690
+ Dot {
+  name Dot12
+  xpos -81
+  ypos -204
+ }
+set N19ce84d0 [stack 0]
+ TimeWarp {
+  lookup {{int((frame-input.first_frame)/2)+input.first_frame i}}
+  filter none
+  name TimeWarp1
+  xpos -115
+  ypos -91
+ }
+ FrameRange {
+  first_frame {{input.first_frame i}}
+  last_frame {{"input.first_frame+(\[python len(range(nuke.thisNode().input(0).firstFrame(), nuke.thisNode().input(0).lastFrame()))]*2+1)" i}}
+  name FrameRange1
+  xpos -115
+  ypos -62
+ }
+ Reformat {
+  type "to box"
+  box_width {{input.format.w i}}
+  box_height {{input.format.h/2 i}}
+  box_fixed true
+  box_pixel_aspect {{input.format.pixel_aspect i}}
+  scale 0.5
+  resize distort
+  filter Impulse
+  name Odd2
+  tile_color 0xaaaaaaff
+  xpos -115
+  ypos -33
+  disable {{abs(parent.dominance==0?floor(fmod((frame-input.first_frame),2)):!floor(fmod((frame-input.first_frame),2))) i}}
+ }
+ FieldSelect {
+  field Even
+  name Even2
+  tile_color 0xaaaaaaff
+  xpos -115
+  ypos -4
+  disable {{abs(parent.dominance==1?floor(fmod((frame-input.first_frame),2)):!floor(fmod((frame-input.first_frame),2))) i}}
+ }
+ Crop {
+  box {0 0 {input.format.w i} {input.format.h i}}
+  reformat true
+  crop false
+  name Crop2
+  xpos -115
+  ypos 25
+ }
+set N54b0740 [stack 0]
+ Reformat {
+  type "to box"
+  box_width {{input.format.w i}}
+  box_height {{input.format.h*2 i}}
+  box_fixed true
+  box_pixel_aspect {{input.format.pixel_aspect i}}
+  scale 0.5
+  resize distort
+  name Reformat5
+  xpos 209
+  ypos 25
+ }
+ Dot {
+  name Dot8
+  label "Fields to Frames\nInterpolate"
+  xpos 243
+  ypos 351
+ }
+push $N54b0740
+ Reformat {
+  type "to box"
+  box_width {{input.format.w i}}
+  box_height {{input.format.h*2 i}}
+  box_fixed true
+  box_pixel_aspect {{input.format.pixel_aspect i}}
+  scale 0.5
+  resize distort
+  filter Impulse
+  name Reformat4
+  xpos 84
+  ypos 25
+ }
+ Dot {
+  name Dot7
+  label "Fields to Frames\nDuplicate"
+  xpos 118
+  ypos 351
+ }
+push $N54b0740
+ OFXuk.co.thefoundry.time.oflow_v100 {
+  method Motion
+  timing Speed
+  timingFrame 1
+  timingSpeed 2
+  filtering Normal
+  warpMode Normal
+  correctLuminance {{parent.correct_luma i}}
+  automaticShutterTime false
+  shutterTime {{parent.shutter i}}
+  shutterSamples {{"int( 30 * parent.shutter )" i}}
+  vectorDetail {{parent.vector_detail i}}
+  smoothness {{parent.smoothness i}}
+  blockSize {{parent.blocksize i}}
+  Tolerances 1
+  weightRed 0.3
+  weightGreen 0.6
+  weightBlue 0.1
+  showVectors {{parent.show_vectors i}}
+  cacheBreaker false
+  name OFlow1
+  xpos -115
+  ypos 129
+ }
+ FrameRange {
+  first_frame {{input.first_frame i}}
+  last_frame {{"int(input.first_frame+(\[python len(range(nuke.thisNode().input(0).firstFrame(), nuke.thisNode().input(0).lastFrame()))]/2))" i}}
+  name FrameRange3
+  xpos -115
+  ypos 231
+ }
+ Reformat {
+  type "to box"
+  box_width {{input.format.w i}}
+  box_height {{input.format.h*2 i}}
+  box_fixed true
+  box_pixel_aspect {{input.format.pixel_aspect i}}
+  scale 0.5
+  resize distort
+  name Reformat6
+  xpos -115
+  ypos 260
+ }
+ Dot {
+  name Dot6
+  label "Motion Estimated"
+  xpos -81
+  ypos 351
+ }
+push $N19ce84d0
+ Dot {
+  name Dot11
+  xpos -237
+  ypos -204
+ }
+set N19dadab8 [stack 0]
+ Reformat {
+  type "to box"
+  box_width {{input.format.w i}}
+  box_height {{input.format.h/2 i}}
+  box_fixed true
+  box_pixel_aspect {{input.format.pixel_aspect i}}
+  scale 0.5
+  resize distort
+  filter Impulse
+  name Odd1
+  tile_color 0xaaaaaaff
+  xpos -217
+  ypos -88
+ }
+set N19f73210 [stack 0]
+push $N19dadab8
+ FieldSelect {
+  field Even
+  name Even1
+  tile_color 0xaaaaaaff
+  xpos -312
+  ypos -87
+ }
+set N54cdbb0 [stack 0]
+ Switch {
+  inputs 2
+  which {{parent.dominance}}
+  name Switch3
+  xpos -217
+  ypos -15
+ }
+push $N54cdbb0
+push $N19f73210
+ Switch {
+  inputs 2
+  which {{parent.dominance i}}
+  name Switch2
+  xpos -312
+  ypos -16
+ }
+ Dissolve {
+  inputs 2
+  which {{parent.blend i}}
+  name Dissolve1
+  xpos -260
+  ypos 43
+ }
+ Reformat {
+  type "to box"
+  box_width {{input.format.w i}}
+  box_height {{input.format.h*2 i}}
+  box_fixed true
+  box_pixel_aspect {{input.format.pixel_aspect i}}
+  scale 0.5
+  resize distort
+  name Reformat3
+  xpos -260
+  ypos 88
+ }
+ Dot {
+  name Dot1
+  label "Blend Fields"
+  xpos -226
+  ypos 351
+ }
+push $N19dadab8
+ Dot {
+  name Dot10
+  xpos -609
+  ypos -204
+ }
+set N19db2150 [stack 0]
+ Reformat {
+  type "to box"
+  box_width {{input.format.w i}}
+  box_height {{input.format.h/2 i}}
+  box_fixed true
+  box_pixel_aspect {{input.format.pixel_aspect i}}
+  scale 0.5
+  resize distort
+  filter Impulse
+  name Odd
+  tile_color 0xaaaaaaff
+  xpos -644
+  ypos -144
+  disable {{parent.dominance i}}
+ }
+ FieldSelect {
+  field Even
+  name Even
+  tile_color 0xaaaaaaff
+  xpos -644
+  ypos -115
+  disable {{!parent.dominance i}}
+ }
+ Crop {
+  box {0 0 {input.format.w i} {input.format.h i}}
+  reformat true
+  crop false
+  name Crop1
+  xpos -644
+  ypos -86
+ }
+set N19fa5b50 [stack 0]
+ Reformat {
+  type "to box"
+  box_width {{input.format.w i}}
+  box_height {{input.format.h*2 i}}
+  box_fixed true
+  box_pixel_aspect {{input.format.pixel_aspect i}}
+  scale 0.5
+  resize distort
+  name Reformat2
+  xpos -413
+  ypos -86
+ }
+ Dot {
+  name Dot2
+  label Interpolate
+  xpos -379
+  ypos 351
+ }
+push $N19fa5b50
+ Reformat {
+  type "to box"
+  box_width {{input.format.w i}}
+  box_height {{input.format.h*2 i}}
+  box_fixed true
+  box_pixel_aspect {{input.format.pixel_aspect i}}
+  scale 0.5
+  resize distort
+  filter Impulse
+  name Reformat1
+  xpos -523
+  ypos -86
+ }
+ Dot {
+  name Dot3
+  label Duplicate
+  xpos -489
+  ypos 351
+ }
+push $N19fa5b50
+ Dot {
+  name Dot4
+  label "Discard Field"
+  xpos -610
+  ypos 351
+ }
+push $N19db2150
+ Dot {
+  name Dot9
+  xpos -721
+  ypos -204
+ }
+ Premult {
+  channels all
+  alpha fields.dom
+  invert true
+  name Premult1
+  xpos -756
+  ypos -142
+ }
+ Dot {
+  name Dot5
+  label "Fill with Black"
+  xpos -722
+  ypos 351
+ }
+ Switch {
+  inputs 8
+  which {{parent.method i}}
+  name Method
+  xpos -335
+  ypos 466
+ }
+ Dot {
+  name Dot19
+  xpos -301
+  ypos 556
+ }
+ Dot {
+  name Dot14
+  label Deinterlace
+  xpos 307
+  ypos 556
+ }
+ Switch {
+  inputs 3
+  which {{parent.op i}}
+  name Operation
+  xpos 434
+  ypos 696
+ }
+ Remove {
+  channels fields
+  name Remove1
+  xpos 434
+  ypos 725
+ }
+ Output {
+  name Output1
+  xpos 434
+  ypos 867
+ }
+end_group

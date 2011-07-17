@@ -1,0 +1,298 @@
+#! /Applications/Nuke5.2v1/Nuke5.2v1.app/Contents/MacOS/Nuke5.2v1 -nx
+version 5.2100
+Gizmo {
+ addUserKnob {20 User}
+ addUserKnob {4 ChooseColour M {red green blue ""}}
+ ChooseColour blue
+ addUserKnob {4 DeSpillMethod M {Minimum Average Maximum}}
+ DeSpillMethod Maximum
+ addUserKnob {41 value l DeSpillAmount t "Choose despill amount" T DESPILL_AMOUNT.value}
+}
+ BackdropNode {
+  inputs 0
+  name amount
+  label "\t               adjust your despill amount here"
+  xpos -637
+  ypos -331
+  bdwidth 309
+  bdheight 90
+ }
+ BackdropNode {
+  inputs 0
+  name choose_which_is_best
+  label "choose_which_is_best, 0=MIN, 1=AVERAGE, 2=MAX"
+  xpos -641
+  ypos -505
+  bdwidth 511
+  bdheight 62
+ }
+ BackdropNode {
+  inputs 0
+  name choosecolour
+  label "\t\tchoose your despill colour 0=Red, 1=Green, 2=Blue"
+  xpos -667
+  ypos -759
+  bdwidth 466
+  bdheight 92
+ }
+ Input {
+  inputs 0
+  name Input1
+  xpos -624
+  ypos -949
+ }
+ Dot {
+  name Dot10
+  xpos -590
+  ypos -889
+ }
+set N1cb38030 [stack 0]
+ Shuffle {
+  red blue
+  blue red
+  name BGR
+  xpos -492
+  ypos -818
+ }
+push $N1cb38030
+ Shuffle {
+  red green
+  green blue
+  blue red
+  name GBR
+  xpos -581
+  ypos -819
+ }
+push $N1cb38030
+ Switch {
+  inputs 3
+  which {{ChooseColour}}
+  name despill_R_G_B
+  xpos -624
+  ypos -726
+ }
+set N1cf64dc0 [stack 0]
+ Shuffle {
+  red blue
+  green blue
+  alpha black
+  name BBB
+  xpos -491
+  ypos -631
+ }
+set N1cf60a50 [stack 0]
+ Dot {
+  name Dot5
+  xpos -323
+  ypos -626
+ }
+ Dot {
+  name Dot6
+  xpos -323
+  ypos -208
+ }
+ Shuffle {
+  red black
+  green black
+  blue red
+  alpha black
+  name _00R0
+  xpos -443
+  ypos -213
+ }
+push $N1cf64dc0
+ Shuffle {
+  red green
+  blue green
+  alpha black
+  name GGG
+  xpos -624
+  ypos -636
+ }
+set N1cf42ec0 [stack 0]
+ Dot {
+  name Dot4
+  xpos -522
+  ypos -581
+ }
+ Shuffle {
+  red black
+  green red
+  blue black
+  alpha black
+  name _0R00
+  xpos -556
+  ypos -212
+ }
+push $N1cf64dc0
+ Shuffle {
+  green red
+  blue red
+  alpha black
+  name RRR
+  xpos -867
+  ypos -628
+ }
+set N1cf27840 [stack 0]
+push $N1cf27840
+ Dot {
+  name Dot3
+  xpos -788
+  ypos -446
+ }
+push $N1cf42ec0
+push $N1cf60a50
+ Merge2 {
+  inputs 2
+  operation max
+  name Max
+  xpos -491
+  ypos -578
+ }
+ Dot {
+  name Dot2
+  xpos -457
+  ypos -479
+ }
+push $N1cf42ec0
+push $N1cf60a50
+ Merge2 {
+  inputs 2
+  operation plus
+  name Plus
+  xpos -624
+  ypos -578
+ }
+ Multiply {
+  value 0.5
+  name Multiply1
+  xpos -624
+  ypos -549
+ }
+push $N1cf42ec0
+push $N1cf60a50
+ Merge2 {
+  inputs 2
+  operation min
+  name Min
+  xpos -743
+  ypos -580
+ }
+ Dot {
+  name Dot1
+  xpos -709
+  ypos -479
+ }
+ Switch {
+  inputs 3
+  which {{DeSpillMethod}}
+  name MIN_AVG_MAX
+  selected true
+  xpos -624
+  ypos -484
+ }
+ Merge2 {
+  inputs 2
+  operation minus
+  name Difference
+  xpos -624
+  ypos -433
+ }
+ Grade {
+  white 0.88
+  name Grade1
+  xpos -624
+  ypos -404
+ }
+ Clamp {
+  maximum 20
+  name Clamp1
+  xpos -624
+  ypos -375
+ }
+ Multiply {
+  value 1.1
+  name DESPILL_AMOUNT
+  xpos -624
+  ypos -302
+ }
+ Merge2 {
+  inputs 2
+  operation minus
+  name Difference1
+  xpos -867
+  ypos -254
+ }
+ Shuffle {
+  green black
+  blue black
+  alpha black
+  name R000
+  xpos -867
+  ypos -225
+ }
+ ShuffleCopy {
+  inputs 2
+  green green
+  blue black
+  alpha black
+  name ShuffleCopy1
+  xpos -728
+  ypos -165
+ }
+ ShuffleCopy {
+  inputs 2
+  blue blue
+  alpha black
+  name ShuffleCopy2
+  xpos -668
+  ypos -116
+ }
+set N1ea074c0 [stack 0]
+ Shuffle {
+  red blue
+  blue red
+  alpha black
+  name BGR_2
+  xpos -569
+  ypos -61
+ }
+ Dot {
+  name Dot9
+  xpos -738
+  ypos 1
+ }
+push $N1ea074c0
+ Shuffle {
+  red blue
+  green red
+  blue green
+  alpha black
+  name BRG
+  xpos -668
+  ypos -65
+ }
+ Dot {
+  name Dot8
+  xpos -789
+  ypos -5
+ }
+push $N1ea074c0
+ Dot {
+  name Dot7
+  xpos -838
+  ypos -7
+ }
+ Switch {
+  inputs 3
+  which {{despill_R_G_B.which i}}
+  name R_G_B
+  xpos -858
+  ypos 32
+ }
+ Output {
+  name Output1
+  xpos -858
+  ypos 132
+ }
+end_group

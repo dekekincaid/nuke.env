@@ -1,0 +1,85 @@
+#! C:/programs/Nuke4.5.21/nuke4.5.exe -nx
+version 4.5021
+Gizmo {
+ inputs 1
+ help "creates a simple ripple distortion"
+ addUserKnob {20 "" RippleDistortion}
+ addUserKnob {41 channels channels T IDistort1.channels}
+ addUserKnob {26 "" ""}
+ addUserKnob {6 keepMap "keep distortion map" t "check this to store the internal distortion map in the UV channels,\nturn it off to keep the input's UVs. "}
+ addUserKnob {41 uv_scale "UV scale" T IDistort1.uv_scale}
+ addUserKnob {41 frequency frequency T Expression2.frequency}
+ addUserKnob {41 phase phase T Expression2.phase}
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos -160
+  ypos -244
+ }
+set Nc082530 [stack 0]
+ Expression {
+  temp_name0 xc
+  temp_expr0 (x-width/2)/width*pixel_aspect*(width/height)
+  temp_name1 yc
+  temp_expr1 (y-height/2)/height
+  temp_name2 r
+  temp_expr2 "sqrt(xc*xc + yc*yc)"
+  channel0 {uv.u -uv.v}
+  expr0 sin(phase-r*frequency)
+  channel1 {-uv.u uv.v}
+  expr1 xc
+  channel2 none
+  channel3 {none none none -rgba.alpha}
+  name Expression2
+  selected true
+  xpos -160
+  ypos -210
+  addUserKnob {20 "" User}
+  addUserKnob {7 frequency frequency R 0 1}
+  frequency 70
+  addUserKnob {7 phase phase R 0 1}
+  phase {{frame/5}}
+ }
+ IDistort {
+  channels rgb
+  uv uv
+  uv_scale 2
+  name IDistort1
+  xpos -160
+  ypos -72
+ }
+set Nbfd7520 [stack 0]
+push $Nc082530
+ Dot {
+  name Dot1
+  xpos -252
+  ypos -240
+ }
+ AddChannels {
+  channels rgb
+  name AddChannels1
+  xpos -286
+  ypos -207
+ }
+push $Nbfd7520
+ Copy {
+  inputs 2
+  channels uv
+  name Copy1
+  xpos -286
+  ypos -24
+ }
+ Switch {
+  inputs 2
+  which {{parent.keepMap}}
+  name Switch1
+  xpos -160
+  ypos -10
+ }
+ Output {
+  name Output1
+  xpos -160
+  ypos 44
+ }
+end_group

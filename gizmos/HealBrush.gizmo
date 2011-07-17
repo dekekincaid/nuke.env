@@ -1,0 +1,130 @@
+#! /Applications/Nuke5.1v3/Nuke5.1v3.app/Contents/MacOS/Nuke5.1v3 -nx
+version 5.1300
+Gizmo {
+ inputs 2
+ addUserKnob {20 User}
+ addUserKnob {41 size T Blur1.size}
+}
+ Input {
+  inputs 0
+  name mask
+  xpos -427
+  ypos 227
+  number 1
+  addUserKnob {20 Snapshots}
+  addUserKnob {22 addSnapshot l "Add Snapshot" t "Create a new snapshot.\nThe current values will be stored in a new button" -STARTLINE T OhuKnobs.addSnapshot(nuke.thisNode())}
+  addUserKnob {26 ""}
+  addUserKnob {20 Snapshots_1 l Snapshots}
+  addUserKnob {22 addSnapshot_1 l "Add Snapshot" t "Create a new snapshot.\nThe current values will be stored in a new button" -STARTLINE T OhuKnobs.addSnapshot(nuke.thisNode())}
+  addUserKnob {26 ""}
+ }
+set Nda80920 [stack 0]
+ Dot {
+  name Dot1
+  xpos -393
+  ypos 413
+ }
+push $Nda80920
+ Invert {
+  name Invert1
+  xpos -311
+  ypos 221
+  addUserKnob {20 Snapshots}
+  addUserKnob {22 addSnapshot l "Add Snapshot" t "Create a new snapshot.\nThe current values will be stored in a new button" -STARTLINE T OhuKnobs.addSnapshot(nuke.thisNode())}
+  addUserKnob {26 ""}
+ }
+ Input {
+  inputs 0
+  name image
+  xpos -91
+  ypos 198
+  addUserKnob {20 Snapshots}
+  addUserKnob {22 addSnapshot l "Add Snapshot" t "Create a new snapshot.\nThe current values will be stored in a new button" -STARTLINE T OhuKnobs.addSnapshot(nuke.thisNode())}
+  addUserKnob {26 ""}
+ }
+set Nda81010 [stack 0]
+ Shuffle {
+  alpha white
+  name Shuffle1
+  xpos -140
+  ypos 239
+  addUserKnob {20 Snapshots}
+  addUserKnob {22 addSnapshot l "Add Snapshot" t "Create a new snapshot.\nThe current values will be stored in a new button" -STARTLINE T OhuKnobs.addSnapshot(nuke.thisNode())}
+  addUserKnob {26 ""}
+ }
+ Merge2 {
+  inputs 2
+  operation multiply
+  name Merge1
+  xpos -201
+  ypos 276
+  addUserKnob {20 Snapshots}
+  addUserKnob {22 addSnapshot l "Add Snapshot" t "Create a new snapshot.\nThe current values will be stored in a new button" -STARTLINE T OhuKnobs.addSnapshot(nuke.thisNode())}
+  addUserKnob {26 ""}
+ }
+ Blur {
+  channels rgba
+  size 10
+  name Blur1
+  xpos -201
+  ypos 303
+  addUserKnob {20 Snapshots}
+  addUserKnob {22 addSnapshot l "Add Snapshot" t "Create a new snapshot.\nThe current values will be stored in a new button" -STARTLINE T OhuKnobs.addSnapshot(nuke.thisNode())}
+  addUserKnob {26 ""}
+ }
+set Nda81950 [stack 0]
+ Unpremult {
+  name Unpremult1
+  xpos -201
+  ypos 340
+  addUserKnob {20 Snapshots}
+  addUserKnob {22 addSnapshot l "Add Snapshot" t "Create a new snapshot.\nThe current values will be stored in a new button" -STARTLINE T OhuKnobs.addSnapshot(nuke.thisNode())}
+  addUserKnob {26 ""}
+ }
+push $Nda81010
+ Keymix {
+  inputs 3
+  channels rgb
+  name Keymix1
+  xpos -91
+  ypos 409
+  addUserKnob {20 Snapshots}
+  addUserKnob {22 addSnapshot l "Add Snapshot" t "Create a new snapshot.\nThe current values will be stored in a new button" -STARTLINE T OhuKnobs.addSnapshot(nuke.thisNode())}
+  addUserKnob {26 ""}
+ }
+push $Nda81010
+ Dot {
+  name Dot2
+  xpos 88
+  ypos 202
+ }
+ Copy {
+  inputs 2
+  from0 -rgba.alpha
+  to0 -rgba.alpha
+  channels rgb
+  name Copy1
+  xpos 54
+  ypos 396
+  addUserKnob {20 Snapshots}
+  addUserKnob {22 addSnapshot l "Add Snapshot" t "Create a new snapshot.\nThe current values will be stored in a new button" -STARTLINE T OhuKnobs.addSnapshot(nuke.thisNode())}
+  addUserKnob {26 ""}
+ }
+ Output {
+  name Output1
+  xpos 54
+  ypos 471
+  addUserKnob {20 Snapshots}
+  addUserKnob {22 addSnapshot l "Add Snapshot" t "Create a new snapshot.\nThe current values will be stored in a new button" -STARTLINE T OhuKnobs.addSnapshot(nuke.thisNode())}
+  addUserKnob {26 ""}
+  addUserKnob {20 Snapshots_1 l Snapshots}
+  addUserKnob {22 addSnapshot_1 l "Add Snapshot" t "Create a new snapshot.\nThe current values will be stored in a new button" -STARTLINE T OhuKnobs.addSnapshot(nuke.thisNode())}
+  addUserKnob {26 ""}
+ }
+push $Nda81950
+ Viewer {
+  name Viewer1
+  xpos -533
+  ypos 406
+ }
+end_group

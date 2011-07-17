@@ -1,0 +1,308 @@
+#! C:/Program Files/Nuke6.1v1/Nuke6.1.exe -nx
+version 6.1 v1
+Gizmo {
+ inputs 2
+ help "Stereo_fake v0.9\n\nInsert depth, a color, and an alpha for the depth if needed.  Check view depth for color correction.  Left and right distort may work better with different values sometimes.  Blur the depth if you're getting funky edges.\n\nby David Lobser\nwww.dlobser.com"
+ addUserKnob {20 User}
+ addUserKnob {7 distortleft l "distort left" R -30 30}
+ distortleft -10
+ addUserKnob {7 distortRight R -30 30}
+ distortRight 10
+ addUserKnob {7 offset_1 l focalPoint R -20 20}
+ addUserKnob {26 ""}
+ addUserKnob {6 viewDepth +STARTLINE}
+ addUserKnob {6 stereoStyle l "anaglyph/side by side" +STARTLINE}
+ stereoStyle true
+ addUserKnob {6 invert l invertDepth +STARTLINE}
+ addUserKnob {26 ""}
+ addUserKnob {26 depthCC l "" +STARTLINE T "Depth Color Correct"}
+ addUserKnob {41 size l blurDepth T Blur19.size}
+ addUserKnob {41 blackpoint T depth_Grade1.blackpoint}
+ addUserKnob {41 whitepoint T depth_Grade1.whitepoint}
+ addUserKnob {41 gamma T depth_Grade1.gamma}
+ addUserKnob {41 white l gain T depth_Grade1.white}
+ addUserKnob {41 add l offset T depth_Grade1.add}
+ addUserKnob {26 ""}
+ addUserKnob {41 saturation l "output saturation" T ColorCorrect194.saturation}
+ addUserKnob {41 gain l "output gain" T ColorCorrect194.gain}
+}
+ Input {
+  inputs 0
+  name clr
+  xpos 621
+  ypos 122
+ }
+ Dot {
+  name Dot8
+  xpos 655
+  ypos 167
+ }
+set N874a5b0 [stack 0]
+ Dot {
+  name Dot7
+  xpos 418
+  ypos 167
+ }
+set N874a820 [stack 0]
+ Shuffle {
+  red white
+  green white
+  blue white
+  alpha white
+  name Shuffle1
+  xpos 384
+  ypos 219
+ }
+push $N874a820
+ Invert {
+  name Invert1
+  xpos 285
+  ypos 207
+ }
+ Merge2 {
+  inputs 2
+  operation minus
+  name Merge1
+  xpos 384
+  ypos 278
+ }
+set N874c560 [stack 0]
+ Input {
+  inputs 0
+  name dpth
+  xpos 509
+  ypos 121
+  number 1
+ }
+ Invert {
+  mix {{parent.invert i}}
+  name depth_inv1
+  xpos 509
+  ypos 318
+ }
+ Copy {
+  inputs 2
+  from0 rgba.alpha
+  to0 rgba.alpha
+  name Copy24
+  xpos 384
+  ypos 318
+ }
+ Premult {
+  name Premult23
+  xpos 384
+  ypos 356
+ }
+ Shuffle {
+  green red
+  blue red
+  alpha red
+  name Shuffle74
+  xpos 384
+  ypos 481
+ }
+ Grade {
+  name depth_Grade1
+  xpos 384
+  ypos 507
+ }
+ Blur {
+  size 10
+  name Blur19
+  xpos 384
+  ypos 533
+ }
+set N11175ad0 [stack 0]
+ Dot {
+  name Dot2
+  xpos 314
+  ypos 543
+ }
+ Dot {
+  name Dot1
+  xpos 314
+  ypos 939
+ }
+push $N11175ad0
+push $N874a5b0
+ Dot {
+  name image1
+  xpos 655
+  ypos 543
+ }
+set N11176490 [stack 0]
+add_layer {stereo stereo.u}
+ Copy {
+  inputs 2
+  from0 rgba.red
+  to0 stereo.u
+  name Copy25
+  xpos 384
+  ypos 613
+ }
+ IDistort {
+  uv stereo
+  uv_scale {{parent.distortRight}}
+  blur rgba.red
+  blur_scale 0
+  name IDistort7
+  xpos 384
+  ypos 651
+ }
+ Transform {
+  translate {{parent.offset_1*-1} 0}
+  center {576 324}
+  name Transform21
+  xpos 384
+  ypos 689
+ }
+set N111c4960 [stack 0]
+ ColorCorrect {
+  name ColorCorrect194
+  xpos 384
+  ypos 739
+ }
+ ColorCorrect {
+  gain {0 1 1 1}
+  name ColorCorrect200
+  xpos 384
+  ypos 765
+ }
+push $N11175ad0
+push $N11176490
+ Copy {
+  inputs 2
+  from0 rgba.red
+  to0 stereo.u
+  name Copy26
+  xpos 621
+  ypos 611
+ }
+ IDistort {
+  uv stereo
+  uv_scale {{parent.distortleft}}
+  blur rgba.red
+  blur_scale 0
+  name IDistort8
+  xpos 621
+  ypos 649
+ }
+ Transform {
+  translate {{parent.offset_1 x1 0} 0}
+  center {576 324}
+  name Transform22
+  xpos 621
+  ypos 687
+ }
+set N111c6910 [stack 0]
+ ColorCorrect {
+  saturation {{parent.ColorCorrect194.saturation}}
+  gain {{parent.ColorCorrect194.gain}}
+  name ColorCorrect244
+  xpos 621
+  ypos 713
+ }
+ ColorCorrect {
+  gain {1 0 0 1}
+  name ColorCorrect245
+  xpos 621
+  ypos 739
+ }
+ Merge2 {
+  inputs 2
+  operation screen
+  name Merge186
+  xpos 621
+  ypos 765
+ }
+ Dot {
+  name Dot3
+  xpos 655
+  ypos 876
+ }
+push $N111c4960
+push $N111c6910
+ ContactSheet {
+  inputs 2
+  width {{input.format.w*2}}
+  height {{input.format.h}}
+  rows 1
+  columns 2
+  name ContactSheet3
+  xpos 504
+  ypos 802
+ }
+ Reformat {
+  type scale
+  scale {0.5 1}
+  resize distort
+  name Reformat37
+  xpos 504
+  ypos 828
+ }
+ Dissolve {
+  inputs 2
+  which {{parent.stereoStyle}}
+  name styleVis
+  xpos 504
+  ypos 866
+ }
+ Dissolve {
+  inputs 2
+  which {{parent.viewDepth}}
+  name depthVis
+  xpos 504
+  ypos 929
+ }
+push $N111c4960
+ Dot {
+  name Dot6
+  xpos 692
+  ypos 822
+ }
+push $N111c6910
+ Dot {
+  name Dot4
+  xpos 768
+  ypos 691
+ }
+ Dot {
+  name Dot5
+  xpos 768
+  ypos 1004
+ }
+add_layer {right right.red right.green right.blue right.alpha}
+add_layer {left left.red left.green left.blue left.alpha}
+ ShuffleCopy {
+  inputs 2
+  red red
+  green green
+  blue blue
+  out right
+  out2 left
+  name ShuffleCopy1
+  xpos 658
+  ypos 1000
+ }
+ ShuffleCopy {
+  inputs 2
+  red red
+  green green
+  blue blue
+  name ShuffleCopy2
+  xpos 504
+  ypos 1000
+ }
+ Output {
+  name Output1
+  xpos 504
+  ypos 1064
+ }
+push $N874c560
+ Viewer {
+  input_process false
+  name Viewer1
+  xpos 245
+  ypos 264
+ }
+end_group

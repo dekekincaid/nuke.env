@@ -1,0 +1,9 @@
+Full Frame 36 24
+Super 35mm 24.4 13.7
+RED ONE (APS-C) 24.4 13.7
+RED ONE (M-X) 30 15
+Canon 1Ds (III) 36 24
+Canon 5D (I) 35.8 23.9
+Canon 5D (II) 36 24
+Canon 7D (II) 22.3 14.9
+

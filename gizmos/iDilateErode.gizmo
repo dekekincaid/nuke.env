@@ -1,0 +1,86 @@
+#! /Applications/Nuke5.1v1/Nuke5.1v1.app/Contents/MacOS/Nuke5.1v1 -nx
+version 5.1100
+Gizmo {
+ inputs 2
+ addUserKnob {20 iFilter}
+ addUserKnob {41 from0 l Mask t "Channel used to control the filter amount" T Copy1.from0}
+ addUserKnob {7 Amount t Amount R -100 100}
+ addUserKnob {7 Soften t "Softens the merge betwenen steps" R 0 100}
+ addUserKnob {26 ""}
+ addUserKnob {4 Filter t "Choose the filter to use" M {dilerFast dilerFilter dilerBlur Blur Defocus ""}}
+ Filter dilerBlur
+ addUserKnob {7 Steps t "Number of steps" R 1 100}
+ Steps 1
+ addUserKnob {22 regenerate t "It sets up the amount of steps in the filter" T "##########\n##asigne el node actual a la variable \"a\"\n\na = nuke.thisNode ()\n\n##asigne el node actual a la variable \"a\"\n##########\n\n##########\n##lectura dels knobs\n\nsteps = int (float (nuke.value (\"Steps\")))\nstepVal = float (1/float (steps))\n\ndiler = float (nuke.value (\"Amount\"))\ndilerDiv = float (diler/steps)\n\nfilter = nuke.Enumeration_Knob.value(a.knob (\"Filter\"))\n\n##lectura dels knobs\n##########\n\n##########\n##empythonament dels nodes que fan falta\n\ninMask = nuke.toNode (\"puntazoMask\")\ninImage = nuke.toNode (\"puntazo\")\n\n##empythonament dels nodes que fan falta\n##########\n\n\n##########\n##Borra els nodes existents\nid = 10000\nidKill = 0\nfor i in range (id):\n    idKill = idKill+1\n####Expressions\n    nomExpr = \"Expr\" + str (idKill)\n    killExpr = nuke.toNode (nomExpr)\n    nuke.delete (killExpr)\n####Blurs\n    nomBlr = \"Blur\" + str (idKill)\n    killBlr = nuke.toNode (nomBlr)\n    nuke.delete (killBlr)\n####Erodes\n    nomEro = \"Erode\" + str (idKill)\n    killEro = nuke.toNode (nomEro)\n    nuke.delete (killEro)\n####Keymixes\n    nomKey = \"Keymix\" + str (idKill)\n    killKey = nuke.toNode (nomKey)\n    nuke.delete (killKey)\nprimerKey = nuke.toNode (\"KeymixInicik\")\nnuke.delete (primerKey)\n##Borra els nodes existents\n##########\n\n##########\n##Creació dels nodes\n\n\nif filter == \"Blur\":\n    nuke.message (\"Not yet implemented, sorry. You should regenerate again ...\")\n\nif filter == \"Defocus\":\n    nuke.message (\"Not yet implemented, sorry. You should regenerate again ...\")\n\n\nxXpresionPos = 100\nide = 0\n\n\nfor i in range (steps) :\n    ide = ide + 1\n####Expressions\n    nom = \"Expr\" + str (ide)\n    b = \"name \" + nom + \" temp_name0 r\" + str (ide) + \" temp_expr0 step(r,\" + str (stepVal*ide) + \")\" +\" expr0 r\" + str (ide) + \" xpos \" + str (xXpresionPos*ide) + \" ypos 100\"\n    nom = nuke.createNode (\"Expression\", b, False)\n    nom.setInput (0, inMask)\n\n####Blurs\n    nomBlur = \"Blur\" + str (ide)\n    bl = \"name \" + nomBlur + \" size parent.Soften\" + \" xpos \" + str (xXpresionPos*ide) + \" ypos 150\"\n    blr = nuke.createNode (\"Blur\", bl, False)\n    blr.setInput (0, nom)\n\n####Filtres\n\n    if filter == \"dilerFast\":\n        nomDilate = \"Dilate\" + str(ide)\n        valDiler = float (dilerDiv*ide)\n        siz = \"parent.Amount/\" + str(steps) + \"*\" + str(ide)\n        er = \"name \" + nomErode + \" channels all \" +  \" size \" + siz + \" xpos \" + str (xXpresionPos*ide) + \" ypos 500\"\n        ero = nuke.createNode (\"Dilate\", er, False)\n        ero.setInput (0, inImage)\n\n    elif filter == \"dilerFilter\":\n        nomErode = \"Erode\" + str (ide)\n        valDiler = float (dilerDiv*ide)\n        siz = \"parent.Amount/\" + str(steps) + \"*\" + str(ide)\n        er = \"name \" + nomErode + \" channels all \" +  \" size \" + siz + \" xpos \" + str (xXpresionPos*ide) + \" ypos 500\"\n        ero = nuke.createNode (\"FilterErode\", er, False)\n        ero.setInput (0, inImage)\n\n    elif filter == \"dilerBlur\":\n        nomErode = \"Erode\" + str (ide)\n        valDiler = float (dilerDiv*ide)\n        siz = \"parent.Amount/\" + str(steps) + \"*\" + str(ide)\n        er = \"name \" + nomErode + \" channels all \" +  \" size \" + siz + \" xpos \" + str (xXpresionPos*ide) + \" ypos 500\"\n        ero = nuke.createNode (\"Erode\", er, False)\n        ero.setInput (0, inImage)\n\n\n\n####Keymix\nide = 0\nfor i in range (steps):\n    ide = ide + 1\n    bl = nuke.toNode (\"Blur\" + str(ide-1))\n    er = nuke.toNode (\"Erode\" + str (ide))\n    ke = \"name Keymix\" + str (ide) + \" maskChannel rgba.red xpos \" + str (xXpresionPos*ide) + \" ypos 550\"\n    creaKey = nuke.createNode ( \"Keymix\", ke, False)\n    creaKey.setInput (2, bl)\n    creaKey.setInput (0, er)\n\n    creaKeyMenysU = \"Keymix\" + str (ide-1)\n    creaKeyAnterior = nuke.toNode (creaKeyMenysU)\n    creaKey.setInput (1, creaKeyAnterior)\n########Primer Keymix\nkm1 = nuke.toNode (\"Keymix1\")\ner1 = nuke.toNode (\"Erode1\")\nkm1.setInput (0, er1)\nkm1.setInput (1, inImage)\nkm1.setInput (2, blr)\n\n####conect l'output al ultim keymix\nout = nuke.toNode (\"Out\")\nout.setInput (0, creaKey)\n    \n####Fora del loop reposiciono els ultims nodes d'expressio i de Blur pa posar-los al comensament i que els cables no es creuin\nnom.knob(\"xpos\").setValue (-10)\nnom.knob(\"ypos\").setValue (100)\n\nblr.knob(\"xpos\").setValue (-10)\nblr.knob(\"ypos\").setValue (150)\n\n\n\n\n\n\n\n\n\n\n###nuke.Node.addKnob (a, nuke.Text_Knob(\"info\",\".:\",\"Current number of steps \"+str(int(float(steps)))+\" (Click button to update ...) :.\")\na.knob(\"info\").setValue (\".:  Current filter: \"+str(filter)+\" with \"+str(int(float(steps)))+\" steps  (Click button to update ...) :.\")" +STARTLINE}
+ addUserKnob {1 info t "information about the filter"}
+ info ".:  Current filter: dilerBlur with 23 steps  (Click button to update ...) :."
+}
+ Input {
+  inputs 0
+  name mask
+  xpos 200
+  ypos -61
+ }
+set N19145af0 [stack 0]
+push $N19145af0
+ Copy {
+  inputs 2
+  from0 rgba.green
+  to0 rgba.red
+  name Copy1
+  xpos 200
+  ypos -27
+ }
+ Dot {
+  name puntazoMask
+  xpos 234
+  ypos 33
+ }
+ Expression {
+  temp_name0 r1
+  temp_expr0 step(r,1.0)
+  expr0 r1
+  name Expr1
+  xpos -10
+  ypos 100
+ }
+ Blur {
+  size {{parent.Soften}}
+  name Blur1
+  xpos -10
+  ypos 150
+ }
+ Input {
+  inputs 0
+  name image
+  xpos 0
+  ypos -62
+  number 1
+ }
+ Dot {
+  name puntazo
+  xpos 34
+  ypos 35
+ }
+set N1919e000 [stack 0]
+push $N1919e000
+ FilterErode {
+  channels all
+  size {{parent.Amount/1*1}}
+  name Erode1
+  xpos 100
+  ypos 500
+ }
+ Keymix {
+  inputs 3
+  maskChannel rgba.red
+  name Keymix1
+  xpos 100
+  ypos 550
+ }
+ Output {
+  name Out
+  xpos 16
+  ypos 757
+ }
+end_group

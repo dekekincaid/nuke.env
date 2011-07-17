@@ -1,0 +1,186 @@
+Group {
+ inputs 2
+ addUserKnob {20 "" l Settings}
+ addUserKnob {1 operation l INVISIBLE}
+ operation Projector
+ addUserKnob {41 import_chan l "import chan file" T CAM_ANIM.import_chan}
+ addUserKnob {6 use_input l "use input" t "check to use the CAM pipe instead of the internal camera"}
+ use_input true
+ addUserKnob {32 knob l "generate dome" t "creates cards for the range set below" T "createProjectorEnv"}
+ addUserKnob {1 range t "Enter a list or range of frames that you want to create cards for.\nYou can enter single frames and/or ranges in this format\n1,2,3,5-10,15-30x2\nBecause I'm lazy make sure to use no space in between."}
+ range 1-100x10
+ addUserKnob {7 distance t "the distance each frame is away from it's respective camera position" R 0 10000}
+ distance 100
+ addUserKnob {6 null l "create in origin" t "if checked the pan&tile setup is moved to the origin at the frame specified by \"reset at frame\""}
+ addUserKnob {3 refNull l "reset position at frame" t "if \"create in origin\" is checked this is the frame at which the camera's translation is reset to the origin\nthis is ignored if \"create in origin\" is unchecked"}
+ refNull 1
+ addUserKnob {26 ""}
+ addUserKnob {4 output t "animated - this will use the imported camera to render the pan&scan set up\nstatic - this will use a static camewra to photograph the whole panorama\ncheck the \"Static Camera\" tab for controls" M {Animated Static LatLong}}
+ addUserKnob {20 "" l ScanlineRender}
+ addUserKnob {41 full_format l format T Constant1.full_format}
+ addUserKnob {41 proxy_format l "proxy format" T Constant1.proxy_format}
+ addUserKnob {41 filter T ScanlineRender1.filter}
+ addUserKnob {41 samples T ScanlineRender1.samples}
+ addUserKnob {41 shutter T ScanlineRender1.shutter}
+ addUserKnob {41 offset T ScanlineRender1.offset}
+ addUserKnob {41 multisampling T ScanlineRender1.multisampling}
+ addUserKnob {41 zblend_mode l "Z-blend mode" T ScanlineRender1.zblend_mode}
+ addUserKnob {41 zblend_range l "Z-blend range" T ScanlineRender1.zblend_range}
+ addUserKnob {20 "" l "Static Camera"}
+ addUserKnob {3 refFrame l "reference frame" t "at this frame the static camera lines up with the imported camera\nuse this to set the initial position, then tweak the rotate and focal length controls to frame the panorama\n"}
+ refFrame 1
+ addUserKnob {7 adjustFocal l "adjust focal length" t "use this to zoom out so you can see the whole panorama" R -50 50}
+ adjustFocal -20
+ addUserKnob {26 ""}
+ addUserKnob {41 xform_order l INVISIBLE T Axis1.xform_order}
+ addUserKnob {41 rot_order l "rotation order" T Axis1.rot_order}
+ addUserKnob {13 add_rotate l rotate}
+ addUserKnob {20 "" l "Camera Info"}
+ addUserKnob {41 translate T CAM_ANIM.translate}
+ addUserKnob {41 rotate T CAM_ANIM.rotate}
+ addUserKnob {41 focal l "focal length" T CAM_ANIM.focal}
+ addUserKnob {41 haperture l "horiz aperture" T CAM_ANIM.haperture}
+ addUserKnob {41 vaperture l "vert aperture" T CAM_ANIM.vaperture}
+ addUserKnob {41 label_1 l label T CAM_ANIM.label}
+}
+push 0
+push 0
+push 0
+ TransformGeo {
+  inputs 3
+  name TransformGeo3
+  xpos 492
+  ypos -715
+ }
+ Input {
+  inputs 0
+  name IMG
+  xpos -87
+  ypos -1832
+ }
+push 0
+ Axis {
+  translate {{CAM_EXT.translate.x(parent.refFrame) i} {CAM_EXT.translate.y(parent.refFrame) i} {CAM_EXT.translate.z(parent.refFrame) i}}
+  rotate {{CAM_EXT.rotate.x(parent.refFrame)+parent.add_rotate.x i} {CAM_EXT.rotate.y(parent.refFrame)+parent.add_rotate.y i} {CAM_EXT.rotate.z(parent.refFrame)+parent.add_rotate.z i}}
+  name Axis2
+  xpos -124
+  ypos -1382
+ }
+ Camera {
+  display off
+  selectable false
+  focal {{CAM_EXT.focal.0+parent.adjustFocal}}
+  haperture {{CAM_EXT.haperture}}
+  vaperture {{CAM_EXT.vaperture}}
+  far 1000
+  win_scale {1 1}
+  name CAM_STATIC1
+  tile_color 0x4c9cb600
+  xpos -124
+  ypos -1304
+ }
+push 0
+ Axis {
+  translate {{CAM_ANIM.translate.x(parent.refFrame)} {CAM_ANIM.translate.y(parent.refFrame)} {CAM_ANIM.translate.z(parent.refFrame)}}
+  rotate {{CAM_ANIM.rotate.x(parent.refFrame)+parent.add_rotate.x} {CAM_ANIM.rotate.y(parent.refFrame)+parent.add_rotate.y} {CAM_ANIM.rotate.z(parent.refFrame)+parent.add_rotate.z}}
+  name Axis1
+  xpos -242
+  ypos -1319
+ }
+ Camera {
+  display off
+  selectable false
+  focal {{CAM_ANIM.focal.0+parent.adjustFocal}}
+  haperture {{CAM_ANIM.haperture}}
+  vaperture {{CAM_ANIM.vaperture}}
+  far 1000
+  win_scale {1 1}
+  name CAM_STATIC
+  tile_color 0x4c9cb600
+  xpos -242
+  ypos -1230
+ }
+ Switch {
+  inputs 2
+  which {{parent.use_input}}
+  name Switch3
+  xpos -134
+  ypos -1210
+ }
+push 0
+ Camera {
+  xform_order {{input1.xform_order}}
+  rot_order {{input1.rot_order}}
+  translate {{parent.null?input1.translate.x-input1.translate.x(refNull):input1.translate.x} {parent.null?input1.translate.y-input1.translate.y(refNull):input1.translate.y} {parent.null?input1.translate.z-input1.translate.z(refNull):input1.translate.z}}
+  rotate {{input1.rotate.x} {input1.rotate.y} {input1.rotate.z}}
+  focal {{input1.focal}}
+  haperture {{input1.haperture}}
+  vaperture {{input1.vaperture}}
+  near {{input1.near}}
+  far {{input1.far}}
+  win_scale {1 1}
+  name CAM_EXT
+  xpos -235
+  ypos -1046
+ }
+push 0
+ Camera {
+  display off
+  selectable false
+  translate {{parent.null?curve-curve(parent.refNull):curve} {parent.null?curve-curve(parent.refNull):curve} {parent.null?curve-curve(parent.refNull):curve}}
+  haperture {{"\[knob_default Camera.haperture]"}}
+  vaperture {{"\[knob_default Camera.vaperture]"}}
+  far 1000
+  win_scale {1 1}
+  name CAM_ANIM
+  tile_color 0xb64c6a00
+  xpos -327
+  ypos -1148
+ }
+ Switch {
+  inputs 2
+  which {{parent.use_input}}
+  name Switch2
+  xpos -245
+  ypos -1128
+ }
+ Switch {
+  inputs 2
+  which {{parent.output}}
+  name Switch1
+  xpos -134
+  ypos -1128
+ }
+push 0
+ Scene {
+  name MasterScene
+  xpos 137
+  ypos -1227
+ }
+ Constant {
+  inputs 0
+  name Constant1
+  selected true
+  xpos 310
+  ypos -1149
+ }
+ ScanlineRender {
+  inputs 3
+  projection_mode {{"parent.output.0 == 2 ? 3 : 4"}}
+  name ScanlineRender1
+  xpos 127
+  ypos -1128
+ }
+ Output {
+  name Output1
+  xpos 127
+  ypos -1042
+ }
+ Input {
+  inputs 0
+  name CAM
+  xpos -238
+  ypos -954
+  number 1
+ }
+end_group

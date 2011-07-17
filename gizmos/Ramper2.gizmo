@@ -1,0 +1,141 @@
+#! C:/Programmi/Nuke4.7v3/nuke4.7.exe -nx
+version 4.7300
+Gizmo {
+ inputs 0
+ addUserKnob {20 Ramper l "Ramper Control"}
+ addUserKnob {6 RadialKnob l Radial}
+ addUserKnob {20 GradientControl l "Gradient Control" n 1}
+ GradientControl 0
+ addUserKnob {41 color T Constant2.color}
+ addUserKnob {41 full_format l format T Constant2.full_format}
+ addUserKnob {41 color_1 l color T Constant1.color}
+ addUserKnob {41 full_format_1 l format T Constant1.full_format}
+ addUserKnob {41 type T Ramp1.type}
+ addUserKnob {20 ramp l "controlli gradiente" n 1}
+ addUserKnob {41 invert T Ramp1.invert}
+ addUserKnob {41 p0 l "point 0" T Ramp1.p0}
+ addUserKnob {41 p1 l "point 1" T Ramp1.p1}
+ addUserKnob {20 endGroup n -1}
+ addUserKnob {20 dither l "Controlli Dither" n 1}
+ addUserKnob {41 amount T Dither1.amount}
+ addUserKnob {41 monodither T Dither1.monodither}
+ addUserKnob {41 seed T Dither1.seed}
+ addUserKnob {41 static_seed l "static seed" T Dither1.static_seed}
+ addUserKnob {41 mix T Dither1.mix}
+ addUserKnob {20 endGroup_1 l endGroup n -1}
+ addUserKnob {20 endGroup_2 l endGroup n -1}
+ addUserKnob {20 RadialControl l "Radial Control" n 1}
+ RadialControl 0
+ addUserKnob {41 ramp_1 l ramp T Radial1.ramp}
+ addUserKnob {41 color_2 l "color 1" T Radial1.color}
+ addUserKnob {41 p1_1 l "point 1" T Radial1.p1}
+ addUserKnob {41 color0 l "color 0" T Radial1.color0}
+ addUserKnob {41 p0_1 l "point 0" T Radial1.p0}
+ addUserKnob {41 channel l "knob output \$value" T Radial1.channel}
+ addUserKnob {41 mix_1 l mix T Radial1.mix}
+ addUserKnob {41 enable l "knob mix \$value" T Radial1.enable}
+ addUserKnob {41 replace T Radial1.replace}
+ addUserKnob {41 invert_1 l invert T Radial1.invert}
+ addUserKnob {41 mask T Radial1.mask}
+ addUserKnob {41 invert_mask l invert T Radial1.invert_mask}
+ addUserKnob {41 fringe_mask l fringe T Radial1.fringe_mask}
+ addUserKnob {41 clip_to_bbox l "clip to bbox" T Radial1.clip_to_bbox}
+ addUserKnob {41 area T Radial1.area}
+ addUserKnob {41 softness T Radial1.softness}
+ addUserKnob {41 plinear l "perceptually linear" T Radial1.plinear}
+ addUserKnob {20 endGroup_3 l endGroup n -1}
+}
+ Constant {
+  inputs 0
+  channels rgb
+  color {0.0159149 0.0379602 1 0}
+  name Constant2
+  xpos 152
+  ypos 27
+ }
+add_layer {alpha rgba.alpha}
+ Ramp {
+  output alpha
+  mask -rgba.alpha
+  p0 {374 24}
+  p1 {368 442}
+  type smooth0
+  name Ramp1
+  xpos 152
+  ypos 96
+ }
+ Dither {
+  channels alpha
+  amount 0.01
+  static_seed true
+  name Dither1
+  xpos 152
+  ypos 136
+ }
+ Premult {
+  channels rgba
+  name Premult1
+  xpos 152
+  ypos 196
+ }
+ Constant {
+  inputs 0
+  channels rgb
+  color {0.0857818 0.515 0.702564 0}
+  name Constant3
+  xpos -39
+  ypos 27
+ }
+ Merge2 {
+  inputs 2
+  name Merge2
+  xpos -39
+  ypos 252
+ }
+ Constant {
+  inputs 0
+  channels rgb
+  color {0.0857818 0.515 0.702564 0}
+  name Constant1
+  xpos -182
+  ypos 25
+ }
+ Radial {
+  area {8 12 634 470}
+  ramp linear
+  color {1 0.0324873 0.0741337 1}
+  p1 {576 182}
+  color0 {0.190503 0.0367861 0.64 0}
+  p0 {252 342}
+  name Radial1
+  xpos -182
+  ypos 115
+ }
+ Dither {
+  channels alpha
+  amount 0.01
+  static_seed true
+  name Dither2
+  xpos -182
+  ypos 160
+ }
+ Switch {
+  inputs 2
+  which {{RadialKnob==0?1:0}}
+  name Switch1
+  selected true
+  xpos -39
+  ypos 325
+ }
+ Remove {
+  channels alpha
+  name Remove1
+  xpos -39
+  ypos 434
+ }
+ Output {
+  name Output1
+  xpos -39
+  ypos 532
+ }
+end_group

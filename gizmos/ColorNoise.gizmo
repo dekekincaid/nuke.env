@@ -1,0 +1,152 @@
+#! C:/Program Files (x86)/The Foundry/Nuke4.6/Nuke4.6.exe -nx
+version 4.6000
+Gizmo {
+ inputs 1
+ addUserKnob {20 "" l User}
+ addUserKnob {7 density}
+ density 1
+ addUserKnob {16 seed l seed R 0 100}
+ addUserKnob {7 gainNoise l gain}
+ gainNoise 0.5
+ addUserKnob {41 mix T Merge1.mix}
+ addUserKnob {26 "" l ""}
+ addUserKnob {41 from0 l mask T Copy1.from0}
+ addUserKnob {41 disable_1 l invert T Invert2.disable}
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos -266
+  ypos -259
+ }
+set N5daeda8 [stack 0]
+ Dot {
+  name Dot1
+  xpos -30
+  ypos -183
+ }
+set N7c8dd68 [stack 0]
+ Noise {
+  size 1
+  zoffset {{frame+seed+200 i}}
+  lucanarity 1
+  gain {{gainNoise i}}
+  gamma {{density*.5 i}}
+  center {384 288}
+  p1 {100 400}
+  p0 {100 100}
+  name Noise3
+  xpos 37
+  ypos -110
+ }
+ Shuffle {
+  red black
+  green black
+  alpha black
+  name Shuffle3
+  xpos 37
+  ypos -84
+ }
+push $N7c8dd68
+ Noise {
+  size 1
+  zoffset {{frame+seed+100 i}}
+  lucanarity 1
+  gain {{gainNoise i}}
+  gamma {{density*.5 i}}
+  center {384 288}
+  p1 {100 400}
+  p0 {100 100}
+  name Noise2
+  xpos -64
+  ypos -109
+ }
+ Shuffle {
+  red black
+  blue black
+  alpha black
+  name Shuffle2
+  xpos -64
+  ypos -83
+ }
+push $N7c8dd68
+ Noise {
+  size 1
+  zoffset {{frame+seed i}}
+  lucanarity 1
+  gain {{gainNoise}}
+  gamma {{density*.5 i}}
+  center {384 288}
+  p1 {100 400}
+  p0 {100 100}
+  name Noise1
+  xpos -163
+  ypos -107
+ }
+ Shuffle {
+  green black
+  blue black
+  alpha black
+  name Shuffle1
+  xpos -163
+  ypos -81
+ }
+push $N5daeda8
+ Multiply {
+  name Multiply1
+  xpos -266
+  ypos -10
+ }
+ Merge2 {
+  inputs 4
+  name Merge1
+  xpos -64
+  ypos -3
+ }
+set N89d6c30 [stack 0]
+ Dot {
+  name Dot4
+  xpos -170
+  ypos 225
+ }
+push $N89d6c30
+ Invert {
+  name Invert2
+  xpos 77
+  ypos 111
+ }
+push $N5daeda8
+ Dot {
+  name Dot3
+  xpos 240
+  ypos -255
+ }
+ Copy {
+  inputs 2
+  to0 rgba.alpha
+  name Copy1
+  xpos 206
+  ypos 111
+ }
+push $N89d6c30
+ Merge2 {
+  inputs 2
+  operation matte
+  name Merge3
+  xpos -62
+  ypos 218
+ }
+ Copy {
+  inputs 2
+  from0 rgba.alpha
+  to0 rgba.alpha
+  name Copy3
+  xpos -62
+  ypos 321
+ }
+ Output {
+  name Output1
+  xpos -62
+  ypos 416
+ }
+end_group

@@ -1,0 +1,110 @@
+#! /usr/local/Nuke6.2v1/Nuke6.2 -nx
+version 6.2 v1
+Gizmo {
+ inputs 2
+ note_font UnDotum
+ mapsize {0.15 0.15}
+ addUserKnob {20 User}
+ addUserKnob {7 amount l Amount R 0 50}
+ amount 20
+ addUserKnob {6 both l "Displace Both Eyes?" +STARTLINE}
+ both true
+}
+ Input {
+  inputs 0
+  name depth
+  xpos 19
+  ypos -307
+ }
+set N7fa4f30 [stack 0]
+ Transform {
+  translate {{parent.amount/2} 0}
+  center {1024 778}
+  name Transform1
+  xpos 19
+  ypos -230
+  disable true
+ }
+ Expression {
+  temp_name0 amount
+  temp_expr0 "both ? parent.amount / 2 : parent.amount"
+  expr0 "x/width - ( ( 1/width )  * ( r * amount ) )"
+  expr1 y/height
+  name Expression1
+  xpos 19
+  ypos -161
+  addUserKnob {20 User}
+ }
+ Input {
+  inputs 0
+  name img
+  xpos 238
+  ypos -203
+  number 1
+ }
+set N7fc25d0 [stack 0]
+ STMap {
+  inputs 2
+  uv rgb
+  filter Impulse
+  name STMap1
+  xpos 196
+  ypos -79
+ }
+push $N7fc25d0
+ Switch {
+  inputs 2
+  which {{parent.both}}
+  name Switch1
+  xpos 20
+  ypos -72
+ }
+push $N7fa4f30
+ Transform {
+  translate {{-parent.amount/2} 0}
+  center {1024 778}
+  name Transform2
+  xpos -112
+  ypos -226
+  disable true
+ }
+ Expression {
+  temp_name0 amount
+  temp_expr0 "both ? parent.amount / 2 : parent.amount"
+  expr0 "x/width + ( ( 1/width )  * ( r * amount ) )"
+  expr1 y/height
+  name Expression2
+  xpos -112
+  ypos -162
+  addUserKnob {20 User}
+ }
+push $N7fc25d0
+ STMap {
+  inputs 2
+  uv rgb
+  filter Impulse
+  name STMap2
+  xpos -112
+  ypos -78
+ }
+ JoinViews {
+  inputs 2
+  name JoinViews3
+  xpos 20
+  ypos 20
+  viewassoc "left\nmain"
+ }
+set N8031e70 [stack 0]
+ Output {
+  name Output1
+  xpos 20
+  ypos 79
+ }
+push $N8031e70
+ Viewer {
+  input_process false
+  name Viewer1
+  xpos 220
+  ypos 7
+ }
+end_group

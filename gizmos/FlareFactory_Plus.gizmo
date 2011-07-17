@@ -1,0 +1,6204 @@
+#! //applications/Applications/Nuke/5.1/64Bit/5.1v3/Nuke5.1.exe -nx
+version 5.1300
+Gizmo {
+ inputs 2
+ label "\[value ffp_presets]\nv5.0 - dug"
+ help "FlashFactory_Plus\n\nThis gizmo contains preset Lensflares, from which you can tweak to suit your shot.\n\nIt also contains a MaxLuma pixel tracking system that is designed to track the brightest pixel in your image."
+ addUserKnob {20 User l Flare}
+ addUserKnob {26 "" l Presets}
+ addUserKnob {4 ffp_presets l "     " M {(None) 35mm 85mm "Arc Welder" "Blimp Flare" "Basic Lens" "Generic Panavision" Vortex "Chroma Lens" "Desert Sun" "Whiskey Sunrise" "Distant Quantum" "Drydock Spikeball" Sunset "Rock Concert" Saabnomoly "Saabnomoly 2" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""}}
+ ffp_presets 35mm
+ addUserKnob {26 ""}
+ addUserKnob {20 Position n 1}
+ addUserKnob {12 ffp_position l Position}
+ ffp_position {80 423}
+ addUserKnob {32 ffp_import_track l "   Import Track   " -STARTLINE T "set a \[knob ffp_maxlumapixdata]\nknob ffp_position \$a\n"}
+ addUserKnob {41 scale l "Scale  " T Transform1.scale}
+ addUserKnob {20 endGroup_1 l endGroup n -1}
+ addUserKnob {26 ""}
+ addUserKnob {20 RGB n 1}
+ addUserKnob {41 multiply l Brightness T Grade45.multiply}
+ addUserKnob {41 white l Hue T Grade45.white}
+ addUserKnob {18 ffp_chroma l "Chroma Shift" R 0 30}
+ ffp_chroma {0 0 0}
+ addUserKnob {20 endGroup n -1}
+ addUserKnob {26 ""}
+ addUserKnob {26 "" l Note: T "Make sure your comp format settings have been set \nto avoid unwanted cropping of your flare."}
+ addUserKnob {20 Bits l Bits/Pieces}
+ addUserKnob {20 bits l "Bits & Pieces" n 1}
+ addUserKnob {18 ff_bithue l Hue}
+ ff_bithue {1 1 1}
+ addUserKnob {7 ff_bitblur l Blur R 0 4}
+ ff_bitblur 1
+ addUserKnob {26 ""}
+ addUserKnob {7 ff_bitmix l Mix}
+ ff_bitmix 1
+ addUserKnob {20 ffp_maxtracker l MaxTrack}
+ addUserKnob {26 "" l " " T "Set your ROI for tracking, then execute Go!"}
+ addUserKnob {26 "" l "Track Settings"}
+ addUserKnob {41 ffp_maxlumapixdata l Pixel T CurveTool1.maxlumapixdata}
+ addUserKnob {41 ffp_maxlumapixvalue l Tolerance T CurveTool1.maxlumapixvalue}
+ addUserKnob {41 ROI T CurveTool1.ROI}
+ addUserKnob {26 ""}
+ addUserKnob {41 go l Go! T CurveTool1.go}
+ addUserKnob {20 endGroup_2 l endGroup n -1}
+}
+ BackdropNode {
+  inputs 0
+  name BackdropNode15
+  tile_color 0xadaf8200
+  label Sunset
+  note_font_size 30
+  xpos 4010
+  ypos -617
+  bdwidth 552
+  bdheight 718
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode14
+  tile_color 0x69392aff
+  label "Drydock Spikeball"
+  xpos 3397
+  ypos -561
+  bdwidth 567
+  bdheight 651
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode5
+  tile_color 0x658a590f
+  label Noise
+  xpos -2576
+  ypos -174
+  bdwidth 277
+  bdheight 240
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode3
+  tile_color 0x658a590f
+  label Noise
+  xpos -3537
+  ypos -119
+  bdwidth 277
+  bdheight 240
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode6
+  tile_color 0x6b3b3b0f
+  label 85_mm
+  xpos -3067
+  ypos -1008
+  bdwidth 812
+  bdheight 1089
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode7
+  tile_color 0x36365eff
+  gl_color 0xffffffff
+  label Arc_Welder
+  xpos -2221
+  ypos -1006
+  bdwidth 624
+  bdheight 938
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode8
+  tile_color 0x3a643cff
+  label Blimp_Flare
+  xpos -1579
+  ypos -1005
+  bdwidth 545
+  bdheight 1076
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode4
+  tile_color 0x617f5fff
+  label 35_mm
+  note_font_size 30
+  xpos -3729
+  ypos -1008
+  bdwidth 642
+  bdheight 1145
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode9
+  tile_color 0xa9c0e300
+  label "Basic Lense"
+  note_font_size 30
+  xpos -1003
+  ypos -631
+  bdwidth 404
+  bdheight 719
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode17
+  tile_color 0x4f4fb20f
+  label Alpha_Maker
+  xpos 842
+  ypos 2014
+  bdwidth 280
+  bdheight 247
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode18
+  tile_color 0xd41d1d0f
+  label Mask_Maker
+  xpos 540
+  ypos 2324
+  bdwidth 432
+  bdheight 258
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode19
+  tile_color 0x658a590f
+  label Noise
+  xpos 5981
+  ypos -170
+  bdwidth 277
+  bdheight 240
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode20
+  tile_color 0x6b3b3b0f
+  label Saabnomoly
+  xpos 5490
+  ypos -1004
+  bdwidth 905
+  bdheight 1093
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode21
+  tile_color 0xadaf8200
+  label "Saabnomoly 2"
+  note_font_size 30
+  xpos 6443
+  ypos -661
+  bdwidth 631
+  bdheight 838
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode16
+  tile_color 0x6b2a2a0f
+  label Rock_Concert
+  xpos 4687
+  ypos -606
+  bdwidth 749
+  bdheight 820
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode13
+  tile_color 0x44447aff
+  label Distant_Quantum
+  xpos 2668
+  ypos -807
+  bdwidth 646
+  bdheight 939
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode12
+  tile_color 0x69392aff
+  label Whiskey_Sunrise
+  xpos 1961
+  ypos -962
+  bdwidth 653
+  bdheight 1089
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode11
+  tile_color 0xadaf8200
+  label "Desert Sun"
+  note_font_size 30
+  xpos 1351
+  ypos -591
+  bdwidth 579
+  bdheight 676
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode2
+  tile_color 0x89819b00
+  label "Chroma Lense"
+  note_font_size 30
+  xpos 689
+  ypos -599
+  bdwidth 641
+  bdheight 707
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode1
+  label Vortex
+  note_font_size 30
+  xpos 5
+  ypos -677
+  bdwidth 669
+  bdheight 843
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode10
+  label "Generic Panavision"
+  note_font_size 30
+  xpos -565
+  ypos -614
+  bdwidth 541
+  bdheight 764
+ }
+ Text {
+  inputs 0
+  message "Mask Enabled"
+  font C:/WINDOWS/Fonts/Arial.ttf
+  translate {100 100}
+  name Text1
+  xpos 577
+  ypos 2468
+ }
+ Text {
+  message "Mask Disabled"
+  font C:/WINDOWS/Fonts/Arial.ttf
+  translate {100 100}
+  name Text2
+  xpos 577
+  ypos 2495
+ }
+ Transform {
+  inputs 0
+  translate {{"-\[expr \{\[value width]/2\}]" i} {"-\[expr \{\[value height]/2\}]" i}}
+  center {320 240}
+  name Transform1
+  label "Parent Flare Size Mults\nto my Size Knob"
+  xpos 735
+  ypos 2742
+ }
+ Input {
+  inputs 0
+  name Source
+  xpos 580
+  ypos 2674
+ }
+set N1a269a70 [stack 0]
+ CurveTool {
+  operation "Max Luma Pixel"
+  ROI {0 0 640 480}
+  autocropdata {640 480 640 480}
+  maxlumapixdata {{curve} {curve}}
+  maxlumapixvalue {{curve}}
+  minlumapixdata {{curve i} {curve i}}
+  minlumapixvalue {{curve i} {curve i} 0}
+  name CurveTool1
+  xpos 580
+  ypos 2729
+ }
+ Input {
+  inputs 0
+  name Mask
+  xpos 574
+  ypos 2383
+  number 1
+ }
+ Dot {
+  name Dot1
+  xpos 762
+  ypos 2387
+ }
+set N1a211270 [stack 0]
+ Dot {
+  name Dot2
+  xpos 762
+  ypos 2442
+ }
+set N1a2114c0 [stack 0]
+ Dot {
+  name Dot3
+  xpos 762
+  ypos 2497
+ }
+push $N1a2114c0
+push $N1a211270
+ Noise {
+  inputs 0
+  size 100
+  zoffset 1.05802
+  gain 0.3
+  gamma 2
+  center {320 240}
+  name Noise18
+  xpos 6820
+  ypos -9
+ }
+set N1a211960 [stack 0]
+push $N1a211960
+push $N1a211960
+ Flare {
+  inputs 0
+  position {{ffp_position i x100 300} {ffp_position i x100 200}}
+  offset 1.5
+  radius {44.5 105.21 120.49}
+  size_mult {{Transform1.scale i}}
+  ring_color {0.529843 0.670316 0.796}
+  inner_color 0
+  outer_falloff 3.2
+  inner_falloff 5.6
+  chroma_spread 0.016
+  brightness 0.22
+  vis_mask -rgba.alpha
+  flattening 0.15
+  sharpness 0.33
+  asym_multiplier 0
+  asym_falloff 2.65
+  asym_angle -40
+  name Flare155
+  label Source
+  xpos 6549
+  ypos -193
+ }
+ Blur {
+  size 12
+  name Blur84
+  xpos 6549
+  ypos -154
+ }
+ Flare {
+  position {{ffp_position i x100 300} {ffp_position i x100 200}}
+  offset 1.5
+  radius {65.44 126.15 141.43}
+  size_mult {{Transform1.scale i}}
+  ring_color {0.796096 1.00716 1.196}
+  inner_color 0
+  outer_falloff 3.2
+  inner_falloff 5.6
+  chroma_spread 0.016
+  brightness 0.08
+  vis_mask -rgba.alpha
+  flattening 0.15
+  sharpness 0.33
+  asym_multiplier 0
+  asym_falloff 3.4
+  asym_angle -40
+  name Flare154
+  label Source
+  xpos 6549
+  ypos -115
+ }
+ Grade {
+  multiply 0.5
+  name Grade70
+  xpos 6549
+  ypos -76
+ }
+ Flare {
+  inputs 0
+  position {{Flare151.position i} {Flare151.position i}}
+  offset 1
+  radius {0 8.33 13.75}
+  size_mult {{Transform1.scale i}}
+  ring_color {0.338333 0.403333 0.338333}
+  inner_color 0.37
+  chroma_spread 0.062
+  chroma_shift_angle_add true
+  brightness 0.04
+  vis_mask -rgba.alpha
+  corners 6
+  flattening 0.6
+  sharpness 0.86
+  mult_num 10
+  mult_offset 5
+  mult_size -0.02
+  mult_color 1.5
+  mult_brightness -1
+  name Flare143
+  xpos 6460
+  ypos -461
+ }
+ Flare {
+  position {{Flare151.position i} {Flare151.position i}}
+  radius {0 8.33 13.75}
+  size_mult {{Transform1.scale i}}
+  ring_color {0.338333 0.403333 0.338333}
+  inner_color 0.29
+  brightness 0.105
+  vis_mask -rgba.alpha
+  corners 6
+  flattening 1
+  sharpness 0.86
+  mult_num 3
+  mult_offset 3.05
+  mult_size -0.32
+  mult_color -0.1
+  mult_brightness -1
+  mult_flattening -0.68
+  mult_rotate 0.8
+  name Flare144
+  xpos 6460
+  ypos -434
+ }
+ Flare {
+  position {{Flare151.position i} {Flare151.position i}}
+  radius {0 8.33 13.75}
+  size_mult {{Transform1.scale i}}
+  ring_color {0.338333 0.34 0.37}
+  inner_color 0.29
+  chroma_spread 0.07
+  brightness 0.13
+  vis_mask -rgba.alpha
+  corners 6
+  flattening 1
+  sharpness 0.86
+  mult_num 10
+  mult_offset 1.65
+  mult_size 0.72
+  mult_color -1.95
+  mult_brightness -1
+  mult_visibility -0.34
+  mult_flattening -0.4
+  mult_rotate 0.5
+  name Flare146
+  xpos 6460
+  ypos -407
+ }
+ Saturation {
+  saturation 0.6
+  name Saturation3
+  xpos 6460
+  ypos -380
+ }
+ Flare {
+  position {{Flare151.position i} {Flare151.position i}}
+  offset 1.45
+  radius {20.94 29.27 34.69}
+  size_mult {{Transform1.scale i}}
+  ring_color {0.338333 0.403333 0.338333}
+  inner_color 0.32
+  brightness 0.105
+  vis_mask -rgba.alpha
+  corners 6
+  flattening 0.7
+  sharpness 0.86
+  mult_num 2
+  mult_size -0.32
+  mult_color -0.1
+  mult_brightness -1
+  mult_flattening -0.68
+  mult_rotate 0.8
+  name Flare153
+  xpos 6460
+  ypos -353
+ }
+ Blur {
+  size {{ff_bitblur+3 i}}
+  name Blur78
+  xpos 6460
+  ypos -326
+ }
+ Grade {
+  white {1 1 2 1}
+  multiply 4
+  name Grade67
+  xpos 6563
+  ypos -320
+ }
+ Flare {
+  position {{Flare151.position i} {Flare151.position i}}
+  offset 1.9
+  radius {37.95 46.28 50.39}
+  size_mult {{Transform1.scale i}}
+  anamorph 0.7
+  ring_color {0.338333 0.403333 0.338333}
+  inner_color 0.295
+  outer_falloff 0.7
+  inner_falloff 4.8
+  chroma_spread 0.018
+  chroma_shift 0.2
+  chroma_shift_angle 46
+  brightness 0.03
+  vis_mask -rgba.alpha
+  corners 6
+  sharpness 0.86
+  asym_multiplier 0
+  asym_falloff 10
+  asym_angle -28
+  mult_offset -0.3
+  mult_size 0.2
+  mult_color -0.1
+  mult_brightness -1
+  mult_flattening -0.68
+  mult_rotate 1
+  name Flare158
+  xpos 6563
+  ypos -293
+ }
+ Grade {
+  multiply {{ff_bithue.r i} {ff_bithue.g i} {ff_bithue.b i} {curve i}}
+  name Grade68
+  xpos 6563
+  ypos -255
+ }
+ Flare {
+  inputs 0
+  position {{Flare151.position i} {Flare151.position i}}
+  radius {0 11.25 115.8}
+  size_mult {{Transform1.scale i}}
+  ring_color {0.67 0.67 0.79}
+  inner_color 1
+  chroma_shift_angle_add true
+  vis_mask -rgba.alpha
+  corners 7
+  flattening 100
+  sharpness 1
+  name Flare147
+  xpos 6893
+  ypos -416
+ }
+ DirBlurWrapper {
+  BlurType radial
+  BlurCenter {{ffp_position i} {ffp_position i}}
+  BlurLength 10
+  BlurAngle 90
+  target {{ffp_position i} {ffp_position i}}
+  name DirBlurWrapper17
+  xpos 6893
+  ypos -389
+ }
+ Blur {
+  size 5.8
+  name Blur79
+  xpos 6893
+  ypos -349
+ }
+ Flare {
+  inputs 0
+  position {{Flare151.position i} {Flare151.position i}}
+  radius {0 11.25 101.02}
+  size_mult {{Transform1.scale i}}
+  ring_color {0.67 0.67 0.79}
+  inner_color 1
+  brightness {1 1 1}
+  vis_mask -rgba.alpha
+  corners 7
+  flattening 100
+  sharpness 1
+  name Flare148
+  xpos 6563
+  ypos -545
+ }
+ DirBlurWrapper {
+  BlurType radial
+  BlurCenter {{ffp_position i} {ffp_position i}}
+  BlurLength 10
+  BlurAngle 90
+  target {{ffp_position i} {ffp_position i}}
+  name DirBlurWrapper18
+  xpos 6563
+  ypos -518
+ }
+ Blur {
+  size 5
+  name Blur80
+  xpos 6563
+  ypos -477
+ }
+ Flare {
+  position {{Flare151.position i} {Flare151.position i}}
+  radius {21.39 21.39 110.42}
+  size_mult {{Transform1.scale i}}
+  ring_color {0.67 0.67 0.79}
+  inner_color 1
+  brightness 0.22
+  vis_mask -rgba.alpha
+  corners 7
+  flattening 69
+  sharpness 1
+  name Flare149
+  xpos 6563
+  ypos -438
+ }
+ Blur {
+  size 3
+  name Blur81
+  xpos 6563
+  ypos -411
+ }
+ Flare {
+  inputs 0
+  position {{Flare151.position i} {Flare151.position i}}
+  radius {0 91.05 100.22}
+  size_mult {{Transform1.scale i}}
+  ring_color 0
+  inner_color {0.15 0.15 0.195}
+  outer_falloff 1.2
+  inner_falloff 1.8
+  chroma_shift_angle_add true
+  brightness 0.08
+  vis_mask -rgba.alpha
+  name Flare150
+  label Corona
+  xpos 6783
+  ypos -530
+ }
+ Blur {
+  size 46
+  name Blur82
+  xpos 6783
+  ypos -491
+ }
+ Flare {
+  inputs 0
+  position {{ffp_position i x100 300} {ffp_position i x100 200}}
+  radius {0 21.45 78.61}
+  size_mult {{Transform1.scale i}}
+  ring_color {0.796296 1.00741 1.1963}
+  inner_color 1
+  outer_falloff 1.3
+  chroma_spread -0.016
+  brightness 0.22
+  vis_mask -rgba.alpha
+  name Flare151
+  label Source
+  xpos 6673
+  ypos -603
+ }
+ Blur {
+  size 14
+  name Blur83
+  xpos 6673
+  ypos -564
+ }
+ Flare {
+  position {{Flare151.position i} {Flare151.position i}}
+  radius {0 11.78 72.31}
+  size_mult {{Transform1.scale-.5 i}}
+  inner_color 1
+  outer_falloff 1.3
+  chroma_spread -0.016
+  vis_mask -rgba.alpha
+  name Flare152
+  label Source
+  xpos 6673
+  ypos -525
+ }
+ Merge {
+  inputs 2
+  operation plus
+  name Merge80
+  xpos 6673
+  ypos -485
+ }
+ Merge {
+  inputs 2
+  operation plus
+  name Merge81
+  xpos 6673
+  ypos -405
+ }
+ Merge {
+  inputs 2
+  operation plus
+  name Merge82
+  xpos 6673
+  ypos -343
+ }
+ Merge {
+  inputs 2
+  operation plus
+  mix {{ff_bitmix i}}
+  name Merge83
+  label "Bits and Pieces"
+  xpos 6673
+  ypos -261
+ }
+ Grade {
+  multiply 1.5
+  name Grade69
+  xpos 6673
+  ypos -222
+ }
+ Merge {
+  inputs 2
+  operation plus
+  mix {{ff_bitmix i}}
+  name Merge84
+  xpos 6673
+  ypos -76
+ }
+ ChannelMerge {
+  inputs 2
+  operation in
+  B rgba.red
+  output rgba.red
+  name ChannelMerge52
+  xpos 6673
+  ypos -22
+ }
+ ChannelMerge {
+  inputs 2
+  operation in
+  B rgba.green
+  output rgba.green
+  name ChannelMerge53
+  xpos 6673
+  ypos 31
+ }
+ ChannelMerge {
+  inputs 2
+  operation in
+  B rgba.blue
+  output rgba.blue
+  name ChannelMerge54
+  xpos 6673
+  ypos 84
+ }
+ Noise {
+  inputs 0
+  size 81.4913
+  zoffset 1.05802
+  gain 0.4
+  gamma 2
+  center {320 240}
+  name Noise17
+  xpos 6152
+  ypos -109
+ }
+set N2499f290 [stack 0]
+push $N2499f290
+push $N2499f290
+ Flare {
+  inputs 0
+  position {{ffp_position i x100 300} {ffp_position i x100 200}}
+  offset 1.5
+  radius {44.5 105.21 120.49}
+  size_mult {{Transform1.scale i}}
+  ring_color {0.529843 0.670316 0.796}
+  inner_color 0
+  outer_falloff 3.2
+  inner_falloff 5.6
+  chroma_spread 0.016
+  brightness 0.22
+  vis_mask -rgba.alpha
+  flattening 0.15
+  sharpness 0.33
+  asym_multiplier 0
+  asym_falloff 2.65
+  asym_angle -40
+  name Flare156
+  label Source
+  xpos 5845
+  ypos -289
+ }
+ Blur {
+  size 12
+  name Blur85
+  xpos 5845
+  ypos -250
+ }
+ Flare {
+  position {{ffp_position i x100 300} {ffp_position i x100 200}}
+  offset 1.5
+  radius {65.44 126.15 141.43}
+  size_mult {{Transform1.scale i}}
+  ring_color {0.796096 1.00716 1.196}
+  inner_color 0
+  outer_falloff 3.2
+  inner_falloff 5.6
+  chroma_spread 0.016
+  brightness 0.08
+  vis_mask -rgba.alpha
+  flattening 0.15
+  sharpness 0.33
+  asym_multiplier 0
+  asym_falloff 3.4
+  asym_angle -40
+  name Flare157
+  label Source
+  xpos 5845
+  ypos -211
+ }
+ Grade {
+  multiply 0.3
+  name Grade71
+  xpos 5845
+  ypos -172
+ }
+ Flare {
+  inputs 0
+  position {{Flare140.position.x i} {Flare140.position.y i}}
+  radius {0 5.21 7.46}
+  size_mult {{Transform1.scale i}}
+  inner_color 0.691524
+  brightness 1.27486
+  flattening 0.3
+  sharpness 0.459552
+  asym_multiplier 3
+  asym_falloff 0.1
+  mult_num 10
+  mult_seed 6
+  mult_offset 2.4
+  mult_size 1
+  mult_color -0.915789
+  mult_brightness -0.894737
+  mult_visibility 0.0229885
+  mult_flattening 0.884211
+  mult_rotate 0.264368
+  name Flare141
+  label "Bits 3"
+  xpos 6269
+  ypos -433
+ }
+ Grade {
+  white {1 1 4 1}
+  name Grade66
+  xpos 6269
+  ypos -394
+ }
+ Blur {
+  size {{ff_bitblur+5 i}}
+  name Blur74
+  xpos 6269
+  ypos -367
+ }
+ Flare {
+  inputs 0
+  position {{Flare140.position.x i} {Flare140.position.y i}}
+  radius {3.93 9.14 11.39}
+  size_mult {{Transform1.scale i}}
+  inner_color 0.691524
+  brightness 1.39889
+  flattening 0.26825
+  asym_multiplier 0.36
+  mult_num 10
+  mult_seed 6
+  mult_offset 1.2
+  mult_size 0.39
+  mult_color 3
+  mult_brightness -0.816092
+  mult_visibility 0.0229885
+  mult_flattening 0.482759
+  mult_rotate 0.264368
+  name Flare136
+  label "Bits 2"
+  xpos 6166
+  ypos -472
+ }
+ Flare {
+  position {{Flare140.position.x i} {Flare140.position.y i}}
+  radius {9.16 14.37 16.62}
+  size_mult {{Transform1.scale i}}
+  inner_color 0.691524
+  brightness 1.27486
+  flattening 0.3
+  sharpness 0.459552
+  asym_multiplier 3
+  asym_falloff 0.1
+  mult_num 4
+  mult_seed 6
+  mult_offset 0.3
+  mult_size 1
+  mult_color -0.915789
+  mult_brightness -0.894737
+  mult_visibility 0.0229885
+  mult_flattening 0.884211
+  mult_rotate 0.264368
+  name Flare137
+  label "Bits 3"
+  xpos 6166
+  ypos -433
+ }
+ Merge2 {
+  inputs 2
+  mix 0.8
+  name Merge79
+  xpos 6166
+  ypos -361
+ }
+ Flare {
+  position {{Flare140.position.x i} {Flare140.position.y i}}
+  radius {0 5.21 7.46}
+  size_mult {{Transform1.scale-.5 i}}
+  inner_color 0.691524
+  brightness 1.27486
+  flattening 0.3
+  sharpness 0.459552
+  asym_multiplier 3
+  asym_falloff 0.1
+  mult_num 20
+  mult_seed 6
+  mult_offset 2.05
+  mult_size 1
+  mult_color -0.15
+  mult_brightness -0.01
+  mult_visibility 0.0229885
+  mult_flattening 0.884211
+  mult_rotate 0.264368
+  name Flare135
+  label "Bits 3"
+  xpos 6166
+  ypos -334
+ }
+ Saturation {
+  saturation 0.82
+  name Saturation2
+  xpos 6166
+  ypos -285
+ }
+ Blur {
+  size {{ff_bitblur+5 i}}
+  name Blur67
+  xpos 6166
+  ypos -258
+ }
+ Grade {
+  multiply {{ff_bithue.r i} {ff_bithue.g i} {ff_bithue.b i} {curve i}}
+  name Grade65
+  xpos 6166
+  ypos -216
+ }
+ Sparkles {
+  inputs 0
+  position {{Flare140.position.x i} {Flare140.position.y i}}
+  size {{Transform1.scale+400 i}}
+  anamorphic 1.34389
+  rotation 11.0377
+  relative_rotation true
+  ray_nb 7
+  ray_thick 1
+  random_thick true
+  spark_falloff 0
+  ray_falloff 6.45283
+  seed 15
+  brightness 0.1
+  broken_affected 9.89774
+  name Sparkles20
+  xpos 5517
+  ypos -356
+ }
+ Blur {
+  size 2
+  name Blur68
+  xpos 5517
+  ypos -329
+ }
+ Sparkles {
+  inputs 0
+  position {{Flare140.position.x i} {Flare140.position.y i}}
+  size {{Transform1.scale+450 i}}
+  anamorphic 1.34389
+  rotation -13.1156
+  relative_rotation true
+  ray_nb 20
+  ray_thick 2
+  random_thick true
+  spark_falloff 0
+  ray_falloff 6.45283
+  seed 36
+  brightness 0.2
+  broken_affected 9.89774
+  name Sparkles21
+  xpos 5620
+  ypos -383
+ }
+ Blur {
+  size 5
+  name Blur69
+  xpos 5620
+  ypos -356
+ }
+ DirBlurWrapper {
+  BlurType radial
+  BlurCenter {{Flare140.position.x i} {Flare140.position.y i}}
+  Samples 3
+  name DirBlurWrapper15
+  xpos 5709
+  ypos -356
+ }
+ Sparkles {
+  inputs 0
+  position {{Flare140.position.x i} {Flare140.position.y i}}
+  size {{Transform1.scale+300 i}}
+  anamorphic 1.34389
+  rotation -13.1156
+  relative_rotation true
+  ray_nb 5
+  ray_thick 2
+  random_thick true
+  spark_falloff 0
+  ray_falloff 6.45283
+  seed 35
+  brightness 0.4
+  broken_affected 9.89774
+  name Sparkles23
+  xpos 5712
+  ypos -453
+ }
+ Blur {
+  size 3
+  name Blur73
+  xpos 5712
+  ypos -426
+ }
+ Sparkles {
+  inputs 0
+  position {{Flare140.position.x i} {Flare140.position.y i}}
+  size {{Transform1.scale+300 i}}
+  anamorphic 1.34389
+  rotation -13.1156
+  relative_rotation true
+  ray_nb 5
+  ray_thick 2
+  random_thick true
+  spark_falloff 0
+  ray_falloff 6.45283
+  seed 35
+  brightness 0.4
+  broken_affected 9.89774
+  name Sparkles22
+  xpos 5807
+  ypos -538
+ }
+ Blur {
+  size 2
+  name Blur70
+  xpos 5807
+  ypos -511
+ }
+ DirBlurWrapper {
+  BlurType radial
+  BlurCenter {{Flare140.position.x i} {Flare140.position.y i}}
+  Samples 3
+  name DirBlurWrapper16
+  xpos 5807
+  ypos -472
+ }
+ Blur {
+  size 10
+  name Blur77
+  xpos 5895
+  ypos -472
+ }
+ Flare {
+  inputs 0
+  position {{Flare140.position.x i} {Flare140.position.y i}}
+  radius {83.3 87.74 90.75}
+  size_mult {{Transform1.scale i}}
+  ring_color {0.115 0.165 0.39}
+  inner_color 0
+  chroma_spread 0.220916
+  name Flare142
+  label "Ring 1"
+  xpos 5897
+  ypos -667
+ }
+ Blur {
+  size 5
+  name Blur76
+  xpos 5897
+  ypos -628
+ }
+ Flare {
+  position {{Flare140.position.x i} {Flare140.position.y i}}
+  radius {51.89 56.33 59.34}
+  size_mult {{Transform1.scale i}}
+  ring_color {0.59304 0.107343 0.107343}
+  inner_color 0
+  chroma_spread 0.220916
+  name Flare138
+  label "Ring 1"
+  xpos 5897
+  ypos -592
+ }
+ Blur {
+  size 3
+  name Blur71
+  xpos 5897
+  ypos -553
+ }
+ Flare {
+  inputs 0
+  position {{Flare140.position.x i} {Flare140.position.y i}}
+  radius {33.63 44.75 119.49}
+  size_mult {{Transform1.scale i}}
+  ring_color {0.392583 0.399146 0.52281}
+  inner_color {{Flare139.ring_color.r i} {Flare139.ring_color.r i} {Flare139.ring_color.r i}}
+  outer_falloff 2
+  brightness 1.4
+  name Flare139
+  xpos 5753
+  ypos -898
+ }
+ Blur {
+  size 20
+  name Blur72
+  xpos 5753
+  ypos -871
+ }
+ Glow {
+  brightness 0.7
+  name Glow25
+  xpos 5753
+  ypos -830
+ }
+ Flare {
+  inputs 0
+  position {{ffp_position.x i} {ffp_position.y i}}
+  radius {0 0.77 16.33}
+  size_mult {{Transform1.scale i}}
+  inner_color 1
+  brightness 3
+  name Flare140
+  label Core
+  xpos 5870
+  ypos -934
+ }
+ Glow {
+  brightness 5
+  name Glow26
+  xpos 5870
+  ypos -895
+ }
+ Blur {
+  size 50
+  name Blur75
+  xpos 5870
+  ypos -868
+ }
+ Dot {
+  inputs 0
+  name Dot15
+  xpos 6039
+  ypos -966
+ }
+ Merge2 {
+  inputs 2
+  name Merge71
+  xpos 6005
+  ypos -862
+ }
+ Merge2 {
+  inputs 2
+  mix 0.8
+  name Merge72
+  xpos 6005
+  ypos -830
+ }
+ Flare {
+  position {{Flare140.position.x i} {Flare140.position.y i}}
+  offset 1.95
+  radius {11.95 21.6 26.8}
+  size_mult {{Transform1.scale i}}
+  ring_color {0.144038 0.195 0.36}
+  inner_color {0.0940248 0.127292 0.235}
+  inner_falloff 7.4
+  brightness 0.213407
+  asym_falloff 0.45018
+  asym_angle -180
+  asym_angle_add true
+  mult_num 2
+  mult_offset 0.3
+  mult_size -0.28
+  name Flare145
+  label "Big Ring"
+  xpos 6005
+  ypos -785
+ }
+ Merge2 {
+  inputs 2
+  mix 0.1
+  name Merge73
+  xpos 6007
+  ypos -547
+ }
+ Merge2 {
+  inputs 2
+  name Merge74
+  xpos 6005
+  ypos -466
+ }
+ Merge2 {
+  inputs 2
+  name Merge78
+  xpos 6005
+  ypos -420
+ }
+ Merge2 {
+  inputs 2
+  mix 0.7
+  name Merge75
+  xpos 6005
+  ypos -350
+ }
+ Merge2 {
+  inputs 2
+  mix 0.8
+  name Merge76
+  xpos 6005
+  ypos -323
+ }
+ Merge2 {
+  inputs 2
+  mix {{ff_bitmix i}}
+  name Merge77
+  xpos 6005
+  ypos -216
+ }
+ Merge {
+  inputs 2
+  operation plus
+  mix {{ff_bitmix i}}
+  name Merge85
+  xpos 6005
+  ypos -172
+ }
+ ChannelMerge {
+  inputs 2
+  operation in
+  B rgba.red
+  output rgba.red
+  name ChannelMerge49
+  xpos 6005
+  ypos -123
+ }
+ ChannelMerge {
+  inputs 2
+  operation in
+  B rgba.green
+  output rgba.green
+  name ChannelMerge50
+  xpos 6005
+  ypos -68
+ }
+ ChannelMerge {
+  inputs 2
+  operation in
+  B rgba.blue
+  output rgba.blue
+  name ChannelMerge51
+  xpos 6005
+  ypos -15
+ }
+ Noise {
+  inputs 0
+  size 100
+  zoffset 1.05802
+  gain 0.2
+  gamma 2
+  center {320 240}
+  name Noise16
+  xpos 5115
+  ypos 30
+ }
+set N19fcda70 [stack 0]
+push $N19fcda70
+push $N19fcda70
+ Flare {
+  inputs 0
+  position {{ffp_position i} {ffp_position i}}
+  radius {0 5.21 14.86}
+  inner_color 1
+  brightness 0.143601
+  flattening 0.128569
+  sharpness 0.396248
+  mult_num 10
+  mult_offset -0.747126
+  mult_size 0.0344828
+  mult_color 1.68966
+  mult_brightness -0.655172
+  mult_visibility -0.264368
+  mult_flattening 0.275862
+  name Flare132
+  xpos 5322
+  ypos -184
+ }
+ Flare {
+  position {{ffp_position i} {ffp_position i}}
+  radius {0 5.21 14.86}
+  inner_color 1
+  brightness 0.143601
+  flattening 0.101586
+  sharpness 0.396248
+  mult_num 7
+  mult_offset -0.344828
+  mult_size 0.0344828
+  mult_color 1.68966
+  mult_brightness -0.632184
+  mult_visibility -0.264368
+  mult_flattening 0.275862
+  name Flare133
+  xpos 5322
+  ypos -157
+ }
+ Grade {
+  multiply {1.15239 1.15239 1.75309 1}
+  name Grade39
+  xpos 5322
+  ypos -118
+ }
+ Flare {
+  inputs 0
+  position {{ffp_position i} {ffp_position i}}
+  radius {0 8.17 10.42}
+  flattening 0.26825
+  sharpness 0.453342
+  mult_num 32
+  mult_offset 1.95402
+  mult_size 0.551724
+  mult_color 0.931034
+  mult_brightness -0.758621
+  mult_flattening 0.275862
+  name Flare130
+  xpos 5162
+  ypos -253
+ }
+ Grade {
+  multiply {0.422707 0.387421 0.722135 1}
+  name Grade38
+  xpos 5162
+  ypos -226
+ }
+ Flare {
+  position {{ffp_position i} {ffp_position i}}
+  radius {0 8.17 10.42}
+  inner_color 1
+  brightness 0.143601
+  flattening 0.26825
+  sharpness 0.453342
+  mult_num 32
+  mult_offset 2.98851
+  mult_size 0.597701
+  mult_color 1.75862
+  mult_brightness -0.597701
+  mult_flattening 0.275862
+  name Flare129
+  xpos 5162
+  ypos -199
+ }
+ Grade {
+  multiply {0.525859 0.387421 0.526522 1}
+  name Grade37
+  xpos 5162
+  ypos -172
+ }
+ Flare {
+  position {{ffp_position i} {ffp_position i}}
+  radius {0 5.21 14.86}
+  inner_color 1
+  brightness 0.33518
+  flattening 0.634911
+  sharpness 0.396248
+  mult_num 20
+  mult_offset 0.632184
+  mult_size 0.45977
+  mult_color 1.68966
+  mult_brightness -0.632184
+  mult_visibility -0.264368
+  mult_flattening 0.275862
+  name Flare131
+  xpos 5162
+  ypos -145
+ }
+ Merge2 {
+  inputs 2
+  name Merge64
+  xpos 5162
+  ypos -118
+ }
+ Blur {
+  size {{ff_bitblur+2 i}}
+  name Blur57
+  xpos 5162
+  ypos -90
+ }
+ Grade {
+  multiply {{ff_bithue.r i} {ff_bithue.g i} {ff_bithue.b i} {curve i}}
+  name Grade64
+  xpos 5162
+  ypos -48
+ }
+ Sparkles {
+  inputs 0
+  position {{ffp_position i x100 200} {ffp_position i x100 450}}
+  ray_nb 20
+  ray_thick 0.4
+  ray_falloff 6
+  seed 33
+  name Sparkles18
+  xpos 4717
+  ypos -432
+ }
+ Blur {
+  size 3
+  name Blur53
+  xpos 4717
+  ypos -405
+ }
+ Sparkles {
+  inputs 0
+  position {{ffp_position i x100 200} {ffp_position i x100 450}}
+  ray_nb 20
+  ray_thick 0.9
+  ray_falloff 6
+  seed 25
+  name Sparkles16
+  xpos 4827
+  ypos -517
+ }
+ Sparkles {
+  position {{ffp_position i x100 200} {ffp_position i x100 450}}
+  ray_nb 20
+  ray_falloff 6
+  seed 31
+  name Sparkles17
+  xpos 4827
+  ypos -490
+ }
+ DirBlurWrapper {
+  BlurType radial
+  BlurCenter {{ffp_position i x100 200} {ffp_position i x100 450}}
+  Samples 3
+  name DirBlurWrapper14
+  xpos 4827
+  ypos -463
+ }
+ Merge2 {
+  inputs 2
+  name Merge60
+  xpos 4827
+  ypos -398
+ }
+ Sparkles {
+  position {{ffp_position i x100 200} {ffp_position i x100 450}}
+  ray_nb 25
+  ray_falloff 6.64151
+  seed 36
+  name Sparkles19
+  xpos 4827
+  ypos -371
+ }
+ Blur {
+  size 1.3
+  name Blur54
+  xpos 4827
+  ypos -344
+ }
+ Grade {
+  multiply {1.0057 1.0057 1.54912 1}
+  gamma 0.8
+  name Grade34
+  xpos 4827
+  ypos -261
+ }
+ Flare {
+  inputs 0
+  position {{ffp_position i} {ffp_position i}}
+  radius {0 0 165.75}
+  size_mult {{Transform1.scale i}}
+  inner_color 1
+  name Flare127
+  xpos 5152
+  ypos -557
+ }
+ Grade {
+  multiply 0.272212
+  name Grade36
+  xpos 5152
+  ypos -530
+ }
+ Flare {
+  position {{ffp_position i} {ffp_position i}}
+  radius {0 0 109.54}
+  size_mult {{Transform1.scale i}}
+  inner_color 1
+  name Flare128
+  xpos 5152
+  ypos -503
+ }
+ Grade {
+  white 0.659713
+  multiply {1.5214 0.846144 1.9231 1}
+  name Grade35
+  xpos 5152
+  ypos -476
+ }
+ Blur {
+  size 10
+  name Blur55
+  xpos 5152
+  ypos -449
+ }
+ Glow {
+  size 30
+  name Glow22
+  xpos 5152
+  ypos -402
+ }
+ Flare {
+  inputs 0
+  position {{ffp_position i} {ffp_position i}}
+  radius {7.4 9.65 13.38}
+  size_mult {{Transform1.scale i}}
+  inner_color 1
+  name Flare126
+  xpos 5005
+  ypos -561
+ }
+ Glow {
+  size 30
+  name Glow21
+  xpos 5005
+  ypos -478
+ }
+ Merge2 {
+  inputs 2
+  mix 0.1
+  name Merge62
+  xpos 5005
+  ypos -402
+ }
+ Glow {
+  brightness 0.5
+  size 30
+  name Glow23
+  xpos 5005
+  ypos -342
+ }
+ Merge2 {
+  inputs 2
+  mix 0.3
+  name Merge61
+  xpos 5005
+  ypos -261
+ }
+ Blur {
+  size 2.5
+  name Blur56
+  xpos 5005
+  ypos -234
+ }
+ Merge2 {
+  inputs 2
+  mix {{ff_bitmix i}}
+  name Merge63
+  xpos 5005
+  ypos -48
+ }
+ ChannelMerge {
+  inputs 2
+  operation in
+  B rgba.red
+  output rgba.red
+  name ChannelMerge40
+  xpos 5005
+  ypos 16
+ }
+ ChannelMerge {
+  inputs 2
+  operation in
+  B rgba.green
+  output rgba.green
+  name ChannelMerge41
+  xpos 5005
+  ypos 71
+ }
+ ChannelMerge {
+  inputs 2
+  operation in
+  B rgba.blue
+  output rgba.blue
+  name ChannelMerge42
+  xpos 5005
+  ypos 126
+ }
+ Noise {
+  inputs 0
+  size 100
+  zoffset 1.05802
+  gain 0.3
+  gamma 2
+  center {320 240}
+  name Noise15
+  xpos 4348
+  ypos -82
+ }
+set N244c8d50 [stack 0]
+push $N244c8d50
+push $N244c8d50
+ Flare {
+  inputs 0
+  position {{Flare118.position i} {Flare118.position i}}
+  offset 0.1
+  radius {8.88 21.39 34.7}
+  size_mult {{Transform1.scale i}}
+  ring_color {0.05 0.00566667 0.00266667}
+  inner_color {{Flare122.ring_color.r i} {Flare122.ring_color.r i} {Flare122.ring_color.r i}}
+  chroma_spread 0.01
+  chroma_shift -2
+  flattening 0.311106
+  sharpness 0.73
+  corners_angle 5
+  mult_num 15
+  mult_seed 6
+  mult_offset 1.49425
+  mult_size 1
+  mult_color -0.172414
+  mult_color_seed 77097
+  mult_brightness -0.436782
+  mult_brightness_seed 75027
+  mult_visibility 0.36
+  mult_flattening_seed 45204
+  name Flare122
+  xpos 4366
+  ypos -224
+ }
+ Blur {
+  size {{ff_bitblur+2 i}}
+  name Blur49
+  xpos 4366
+  ypos -197
+ }
+ Grade {
+  multiply 3
+  name Grade32
+  xpos 4366
+  ypos -155
+ }
+ Grade {
+  multiply {{ff_bithue.r i} {ff_bithue.g i} {ff_bithue.b i} {curve i}}
+  name Grade63
+  xpos 4366
+  ypos -127
+ }
+ Flare {
+  inputs 0
+  position {{Flare118.position i} {Flare118.position i}}
+  radius {0 0 136.86}
+  size_mult {{Transform1.scale i}}
+  ring_color 0.379197
+  inner_color {{Flare119.ring_color i}}
+  name Flare123
+  xpos 4132
+  ypos -273
+ }
+ Blur {
+  size 50
+  name Blur50
+  xpos 4132
+  ypos -246
+ }
+ Grade {
+  white {1.52244 0.926186 0 1}
+  multiply 2
+  name Grade30
+  xpos 4132
+  ypos -205
+ }
+ Flare {
+  inputs 0
+  position {{Flare118.position i} {Flare118.position i}}
+  radius {0 0 54.02}
+  size_mult {{Transform1.scale i}}
+  ring_color 0.379197
+  inner_color {{Flare119.ring_color i}}
+  name Flare125
+  xpos 4119
+  ypos -477
+ }
+ Blur {
+  size 20
+  name Blur52
+  xpos 4119
+  ypos -450
+ }
+ Grade {
+  white {1 0.793887 0.323823 1}
+  multiply 1.5
+  name Grade31
+  xpos 4119
+  ypos -409
+ }
+ Flare {
+  inputs 0
+  position {{ffp_position i} {ffp_position i}}
+  radius {7.4 9.65 13.38}
+  size_mult {{Transform1.scale i}}
+  inner_color 1
+  name Flare124
+  xpos 4238
+  ypos -529
+ }
+ Blur {
+  size 2
+  name Blur51
+  xpos 4238
+  ypos -502
+ }
+ Grade {
+  multiply 1.5
+  name Grade33
+  xpos 4238
+  ypos -461
+ }
+ Merge2 {
+  inputs 2
+  name Merge57
+  xpos 4238
+  ypos -409
+ }
+ Glow {
+  tint {1 0.217637 0.0879641}
+  tolerance 0.0150376
+  name Glow20
+  xpos 4238
+  ypos -382
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  name Merge58
+  xpos 4238
+  ypos -205
+ }
+ Merge2 {
+  inputs 2
+  mix {{ff_bitmix i}}
+  name Merge59
+  xpos 4238
+  ypos -124
+ }
+ ChannelMerge {
+  inputs 2
+  operation in
+  B rgba.red
+  output rgba.red
+  name ChannelMerge37
+  xpos 4238
+  ypos -96
+ }
+ ChannelMerge {
+  inputs 2
+  operation in
+  B rgba.green
+  output rgba.green
+  name ChannelMerge38
+  xpos 4238
+  ypos -41
+ }
+ ChannelMerge {
+  inputs 2
+  operation in
+  B rgba.blue
+  output rgba.blue
+  name ChannelMerge39
+  xpos 4238
+  ypos 12
+ }
+ Noise {
+  inputs 0
+  size 100
+  zoffset 1.05802
+  gain 0.4
+  gamma 2
+  center {320 240}
+  name Noise14
+  xpos 3752
+  ypos -97
+ }
+set N24b02470 [stack 0]
+push $N24b02470
+push $N24b02470
+ Flare {
+  inputs 0
+  position {{Flare118.position i} {Flare118.position i}}
+  offset 0.1
+  radius {0 6.26 12.51}
+  size_mult {{Transform1.scale i}}
+  ring_color {0.05 0.00566667 0.00266667}
+  inner_color {0.04 0 0}
+  chroma_spread 0.01
+  chroma_shift -2
+  flattening 0.82
+  sharpness 0.73
+  corners_angle 5
+  mult_num 18
+  mult_seed 6
+  mult_offset 2
+  mult_size 0.99
+  mult_color 0.3
+  mult_color_seed 77097
+  mult_brightness -0.68
+  mult_brightness_seed 75027
+  mult_visibility 0.36
+  mult_flattening_seed 45204
+  name Flare121
+  xpos 3739
+  ypos -236
+ }
+ Blur {
+  size {{ff_bitblur+2 i}}
+  name Blur48
+  xpos 3739
+  ypos -209
+ }
+ Grade {
+  multiply 4
+  name Grade40
+  xpos 3739
+  ypos -167
+ }
+ Grade {
+  multiply {{ff_bithue.r i} {ff_bithue.g i} {ff_bithue.b i} {curve i}}
+  name Grade62
+  xpos 3739
+  ypos -139
+ }
+ Flare {
+  inputs 0
+  position {{Flare118.position i} {Flare118.position i}}
+  radius {0 8.16 84.37}
+  size_mult {{Transform1.scale i}}
+  ring_color 0.379197
+  inner_color {{Flare119.ring_color i}}
+  name Flare119
+  xpos 3498
+  ypos -288
+ }
+ Blur {
+  size 50
+  name Blur45
+  xpos 3498
+  ypos -261
+ }
+ Grade {
+  white {0.845578 0 0 1}
+  multiply 0.577335
+  name Grade29
+  xpos 3498
+  ypos -220
+ }
+ Flare {
+  inputs 0
+  position {{ffp_position i} {ffp_position i}}
+  radius {0 3.73 10.42}
+  size_mult 0.3
+  name Flare120
+  xpos 3747
+  ypos -509
+ }
+ Glint {
+  repeat 12
+  length 100
+  from_color 2
+  name Glint1
+  xpos 3747
+  ypos -482
+ }
+ Blur {
+  size 3
+  name Blur46
+  xpos 3747
+  ypos -441
+ }
+ Grade {
+  white {0.596806 0.0596806 0.0596806 1}
+  multiply 2
+  name Grade28
+  xpos 3747
+  ypos -359
+ }
+ Flare {
+  inputs 0
+  position {{ffp_position i} {ffp_position i}}
+  radius {2.96 5.21 8.94}
+  size_mult {{Transform1.scale i}}
+  inner_color 1
+  name Flare118
+  xpos 3604
+  ypos -475
+ }
+ Blur {
+  size 7
+  name Blur47
+  xpos 3604
+  ypos -448
+ }
+ Glow {
+  brightness 3.32707
+  size 20
+  name Glow24
+  xpos 3604
+  ypos -407
+ }
+ Merge2 {
+  inputs 2
+  name Merge54
+  xpos 3604
+  ypos -359
+ }
+ Glow {
+  tint {1 0.217637 0.0879641}
+  tolerance 0.0150376
+  name Glow19
+  xpos 3604
+  ypos -332
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  mix 0.7
+  name Merge55
+  xpos 3604
+  ypos -220
+ }
+ Merge2 {
+  inputs 2
+  mix {{ff_bitmix i}}
+  name Merge56
+  xpos 3604
+  ypos -139
+ }
+ ChannelMerge {
+  inputs 2
+  operation in
+  B rgba.red
+  output rgba.red
+  name ChannelMerge34
+  xpos 3604
+  ypos -111
+ }
+ ChannelMerge {
+  inputs 2
+  operation in
+  B rgba.green
+  output rgba.green
+  name ChannelMerge35
+  xpos 3604
+  ypos -56
+ }
+ ChannelMerge {
+  inputs 2
+  operation in
+  B rgba.blue
+  output rgba.blue
+  name ChannelMerge36
+  xpos 3604
+  ypos -3
+ }
+ Noise {
+  inputs 0
+  size 100
+  zoffset 1.05802
+  gain 0.4
+  gamma 2
+  center {320 240}
+  name Noise9
+  xpos 2976
+  ypos -63
+ }
+set N24bc1710 [stack 0]
+push $N24bc1710
+push $N24bc1710
+ Flare {
+  inputs 0
+  position {{Flare112.position i} {Flare112.position i}}
+  radius {0 3.72 3.72}
+  size_mult {{Transform1.scale i}}
+  anamorph 1.2
+  inner_color 1
+  corners 6
+  flattening 0.573007
+  sharpness 0.861716
+  mult_num 20
+  mult_offset 3
+  mult_size 0.172414
+  mult_color -0.37931
+  mult_brightness -1
+  mult_visibility -0.701149
+  name Flare117
+  xpos 2986
+  ypos -267
+ }
+ Blur {
+  size {{ff_bitblur+2.5 i}}
+  name Blur44
+  xpos 2986
+  ypos -239
+ }
+ Glow {
+  brightness 0.2
+  size 10
+  name Glow18
+  xpos 2986
+  ypos -199
+ }
+ Grade {
+  multiply {{ff_bithue.r i} {ff_bithue.g i} {ff_bithue.b i} {curve i}}
+  name Grade61
+  xpos 2986
+  ypos -171
+ }
+ Flare {
+  inputs 0
+  position {{Flare112.position i} {Flare112.position i}}
+  radius {14.8 24.44 28.18}
+  size_mult {{Transform1.scale i}}
+  anamorph 1.2
+  inner_color 1
+  corners 6
+  flattening 0.573007
+  sharpness 0.861716
+  mult_num 10
+  mult_offset 5
+  mult_size 0.1
+  mult_color 1.06897
+  mult_brightness -0.758621
+  mult_visibility -0.701149
+  name Flare116
+  xpos 2698
+  ypos -322
+ }
+ Blur {
+  size {{ff_bitblur+4 i}}
+  name Blur43
+  xpos 2698
+  ypos -295
+ }
+ Grade {
+  white {0.0368912 0.0471899 0.206966 1}
+  multiply 4
+  name Grade24
+  xpos 2698
+  ypos -251
+ }
+ Glow {
+  brightness 0.5
+  size 10
+  name Glow17
+  xpos 2698
+  ypos -227
+ }
+ Grade {
+  multiply {{ff_bithue.r i} {ff_bithue.g i} {ff_bithue.b i} {curve i}}
+  name Grade60
+  xpos 2698
+  ypos -199
+ }
+ Sparkles {
+  inputs 0
+  position {{Flare112.position i} {Flare112.position i}}
+  size {{Transform1.scale+299 i}}
+  rotation 4
+  ray_nb 5
+  ray_thick 0.8
+  ray_falloff 3
+  seed 65
+  name Sparkles14
+  xpos 3079
+  ypos -491
+ }
+ DirBlurWrapper {
+  BlurType radial
+  BlurCenter {{Flare112.position i} {Flare112.position i}}
+  BlurLength 10
+  Samples 2
+  name DirBlurWrapper11
+  xpos 3079
+  ypos -464
+ }
+ Blur {
+  size 12
+  name Blur40
+  xpos 3079
+  ypos -423
+ }
+ Grade {
+  white {0.463326 0.463326 1.3829 1}
+  name Grade21
+  xpos 3079
+  ypos -384
+ }
+ Sparkles {
+  inputs 0
+  position {{Flare112.position i} {Flare112.position i}}
+  size {{Transform1.scale+299 i}}
+  ray_nb 4
+  ray_thick 0.8
+  ray_falloff 7
+  seed 45
+  name Sparkles15
+  xpos 3189
+  ypos -469
+ }
+ Blur {
+  size 3
+  name Blur42
+  xpos 3189
+  ypos -442
+ }
+ Glow {
+  brightness 0.5
+  size 10
+  name Glow16
+  xpos 3189
+  ypos -401
+ }
+ DirBlurWrapper {
+  BlurType radial
+  BlurCenter {{Flare112.position i} {Flare112.position i}}
+  BlurLength 2.5
+  Samples 2
+  name DirBlurWrapper13
+  xpos 3189
+  ypos -374
+ }
+ Grade {
+  white {0.599589 0.599589 1.3829 1}
+  name Grade23
+  xpos 3189
+  ypos -333
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  name Merge51
+  xpos 3079
+  ypos -333
+ }
+ Sparkles {
+  inputs 0
+  position {{Flare112.position i} {Flare112.position i}}
+  size {{Transform1.scale+299/2 i}}
+  ray_nb 5
+  ray_thick 0.8
+  ray_falloff 5
+  seed 65
+  name Sparkles13
+  xpos 2961
+  ypos -511
+ }
+ Blur {
+  size 3
+  name Blur41
+  xpos 2961
+  ypos -484
+ }
+ Glow {
+  brightness 0.5
+  size 10
+  name Glow15
+  xpos 2961
+  ypos -443
+ }
+ DirBlurWrapper {
+  BlurType radial
+  BlurCenter {{Flare112.position i} {Flare112.position i}}
+  BlurLength 2.5
+  Samples 2
+  name DirBlurWrapper12
+  xpos 2961
+  ypos -416
+ }
+ Grade {
+  white {0.802065 0.802065 1.3829 1}
+  name Grade22
+  xpos 2961
+  ypos -375
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  name Merge50
+  xpos 2961
+  ypos -333
+ }
+ Transform {
+  scale {{Transform1.scale i}}
+  center {{ffp_position.x i} {ffp_position.y i}}
+  name Transform4
+  xpos 2961
+  ypos -306
+ }
+ Sparkles {
+  inputs 0
+  position {{Flare112.position i} {Flare112.position i}}
+  size {{Transform1.scale+299/2 i}}
+  anamorphic 0.6
+  rotation -12
+  ray_nb 100
+  spark_falloff 0.1
+  ray_falloff 12
+  seed 60
+  name Sparkles12
+  xpos 3131
+  ypos -629
+ }
+ DirBlurWrapper {
+  BlurType radial
+  BlurCenter {{Flare112.position i} {Flare112.position i}}
+  BlurLength 2
+  name DirBlurWrapper10
+  xpos 3131
+  ypos -602
+ }
+ Grade {
+  white {0.463326 0.463326 1.3829 1}
+  mix 0.5
+  name Grade20
+  xpos 3131
+  ypos -561
+ }
+ Sparkles {
+  inputs 0
+  position {{Flare112.position i} {Flare112.position i}}
+  size {{Transform1.scale+299 i}}
+  ray_nb 100
+  ray_falloff 6.98113
+  seed 50
+  name Sparkles11
+  xpos 2992
+  ypos -700
+ }
+ Grade {
+  white {0.463326 0.463326 1.3829 1}
+  name Grade18
+  xpos 2992
+  ypos -673
+ }
+ DirBlurWrapper {
+  BlurType radial
+  BlurCenter {{Flare112.position i} {Flare112.position i}}
+  BlurLength 10
+  name DirBlurWrapper9
+  xpos 2992
+  ypos -646
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  name Merge48
+  xpos 2992
+  ypos -561
+ }
+ Transform {
+  scale {{Transform1.scale}}
+  center {{ffp_position.x} {ffp_position.y}}
+  name Transform5
+  xpos 2992
+  ypos -534
+ }
+ Flare {
+  inputs 0
+  position {{Flare112.position i} {Flare112.position i}}
+  radius {22.19 30.36 50.36}
+  size_mult {{Transform1.scale i}}
+  anamorph 10
+  inner_color 1
+  brightness 0.535208
+  name Flare113
+  xpos 2717
+  ypos -744
+ }
+ Blur {
+  size 7
+  name Blur39
+  xpos 2717
+  ypos -717
+ }
+ Flare {
+  position {{Flare112.position i} {Flare112.position i}}
+  radius {0 8.17 28.17}
+  size_mult {{Transform1.scale i}}
+  anamorph 15
+  inner_color 1
+  name Flare114
+  xpos 2717
+  ypos -676
+ }
+ Grade {
+  white {0.170863 0.170863 0.532336 1}
+  name Grade19
+  xpos 2717
+  ypos -635
+ }
+ Flare {
+  inputs 0
+  position {{ffp_position i} {ffp_position i}}
+  radius {0 8.17 16.34}
+  size_mult {{Transform1.scale i}}
+  inner_color {{Flare112.ring_color i}}
+  name Flare112
+  xpos 2831
+  ypos -761
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  name Merge46
+  xpos 2831
+  ypos -635
+ }
+ Glow {
+  brightness 0.5
+  size 10
+  name Glow14
+  xpos 2831
+  ypos -608
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  name Merge47
+  xpos 2831
+  ypos -534
+ }
+ Flare {
+  position {{Flare112.position i} {Flare112.position i}}
+  radius {22.19 48.11 131.72}
+  size_mult {{Transform1.scale i}}
+  anamorph 1.25
+  ring_color {0.00940187 0.00861861 0.0424395}
+  inner_color {{Flare115.ring_color i}}
+  brightness 0.848338
+  name Flare115
+  xpos 2831
+  ypos -467
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  mix 0.6
+  name Merge49
+  xpos 2831
+  ypos -306
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  mix {{ff_bitmix i}}
+  name Merge52
+  xpos 2831
+  ypos -199
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  mix {{ff_bitmix i}}
+  name Merge53
+  xpos 2831
+  ypos -171
+ }
+ Grade {
+  multiply 2.5
+  name Grade25
+  xpos 2831
+  ypos -132
+ }
+ ChannelMerge {
+  inputs 2
+  operation in
+  B rgba.red
+  output rgba.red
+  name ChannelMerge19
+  xpos 2831
+  ypos -77
+ }
+ ChannelMerge {
+  inputs 2
+  operation in
+  B rgba.green
+  output rgba.green
+  name ChannelMerge20
+  xpos 2831
+  ypos -22
+ }
+ ChannelMerge {
+  inputs 2
+  operation in
+  B rgba.blue
+  output rgba.blue
+  name ChannelMerge21
+  xpos 2831
+  ypos 31
+ }
+set N24ce0bd0 [stack 0]
+ Noise {
+  inputs 0
+  size 100
+  zoffset 1.05802
+  gain 0.3
+  gamma 2
+  center {320 240}
+  name Noise10
+  xpos 2464
+  ypos -67
+ }
+set N24ce1290 [stack 0]
+push $N24ce1290
+push $N24ce1290
+ Flare {
+  inputs 0
+  position {{ffp_position i} {ffp_position i}}
+  offset 0.8
+  radius {16.37 34.91 72.4}
+  size_mult {{Transform1.scale i}}
+  ring_color {0.692071 0.0696023 0.00848491}
+  inner_color {0.5 0.0967598 0.0334461}
+  chroma_shift_angle_add true
+  brightness 0.07
+  corners 6
+  flattening 0.3
+  sharpness 0.58
+  mult_num 6
+  mult_offset 2.1
+  mult_size 0.32
+  mult_color -0.3
+  mult_brightness -0.82
+  name Flare91
+  label Big_Red
+  xpos 2475
+  ypos -705
+ }
+ Flare {
+  position {{Flare91.position.x i} {Flare91.position.y i}}
+  offset 0.2
+  radius {17.72 31.88 48.99}
+  size_mult {{Transform1.scale i}}
+  ring_color {1 0.550527 0.0744398}
+  inner_color {0.5 0.399003 0.253959}
+  brightness 0.011
+  corners 6
+  flattening 0.9
+  sharpness 0.95
+  mult_num 8
+  mult_offset 3.3
+  mult_size 0.34
+  mult_color -0.3
+  mult_brightness -0.38
+  mult_flattening -0.24
+  name Flare92
+  label Multi_Orange
+  xpos 2475
+  ypos -666
+ }
+ Flare {
+  position {{Flare91.position.x i} {Flare91.position.y i}}
+  offset 1.13
+  radius {0 11.74 19.65}
+  size_mult {{Transform1.scale i}}
+  ring_color {0.716 0.048 0.009}
+  inner_color 0.003
+  chroma_shift_angle_add true
+  brightness 0.65
+  asym_multiplier 0
+  asym_falloff 3.3
+  asym_angle -36
+  name Flare93
+  label Half_Concave
+  xpos 2475
+  ypos -624
+ }
+ Flare {
+  position {{Flare91.position.x i} {Flare91.position.y i}}
+  offset 1.202
+  radius {0 13.84 20.02}
+  size_mult {{Transform1.scale i}}
+  ring_color {0.716 0.048 0.009}
+  inner_color 0
+  chroma_shift_angle_add true
+  brightness 0.4
+  asym_multiplier 0
+  asym_falloff 3.3
+  asym_angle -220
+  name Flare94
+  label Half_Convex
+  xpos 2475
+  ypos -587
+ }
+ Flare {
+  position {{Flare91.position.x i} {Flare91.position.y i}}
+  offset 1.55
+  radius {0 8.6 10.3}
+  size_mult {{Transform1.scale i}}
+  ring_color {0.717144 0.831651 0.231489}
+  inner_color {0.290861 0.320133 0.150273}
+  brightness 0.32
+  flattening 0.5
+  asym_multiplier 0
+  asym_falloff 0.62
+  asym_angle -88
+  name Flare95
+  label Little_Yellow_01
+  xpos 2475
+  ypos -545
+ }
+ Flare {
+  position {{Flare91.position.x i} {Flare91.position.y i}}
+  offset 1.55
+  radius {{Flare95.radius.0 i} {Flare95.radius.0 i} {Flare95.radius.0 i}}
+  size_mult {{Transform1.scale i}}
+  ring_color {0.717144 0.831651 0.231489}
+  inner_color {0.290861 0.320133 0.150273}
+  brightness 0.32
+  flattening 0.5
+  asym_multiplier 0
+  asym_falloff 0.62
+  asym_angle -88
+  name Flare96
+  label Little_Yellow_02
+  xpos 2475
+  ypos -503
+ }
+ Flare {
+  position {{Flare91.position.x i} {Flare91.position.y i}}
+  offset 1.58
+  radius {0 8.28 11.47}
+  size_mult {{Transform1.scale i}}
+  ring_color {0.717144 0.831651 0.231489}
+  inner_color {0.290861 0.320133 0.150273}
+  brightness 0.2
+  flattening 0.5
+  asym_multiplier 0
+  asym_falloff 0.62
+  asym_angle -88
+  name Flare97
+  label Little_Yellow_03
+  xpos 2475
+  ypos -467
+ }
+ Flare {
+  position {{Flare91.position.x i} {Flare91.position.y i}}
+  offset 1.58
+  radius {0 3.8 13.08}
+  size_mult {{Transform1.scale i}}
+  ring_color {0.717144 0.831651 0.231489}
+  inner_color {0.290861 0.320133 0.150273}
+  brightness 0.11
+  flattening 0.3
+  asym_multiplier 0.135
+  asym_falloff 0.44
+  asym_angle -102
+  name Flare98
+  label Little_Yellow_04
+  xpos 2475
+  ypos -425
+ }
+ Flare {
+  position {{Flare91.position.x i} {Flare91.position.y i}}
+  offset 1.56
+  radius {8.88 24.84 29.95}
+  size_mult {{Transform1.scale i}}
+  ring_color {0.717144 0.831651 0.231489}
+  inner_color {0.290861 0.320133 0.150273}
+  chroma_spread 0.068
+  brightness 0.06
+  flattening 0.1
+  asym_multiplier 0.135
+  asym_falloff 0.44
+  asym_angle -102
+  name Flare99
+  label Little_Yellow_05
+  xpos 2475
+  ypos -388
+ }
+ Flare {
+  position {{Flare91.position.x i} {Flare91.position.y i}}
+  offset 1.9
+  radius {0 10.59 31.79}
+  size_mult {{Transform1.scale i}}
+  anamorph 1.06
+  ring_color {1 0.111784 0}
+  inner_color {1 0.111784 0}
+  outer_falloff 1.9
+  chroma_spread 0.046
+  brightness 0.3
+  name Flare101
+  label Orange_Glow02
+  xpos 2475
+  ypos -346
+ }
+ Flare {
+  position {{Flare91.position.x i} {Flare91.position.y i}}
+  offset 2.5
+  radius {0 72.31 213.3}
+  size_mult 0.04
+  ring_color {1.54601 0.0067025 0}
+  inner_color {3.17968 0.0106466 0}
+  outer_falloff 2
+  brightness 0.4
+  name Flare102
+  label Little_Red_01
+  xpos 2475
+  ypos -304
+ }
+ Flare {
+  position {{Flare91.position.x i} {Flare91.position.y i}}
+  offset 2.565
+  radius {0 72.31 166.65}
+  size_mult 0.04
+  ring_color {1 0.00519486 0}
+  inner_color {1.72586 0.00716965 0}
+  outer_falloff 2
+  brightness 0.6
+  asym_multiplier 0.125
+  asym_falloff 1.35
+  asym_angle -200
+  name Flare103
+  label Little_Red_02
+  xpos 2475
+  ypos -263
+ }
+ Flare {
+  position {{Flare91.position.x i} {Flare91.position.y i}}
+  offset 2.56
+  radius {0 72.31 195.8}
+  size_mult 0.05
+  ring_color {1.69674 0.00709478 0}
+  inner_color {3.11749 0.0105057 0}
+  outer_falloff 2
+  brightness 0.6
+  name Flare104
+  label Little_Red_03
+  xpos 2475
+  ypos -224
+ }
+ Blur {
+  size {{ff_bitblur+4 i}}
+  name Blur38
+  xpos 2475
+  ypos -183
+ }
+ Grade {
+  multiply {{ff_bithue.r i} {ff_bithue.g i} {ff_bithue.b i} {curve i}}
+  name Grade59
+  xpos 2475
+  ypos -141
+ }
+ Flare {
+  inputs 0
+  position {{Flare77.position i} {Flare77.position i}}
+  radius {132.48 136.45 223.5}
+  size_mult {{Transform1.scale i}}
+  anamorph 1.34
+  ring_color {0.713333 0.603333 0.783333}
+  inner_color 1
+  chroma_shift_angle_add true
+  brightness 0.011
+  vis_mask -rgba.alpha
+  corners 8
+  flattening 100
+  sharpness 1
+  name Flare100
+  xpos 2211
+  ypos -862
+ }
+ Flare {
+  position {{Flare77.position i} {Flare77.position i}}
+  radius {101.87 105.84 239.54}
+  size_mult {{Transform1.scale i}}
+  anamorph 1.34
+  ring_color {0.713333 0.603333 0.783333}
+  inner_color 1
+  chroma_shift_angle_add true
+  brightness 0.022
+  vis_mask -rgba.alpha
+  flattening 100
+  sharpness 1
+  name Flare105
+  xpos 2211
+  ypos -835
+ }
+ Flare {
+  position {{Flare77.position i} {Flare77.position i}}
+  radius {148.51 164.14 204.54}
+  size_mult {{Transform1.scale i}}
+  ring_color {0.54 0.46 0.62}
+  inner_color 1
+  brightness 0.07
+  vis_mask -rgba.alpha
+  corners 6
+  flattening 100
+  sharpness 1
+  name Flare106
+  xpos 2211
+  ypos -808
+ }
+ Glow {
+  brightness 1.66
+  name Glow13
+  xpos 2211
+  ypos -781
+ }
+ Blur {
+  size 6.2
+  name Blur37
+  xpos 2211
+  ypos -751
+ }
+ Flare {
+  inputs 0
+  position {{Flare77.position i x100 300} {Flare77.position i x100 200}}
+  radius {0 6.7 312.41}
+  size_mult {{Transform1.scale i}}
+  ring_color {0.73 0.57 0.79}
+  inner_color {0.768889 0.478889 0.702222}
+  outer_falloff 3
+  inner_falloff 0.22
+  chroma_spread -0.006
+  brightness 0.26
+  vis_mask -rgba.alpha
+  name Flare108
+  label "Outer Corona"
+  xpos 2101
+  ypos -917
+ }
+ Noise {
+  inputs 0
+  size 130
+  lacunarity 1.84
+  gain 0.425
+  gamma 1
+  center {320 240}
+  name Noise8
+  xpos 1991
+  ypos -876
+ }
+ Merge {
+  inputs 2
+  operation in
+  name Merge43
+  xpos 2101
+  ypos -876
+ }
+ Flare {
+  position {{Flare77.position i} {Flare77.position i}}
+  radius {36.26 38.76 40.22}
+  size_mult {{Transform1.scale i}}
+  ring_color {0.48 0.14 0.11}
+  inner_color 0
+  inner_falloff 0.95
+  chroma_spread 0.034
+  brightness 0.055
+  vis_mask -rgba.alpha
+  name Flare109
+  label "Source Ring"
+  xpos 2101
+  ypos -824
+ }
+ Flare {
+  position {{Flare77.position i} {Flare77.position i}}
+  radius {0 0 80.82}
+  size_mult {{Transform1.scale i}}
+  ring_color 0.67
+  inner_color 1
+  outer_falloff 1.5
+  inner_falloff 1.5
+  chroma_spread -0.014
+  brightness 0.042
+  vis_mask -rgba.alpha
+  name Flare110
+  label Source
+  xpos 2101
+  ypos -785
+ }
+ Merge {
+  inputs 2
+  operation plus
+  mix 0.29
+  name Merge44
+  xpos 2101
+  ypos -744
+ }
+ Flare {
+  position {{Flare77.position i} {Flare77.position i}}
+  radius {0 12.53 194.33}
+  size_mult {{Transform1.scale i}}
+  ring_color {0.73 0.57 0.79}
+  inner_color {0.768889 0.478889 0.702222}
+  outer_falloff 1.7
+  chroma_spread -0.006
+  brightness 0.095
+  vis_mask -rgba.alpha
+  name Flare111
+  label "Outer Corona"
+  xpos 2101
+  ypos -717
+ }
+ Grade {
+  white 4
+  multiply {1.9808 0.278645 0 1}
+  mix 0.7
+  name Grade16
+  xpos 2101
+  ypos -676
+ }
+ Flare {
+  inputs 0
+  position {{ffp_position i} {ffp_position i}}
+  radius {17.75 21.69 88.69}
+  size_mult {{Transform1.scale i}}
+  ring_color {1 0.776398 0.566457}
+  inner_color 1
+  outer_falloff 1.5
+  inner_falloff 1.5
+  chroma_spread -0.014
+  brightness {1 1 1}
+  vis_mask -rgba.alpha
+  name Flare107
+  label Source
+  xpos 2316
+  ypos -892
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  name Merge45
+  xpos 2316
+  ypos -676
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  mix {{ff_bitmix i}}
+  name Merge42
+  xpos 2316
+  ypos -141
+ }
+ Grade {
+  multiply 1.5
+  name Grade26
+  xpos 2316
+  ypos -114
+ }
+ ChannelMerge {
+  inputs 2
+  operation in
+  B rgba.red
+  output rgba.red
+  name ChannelMerge22
+  xpos 2316
+  ypos -81
+ }
+ ChannelMerge {
+  inputs 2
+  operation in
+  B rgba.green
+  output rgba.green
+  name ChannelMerge23
+  xpos 2316
+  ypos -26
+ }
+ ChannelMerge {
+  inputs 2
+  operation in
+  B rgba.blue
+  output rgba.blue
+  name ChannelMerge24
+  xpos 2316
+  ypos 27
+ }
+ Noise {
+  inputs 0
+  size 100
+  zoffset 1.05802
+  gain 0.3
+  gamma 2
+  center {320 240}
+  name Noise11
+  xpos 1729
+  ypos -93
+ }
+set N24f07ce0 [stack 0]
+push $N24f07ce0
+push $N24f07ce0
+ Flare {
+  inputs 0
+  position {{Flare89.position i} {Flare89.position i}}
+  offset 1
+  radius {0 8.33 13.75}
+  size_mult {{Transform1.scale i}}
+  ring_color {0.338333 0.403333 0.338333}
+  inner_color 0.29
+  chroma_spread 0.062
+  chroma_shift_angle_add true
+  brightness 0.04
+  vis_mask -rgba.alpha
+  corners 6
+  flattening 1
+  sharpness 0.86
+  mult_num 10
+  mult_offset 5
+  mult_size -0.02
+  mult_color 1.5
+  mult_brightness -1
+  name Flare82
+  xpos 1369
+  ypos -300
+ }
+ Flare {
+  position {{Flare89.position i} {Flare89.position i}}
+  offset 1
+  radius {0 8.33 13.75}
+  size_mult {{Transform1.scale i}}
+  ring_color {0.338333 0.403333 0.338333}
+  inner_color 0.29
+  brightness 0.105
+  vis_mask -rgba.alpha
+  corners 6
+  flattening 1
+  sharpness 0.86
+  mult_num 5
+  mult_offset 4.5
+  mult_size -0.32
+  mult_color -0.1
+  mult_brightness -1
+  mult_flattening -0.68
+  mult_rotate 0.8
+  name Flare83
+  xpos 1369
+  ypos -273
+ }
+ Flare {
+  position {{Flare89.position i} {Flare89.position i}}
+  offset 1
+  radius {0 8.33 13.75}
+  size_mult {{Transform1.scale i}}
+  ring_color {0.338333 0.403333 0.338333}
+  inner_color 0.29
+  chroma_spread 0.07
+  brightness 0.13
+  vis_mask -rgba.alpha
+  corners 6
+  flattening 1
+  sharpness 0.86
+  mult_num 25
+  mult_offset 5
+  mult_size 1
+  mult_color -1.95
+  mult_brightness -1
+  mult_visibility -0.34
+  mult_flattening -0.4
+  mult_rotate 0.5
+  name Flare84
+  xpos 1369
+  ypos -247
+ }
+ Blur {
+  size {{ff_bitblur+3 i}}
+  name Blur31
+  xpos 1369
+  ypos -220
+ }
+ Grade {
+  white {1 1 2 1}
+  multiply 4
+  name Grade17
+  xpos 1471
+  ypos -213
+ }
+ Grade {
+  multiply {{ff_bithue.r i} {ff_bithue.g i} {ff_bithue.b i} {curve i}}
+  name Grade58
+  xpos 1471
+  ypos -185
+ }
+ Flare {
+  inputs 0
+  position {{Flare89.position i} {Flare89.position i}}
+  radius {0 11.25 115.8}
+  size_mult {{Transform1.scale i}}
+  ring_color {0.67 0.67 0.79}
+  inner_color 1
+  chroma_shift_angle_add true
+  vis_mask -rgba.alpha
+  corners 7
+  flattening 100
+  sharpness 1
+  name Flare85
+  xpos 1801
+  ypos -346
+ }
+ DirBlurWrapper {
+  BlurType radial
+  BlurCenter {{ffp_position i} {ffp_position i}}
+  BlurLength 10
+  BlurAngle 90
+  target {{ffp_position i} {ffp_position i}}
+  name DirBlurWrapper7
+  xpos 1801
+  ypos -319
+ }
+ Blur {
+  size 5.8
+  name Blur32
+  xpos 1801
+  ypos -279
+ }
+ Flare {
+  inputs 0
+  position {{Flare89.position i} {Flare89.position i}}
+  radius {18.77 30.02 156.44}
+  size_mult {{Transform1.scale i}}
+  ring_color {0.67 0.67 0.79}
+  inner_color 1
+  brightness {1 1 1}
+  vis_mask -rgba.alpha
+  corners 7
+  flattening 100
+  sharpness 1
+  name Flare86
+  xpos 1471
+  ypos -475
+ }
+ DirBlurWrapper {
+  BlurType radial
+  BlurCenter {{ffp_position i} {ffp_position i}}
+  BlurLength 10
+  BlurAngle 90
+  target {{ffp_position i} {ffp_position i}}
+  name DirBlurWrapper8
+  xpos 1471
+  ypos -448
+ }
+ Blur {
+  size 5
+  name Blur33
+  xpos 1471
+  ypos -407
+ }
+ Flare {
+  position {{Flare89.position i} {Flare89.position i}}
+  radius {18.77 25.65 128.74}
+  size_mult {{Transform1.scale i}}
+  ring_color {0.67 0.67 0.79}
+  inner_color 1
+  brightness 0.22
+  vis_mask -rgba.alpha
+  corners 7
+  flattening 69
+  sharpness 1
+  name Flare87
+  xpos 1471
+  ypos -366
+ }
+ Blur {
+  size 3
+  name Blur34
+  xpos 1471
+  ypos -341
+ }
+ Flare {
+  inputs 0
+  position {{Flare89.position i} {Flare89.position i}}
+  radius {0 118.54 118.54}
+  size_mult {{Transform1.scale i}}
+  ring_color 0
+  inner_color {0.15 0.15 0.195}
+  outer_falloff 1.2
+  inner_falloff 1.8
+  chroma_shift_angle_add true
+  brightness 0.08
+  vis_mask -rgba.alpha
+  name Flare88
+  label Corona
+  xpos 1691
+  ypos -462
+ }
+ Blur {
+  size 46
+  name Blur35
+  xpos 1691
+  ypos -421
+ }
+ Flare {
+  inputs 0
+  position {{ffp_position i x100 300} {ffp_position i x100 200}}
+  radius {2.92 24.37 74.99}
+  size_mult {{Transform1.scale i}}
+  ring_color {0.796296 1.00741 1.1963}
+  inner_color 1
+  outer_falloff 1.3
+  chroma_spread -0.016
+  brightness 0.22
+  vis_mask -rgba.alpha
+  name Flare89
+  label Source
+  xpos 1581
+  ypos -535
+ }
+ Blur {
+  size 14
+  name Blur36
+  xpos 1581
+  ypos -494
+ }
+ Flare {
+  position {{Flare89.position i} {Flare89.position i}}
+  radius {7.29 7.29 56.04}
+  size_mult {{Transform1.scale i}}
+  inner_color 1
+  outer_falloff 1.3
+  chroma_spread -0.016
+  vis_mask -rgba.alpha
+  name Flare90
+  label Source
+  xpos 1581
+  ypos -453
+ }
+ Merge {
+  inputs 2
+  operation plus
+  name Merge34
+  xpos 1581
+  ypos -414
+ }
+ Merge {
+  inputs 2
+  operation plus
+  name Merge38
+  xpos 1581
+  ypos -334
+ }
+ Merge {
+  inputs 2
+  operation plus
+  name Merge39
+  xpos 1581
+  ypos -272
+ }
+ Merge {
+  inputs 2
+  operation plus
+  mix {{ff_bitmix i}}
+  name Merge40
+  label "Bits and Pieces"
+  xpos 1581
+  ypos -192
+ }
+ Grade {
+  multiply 1.5
+  name Grade27
+  xpos 1581
+  ypos -150
+ }
+ ChannelMerge {
+  inputs 2
+  operation in
+  B rgba.red
+  output rgba.red
+  name ChannelMerge25
+  xpos 1581
+  ypos -107
+ }
+ ChannelMerge {
+  inputs 2
+  operation in
+  B rgba.green
+  output rgba.green
+  name ChannelMerge26
+  xpos 1581
+  ypos -52
+ }
+ ChannelMerge {
+  inputs 2
+  operation in
+  B rgba.blue
+  output rgba.blue
+  name ChannelMerge27
+  xpos 1581
+  ypos 1
+ }
+ Noise {
+  inputs 0
+  size 100
+  zoffset 1.05802
+  gain 0.3
+  gamma 2
+  center {320 240}
+  name Noise12
+  xpos 1020
+  ypos -76
+ }
+set N25002040 [stack 0]
+push $N25002040
+push $N25002040
+ Flare {
+  inputs 0
+  position {{Flare77.position i} {Flare77.position i}}
+  radius {33.35 53.35 73.35}
+  size_mult {{Transform1.scale i}}
+  ring_color {0.19 0.325 0.1}
+  inner_color {0.19 0.325 0.1}
+  chroma_spread 0.028
+  brightness 0.06
+  vis_mask -rgba.alpha
+  corners 3
+  flattening 0.9
+  sharpness 0.56
+  mult_num 5
+  mult_offset 6
+  mult_size 1
+  mult_color 0.1
+  mult_brightness -0.66
+  mult_flattening -1
+  name Flare68
+  xpos 718
+  ypos -292
+ }
+ Blur {
+  size {{ff_bitblur+5 i}}
+  name Blur28
+  xpos 718
+  ypos -264
+ }
+ Flare {
+  position {{Flare77.position i} {Flare77.position i}}
+  radius {0 9.8 28.34}
+  size_mult {{Transform1.scale i}}
+  ring_color {0.19 0.325 0.1}
+  inner_color {0.19 0.325 0.1}
+  chroma_spread 0.068
+  brightness 0.085
+  vis_mask -rgba.alpha
+  corners 3
+  flattening 0.9
+  mult_num 15
+  mult_offset 4
+  mult_size 1
+  mult_color 0.5
+  mult_brightness -0.64
+  mult_visibility -0.84
+  mult_flattening -1
+  name Flare70
+  xpos 718
+  ypos -224
+ }
+ Flare {
+  position {{Flare77.position i} {Flare77.position i}}
+  radius {0 5.43 9.39}
+  size_mult {{Transform1.scale i}}
+  ring_color {0.19 0.325 0.1}
+  inner_color {0.19 0.325 0.1}
+  chroma_spread 0.036
+  brightness 0.048
+  vis_mask -rgba.alpha
+  corners 3
+  flattening 0.9
+  mult_num 15
+  mult_offset 4.3
+  mult_size 1
+  mult_color 0.45
+  mult_brightness -0.78
+  mult_visibility -0.84
+  mult_flattening -1
+  name Flare71
+  xpos 718
+  ypos -199
+ }
+ Grade {
+  multiply {{ff_bithue.r i} {ff_bithue.g i} {ff_bithue.b i} {curve i}}
+  name Grade56
+  xpos 718
+  ypos -171
+ }
+ Flare {
+  inputs 0
+  position {{Flare77.position i} {Flare77.position i}}
+  offset 2.15
+  radius {0 3.97 121.62}
+  size_mult {{Transform1.scale i}}
+  anamorph 10
+  ring_color {0.135 0.44 1}
+  inner_color {0.135 0.44 1}
+  chroma_spread -0.098
+  chroma_shift 7.8
+  brightness 0.008
+  vis_mask -rgba.alpha
+  name Flare72
+  xpos 1197
+  ypos -234
+ }
+ Blur {
+  size {{ff_bitblur+1 i}}
+  name Blur63
+  xpos 1197
+  ypos -206
+ }
+ Grade {
+  multiply {{ff_bithue.r i} {ff_bithue.g i} {ff_bithue.b i} {curve i}}
+  name Grade57
+  xpos 1087
+  ypos -199
+ }
+ Flare {
+  inputs 0
+  position {{Flare77.position i} {Flare77.position i}}
+  radius {0 3.97 32.7}
+  size_mult {{Transform1.scale i}}
+  anamorph 6
+  ring_color {0.36 0.266667 0.54}
+  inner_color 1
+  chroma_spread 0.022
+  brightness 0.18
+  vis_mask -rgba.alpha
+  name Flare73
+  xpos 1092
+  ypos -303
+ }
+ Blur {
+  size 2.8
+  name Blur29
+  xpos 1092
+  ypos -276
+ }
+ Transform {
+  rotate -36
+  center {{Flare73.position.x i} {Flare73.position.y i}}
+  name Transform7
+  xpos 1092
+  ypos -223
+ }
+ Flare {
+  inputs 0
+  position {{Flare77.position i} {Flare77.position i}}
+  radius {132.48 136.45 223.5}
+  size_mult {{Transform1.scale i}}
+  anamorph 1.34
+  ring_color {0.713333 0.603333 0.783333}
+  inner_color 1
+  chroma_shift_angle_add true
+  brightness 0.011
+  vis_mask -rgba.alpha
+  corners 8
+  flattening 100
+  sharpness 1
+  name Flare74
+  xpos 982
+  ypos -433
+ }
+ Flare {
+  position {{Flare77.position i} {Flare77.position i}}
+  radius {101.87 105.84 239.54}
+  size_mult {{Transform1.scale i}}
+  anamorph 1.34
+  ring_color {0.713333 0.603333 0.783333}
+  inner_color 1
+  chroma_shift_angle_add true
+  brightness 0.022
+  vis_mask -rgba.alpha
+  corners 6
+  flattening 100
+  sharpness 1
+  name Flare75
+  xpos 982
+  ypos -406
+ }
+ Flare {
+  position {{Flare77.position i} {Flare77.position i}}
+  radius {148.51 164.14 204.54}
+  size_mult {{Transform1.scale i}}
+  ring_color {0.54 0.46 0.62}
+  inner_color 1
+  brightness 0.07
+  vis_mask -rgba.alpha
+  flattening 100
+  sharpness 1
+  name Flare76
+  xpos 982
+  ypos -379
+ }
+ Glow {
+  brightness 1.66
+  name Glow11
+  xpos 982
+  ypos -352
+ }
+ Blur {
+  size 6.2
+  name Blur30
+  xpos 982
+  ypos -322
+ }
+ Flare {
+  inputs 0
+  position {{ffp_position i} {ffp_position i}}
+  radius {0 5.42 48.75}
+  size_mult {{Transform1.scale i}}
+  ring_color 0.67
+  inner_color 1
+  outer_falloff 1.5
+  inner_falloff 1.5
+  chroma_spread -0.014
+  brightness {1 1 1}
+  vis_mask -rgba.alpha
+  name Flare77
+  label Source
+  xpos 872
+  ypos -528
+ }
+ Flare {
+  position {{Flare77.position i} {Flare77.position i}}
+  radius {0 6.7 312.41}
+  size_mult {{Transform1.scale i}}
+  ring_color {0.73 0.57 0.79}
+  inner_color {0.768889 0.478889 0.702222}
+  outer_falloff 3
+  inner_falloff 0.22
+  chroma_spread -0.006
+  brightness 0.26
+  vis_mask -rgba.alpha
+  name Flare78
+  label "Outer Corona"
+  xpos 872
+  ypos -487
+ }
+ Noise {
+  inputs 0
+  size 130
+  lacunarity 1.84
+  gain 0.425
+  gamma 1
+  center {320 240}
+  name Noise7
+  xpos 762
+  ypos -447
+ }
+ Merge {
+  inputs 2
+  operation in
+  name Merge32
+  xpos 872
+  ypos -447
+ }
+ Flare {
+  position {{Flare77.position i} {Flare77.position i}}
+  radius {36.26 38.76 40.22}
+  size_mult {{Transform1.scale i}}
+  ring_color {0.48 0.14 0.11}
+  inner_color 0
+  inner_falloff 0.95
+  chroma_spread 0.034
+  brightness 0.055
+  vis_mask -rgba.alpha
+  name Flare79
+  label "Source Ring"
+  xpos 872
+  ypos -396
+ }
+ Flare {
+  position {{Flare77.position i} {Flare77.position i}}
+  radius {0 0 80.82}
+  size_mult {{Transform1.scale i}}
+  ring_color 0.67
+  inner_color 1
+  outer_falloff 1.5
+  inner_falloff 1.5
+  chroma_spread -0.014
+  brightness 0.042
+  vis_mask -rgba.alpha
+  name Flare80
+  label Source
+  xpos 872
+  ypos -356
+ }
+ Merge {
+  inputs 2
+  operation plus
+  mix 0.29
+  name Merge33
+  xpos 872
+  ypos -315
+ }
+ Flare {
+  position {{Flare77.position i} {Flare77.position i}}
+  radius {0 12.53 194.33}
+  size_mult {{Transform1.scale i}}
+  ring_color {0.73 0.57 0.79}
+  inner_color {0.768889 0.478889 0.702222}
+  outer_falloff 1.7
+  chroma_spread -0.006
+  brightness 0.095
+  vis_mask -rgba.alpha
+  name Flare81
+  label "Outer Corona"
+  xpos 872
+  ypos -288
+ }
+ Merge {
+  inputs 2
+  operation plus
+  name Merge35
+  xpos 872
+  ypos -223
+ }
+ Merge {
+  inputs 2
+  operation plus
+  mix {{ff_bitmix i}}
+  name Merge36
+  xpos 872
+  ypos -199
+ }
+ Merge {
+  inputs 2
+  operation plus
+  mix {{ff_bitmix i}}
+  name Merge37
+  xpos 872
+  ypos -171
+ }
+ Glow {
+  brightness 0.28
+  name Glow12
+  xpos 872
+  ypos -144
+ }
+ Grade {
+  multiply 2
+  name Grade9
+  xpos 872
+  ypos -117
+ }
+ ChannelMerge {
+  inputs 2
+  operation in
+  B rgba.red
+  output rgba.red
+  name ChannelMerge28
+  xpos 872
+  ypos -90
+ }
+ ChannelMerge {
+  inputs 2
+  operation in
+  B rgba.green
+  output rgba.green
+  name ChannelMerge29
+  xpos 872
+  ypos -35
+ }
+ ChannelMerge {
+  inputs 2
+  operation in
+  B rgba.blue
+  output rgba.blue
+  name ChannelMerge30
+  xpos 872
+  ypos 21
+ }
+ Noise {
+  inputs 0
+  size 100
+  zoffset 1.05802
+  gain 0.3
+  gamma 2
+  center {320 240}
+  name Noise13
+  xpos 384
+  ypos -8
+ }
+set N254797d0 [stack 0]
+push $N254797d0
+push $N254797d0
+ Flare {
+  inputs 0
+  position {{Flare56.position i} {Flare56.position i}}
+  radius {0 6.88 15.22}
+  size_mult {{Transform1.scale i}}
+  anamorph 1.35072
+  ring_color {0.1525 0.1 0.2575}
+  inner_color {0.135 0.135 0.24}
+  outer_falloff 0.86
+  inner_falloff 0.9
+  chroma_spread 0.038
+  brightness 0.034
+  vis_mask -rgba.alpha
+  flattening 0.7
+  mult_num 20
+  mult_offset 3.9
+  mult_size 0.82
+  mult_color -0.85
+  mult_brightness -0.18
+  mult_visibility 0.18
+  mult_rotate 0.08
+  name Flare57
+  label Bits
+  xpos 355
+  ypos -275
+ }
+ Flare {
+  position {{Flare56.position i} {Flare56.position i}}
+  radius {21.87 28.75 37.09}
+  size_mult {{Transform1.scale i}}
+  anamorph 1.44
+  ring_color {0.1525 0.1 0.26}
+  inner_color {0.135 0.135 0.24}
+  outer_falloff 0.86
+  inner_falloff 0.9
+  chroma_spread 0.062
+  brightness 0.016
+  vis_mask -rgba.alpha
+  flattening 0.7
+  mult_num 5
+  mult_offset 8
+  mult_size -0.1
+  mult_color 0.6
+  mult_brightness -0.72
+  mult_visibility -0.18
+  name Flare58
+  label Pieces
+  xpos 355
+  ypos -233
+ }
+ Blur {
+  size {{ff_bitblur+1 i}}
+  name Blur62
+  xpos 355
+  ypos -191
+ }
+ Grade {
+  multiply 8
+  name Grade14
+  xpos 355
+  ypos -149
+ }
+ Grade {
+  multiply {{ff_bithue.r i} {ff_bithue.g i} {ff_bithue.b i} {curve i}}
+  name Grade53
+  xpos 355
+  ypos -121
+ }
+ Blur {
+  size {{ff_bitblur i}}
+  name Blur66
+  xpos 355
+  ypos -93
+ }
+ Flare {
+  inputs 0
+  position {{Flare56.position i} {Flare56.position i}}
+  offset 2.15
+  radius {0 3.97 95.4}
+  size_mult {{Transform1.scale i}}
+  anamorph 11.52
+  ring_color {0.0816667 0.0616667 0.171667}
+  inner_color 1
+  outer_falloff 1.7
+  chroma_spread 0.02
+  brightness 0.095
+  vis_mask -rgba.alpha
+  name Flare50
+  xpos 35
+  ypos -271
+ }
+ Blur {
+  size 16
+  name Blur23
+  xpos 35
+  ypos -244
+ }
+ Grade {
+  multiply 7
+  name Grade13
+  xpos 145
+  ypos -237
+ }
+ Grade {
+  multiply {{ff_bithue.r i} {ff_bithue.g i} {ff_bithue.b i} {curve i}}
+  name Grade54
+  xpos 145
+  ypos -209
+ }
+ Blur {
+  size {{ff_bitblur i}}
+  name Blur65
+  xpos 145
+  ypos -181
+ }
+ Flare {
+  inputs 0
+  position {{Flare56.position i} {Flare56.position i}}
+  offset 2.15
+  radius {0 3.97 32.72}
+  size_mult {{Transform1.scale i}}
+  anamorph 11.52
+  ring_color {0.065 0.045 0.475}
+  inner_color 1
+  outer_falloff 1.7
+  chroma_spread 0.02
+  brightness 0.095
+  vis_mask -rgba.alpha
+  name Flare51
+  xpos 131
+  ypos -445
+ }
+ Blur {
+  size 3
+  name Blur24
+  xpos 131
+  ypos -418
+ }
+ Glow {
+  brightness 0.5
+  name Glow9
+  xpos 131
+  ypos -378
+ }
+ Grade {
+  multiply 10
+  name Grade10
+  xpos 131
+  ypos -351
+ }
+ Grade {
+  multiply {{ff_bithue.r i} {ff_bithue.g i} {ff_bithue.b i} {curve i}}
+  name Grade55
+  xpos 131
+  ypos -323
+ }
+ Blur {
+  size {{ff_bitblur i}}
+  name Blur64
+  xpos 131
+  ypos -295
+ }
+ Flare {
+  inputs 0
+  position {{Flare56.position i} {Flare56.position i}}
+  radius {1.28 9.62 48.57}
+  size_mult {{Transform1.scale i}}
+  anamorph 14.4
+  ring_color {0.24 0.24 0.62}
+  inner_color 1
+  vis_mask -rgba.alpha
+  name Flare52
+  xpos 468
+  ypos -349
+ }
+ Blur {
+  size 20
+  name Blur25
+  xpos 468
+  ypos -322
+ }
+ Grade {
+  multiply 3
+  name Grade11
+  xpos 358
+  ypos -315
+ }
+ Flare {
+  inputs 0
+  position {{Flare56.position i} {Flare56.position i}}
+  radius {0 3.97 32.72}
+  size_mult {{Transform1.scale i}}
+  anamorph 10.08
+  ring_color {0.59 0.57 1}
+  inner_color 1
+  outer_falloff 1.7
+  chroma_spread 0.02
+  vis_mask -rgba.alpha
+  name Flare53
+  xpos 540
+  ypos -492
+ }
+ Blur {
+  size 20
+  name Blur26
+  xpos 540
+  ypos -465
+ }
+ Flare {
+  inputs 0
+  position {{Flare56.position i} {Flare56.position i}}
+  radius {0 3.97 44.38}
+  size_mult {{Transform1.scale i}}
+  anamorph 11.52
+  ring_color {0.59 0.57 1}
+  inner_color 1
+  outer_falloff 1.7
+  chroma_spread 0.02
+  vis_mask -rgba.alpha
+  name Flare54
+  xpos 392
+  ypos -576
+ }
+ Flare {
+  position {{Flare56.position i} {Flare56.position i}}
+  radius {0 3.97 21.06}
+  size_mult {{Transform1.scale i}}
+  anamorph 1.728
+  ring_color {0.59 0.57 1}
+  inner_color 1
+  outer_falloff 1.7
+  chroma_spread 0.02
+  vis_mask -rgba.alpha
+  name Flare55
+  xpos 392
+  ypos -549
+ }
+ Blur {
+  size 3
+  name Blur27
+  xpos 392
+  ypos -524
+ }
+ Glow {
+  brightness 1.14
+  name Glow10
+  xpos 392
+  ypos -484
+ }
+ Merge {
+  inputs 2
+  operation plus
+  name Merge27
+  xpos 392
+  ypos -458
+ }
+ Grade {
+  multiply 2
+  name Grade12
+  xpos 392
+  ypos -431
+ }
+ Flare {
+  inputs 0
+  position {{ffp_position i} {ffp_position i}}
+  radius {0 0 182.85}
+  size_mult {{Transform1.scale i}}
+  anamorph 1.44
+  ring_color {0.865 1 1.135}
+  inner_color 1
+  outer_falloff 5.4
+  inner_falloff 1.05
+  chroma_shift_angle_add true
+  vis_mask -rgba.alpha
+  name Flare56
+  label Source
+  xpos 236
+  ypos -601
+ }
+ Merge {
+  inputs 2
+  operation plus
+  name Merge28
+  xpos 236
+  ypos -431
+ }
+ Merge {
+  inputs 2
+  operation plus
+  mix 0.165
+  name Merge29
+  xpos 236
+  ypos -315
+ }
+ Merge {
+  inputs 2
+  operation plus
+  mix {{ff_bitmix i}}
+  name Merge30
+  xpos 236
+  ypos -261
+ }
+ Merge {
+  inputs 2
+  operation plus
+  mix {{ff_bitmix i}}
+  name Merge31
+  xpos 236
+  ypos -174
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  mix {{ff_bitmix i}}
+  name Merge41
+  xpos 236
+  ypos -86
+ }
+ ChannelMerge {
+  inputs 2
+  operation in
+  B rgba.red
+  output rgba.red
+  name ChannelMerge31
+  xpos 236
+  ypos -22
+ }
+ ChannelMerge {
+  inputs 2
+  operation in
+  B rgba.green
+  output rgba.green
+  name ChannelMerge32
+  xpos 236
+  ypos 33
+ }
+ ChannelMerge {
+  inputs 2
+  operation in
+  B rgba.blue
+  output rgba.blue
+  name ChannelMerge33
+  xpos 236
+  ypos 89
+ }
+ Noise {
+  inputs 0
+  size 100
+  zoffset 1.05802
+  gain 0.4
+  gamma 2
+  center {320 240}
+  name Noise6
+  xpos -266
+  ypos -65
+ }
+set N2550db00 [stack 0]
+push $N2550db00
+push $N2550db00
+ Flare {
+  inputs 0
+  position {{Flare44.position i} {Flare44.position i}}
+  offset 2
+  radius {0 50.62 66.24}
+  size_mult {{Transform1.scale i}}
+  anamorph 1.35
+  ring_color {3 2.18182 2.07025}
+  inner_color {0.93 0.015 0}
+  outer_falloff 10
+  inner_falloff 10
+  chroma_spread 0.048
+  chroma_shift 0.5
+  chroma_shift_angle_add true
+  brightness 0.003
+  vis_mask -rgba.alpha
+  name Flare47
+  label Artifact
+  xpos -515
+  ypos -270
+ }
+ Flare {
+  position {{Flare44.position i} {Flare44.position i}}
+  radius {0 6.88 15.22}
+  size_mult {{Transform1.scale i}}
+  anamorph 1.35
+  ring_color {0.592233 0.38835 1}
+  inner_color {0.5625 0.5625 1}
+  outer_falloff 0.86
+  inner_falloff 0.9
+  chroma_spread 0.062
+  brightness 0.02
+  vis_mask -rgba.alpha
+  flattening 0.7
+  mult_num 12
+  mult_offset 3.8
+  mult_size 0.82
+  mult_color -1.1
+  mult_brightness -0.44
+  mult_visibility -0.18
+  name Flare48
+  label Bits
+  xpos -515
+  ypos -229
+ }
+ Flare {
+  position {{Flare44.position i} {Flare44.position i}}
+  radius {0 6.88 15.22}
+  size_mult {{Transform1.scale i}}
+  anamorph 1.35
+  ring_color {0.1525 0.1 0.2575}
+  inner_color {0.135 0.135 0.24}
+  outer_falloff 0.86
+  inner_falloff 0.9
+  chroma_spread 0.062
+  brightness 0.095
+  vis_mask -rgba.alpha
+  flattening 0.7
+  mult_num 5
+  mult_offset 7
+  mult_size -0.1
+  mult_color 2.05
+  mult_brightness -0.72
+  mult_visibility -0.18
+  name Flare49
+  label Pieces
+  xpos -515
+  ypos -187
+ }
+ Blur {
+  size {{ff_bitblur+1 i}}
+  name Blur61
+  xpos -515
+  ypos -145
+ }
+ Grade {
+  multiply {{ff_bithue.r i} {ff_bithue.g i} {ff_bithue.b i} {curve i}}
+  name Grade52
+  xpos -515
+  ypos -103
+ }
+ Flare {
+  inputs 0
+  position {{Flare44.position i} {Flare44.position i}}
+  radius {0 105.83 213.3}
+  size_mult {{Transform1.scale i}}
+  anamorph 1.35
+  ring_color 0
+  inner_color {0.313333 0.413333 0.533333}
+  outer_falloff 2.2
+  inner_falloff 1.15
+  brightness 0.5
+  vis_mask -rgba.alpha
+  name Flare34
+  label "Inner Corona"
+  xpos -545
+  ypos -436
+ }
+ Flare {
+  position {{Flare44.position i} {Flare44.position i}}
+  radius {42.09 89.8 216.21}
+  size_mult {{Transform1.scale i}}
+  anamorph 1.35
+  ring_color {0.8 0.42 0.7}
+  inner_color 1
+  brightness 0.018
+  vis_mask -rgba.alpha
+  name Flare35
+  label "Outer Corona"
+  xpos -545
+  ypos -395
+ }
+ Blur {
+  size 35.5
+  name Blur20
+  xpos -545
+  ypos -354
+ }
+ Flare {
+  inputs 0
+  position {{Flare44.position i} {Flare44.position i}}
+  radius {0 0 21.06}
+  size_mult {{Transform1.scale i}}
+  anamorph 17.55
+  ring_color {0.3 0.29 0.47}
+  inner_color 1
+  chroma_spread 0.034
+  brightness 0.89
+  vis_mask -rgba.alpha
+  sharpness 0.88
+  name Flare36
+  xpos -268
+  ypos -548
+ }
+ Flare {
+  position {{Flare44.position i} {Flare44.position i}}
+  radius {21.87 40.81 159.36}
+  size_mult {{Transform1.scale i}}
+  anamorph 0.76275
+  ring_color {0.278333 0.278333 0.31}
+  inner_color 1
+  chroma_shift_angle_add true
+  brightness 0.06
+  vis_mask -rgba.alpha
+  corners 12
+  flattening 100
+  sharpness 0.9
+  name Flare37
+  xpos -268
+  ypos -522
+ }
+ Flare {
+  position {{Flare44.position i} {Flare44.position i}}
+  radius {21.87 40.81 118.54}
+  size_mult {{Transform1.scale i}}
+  anamorph 0.85725
+  ring_color {0.278333 0.278333 0.31}
+  inner_color 1
+  brightness 0.105
+  vis_mask -rgba.alpha
+  corners 12
+  flattening 100
+  sharpness 0.9
+  name Flare38
+  xpos -268
+  ypos -495
+ }
+ Flare {
+  position {{Flare44.position i} {Flare44.position i}}
+  radius {21.87 46.64 248.28}
+  size_mult {{Transform1.scale i}}
+  anamorph 2.4165
+  ring_color {0.278333 0.278333 0.4}
+  inner_color 1
+  brightness 0.69
+  vis_mask -rgba.alpha
+  corners 7
+  flattening 100
+  sharpness 0.86
+  name Flare39
+  xpos -268
+  ypos -468
+ }
+ Blur {
+  size 4.8
+  name Blur21
+  xpos -268
+  ypos -441
+ }
+ Grade {
+  multiply 3
+  name Grade8
+  xpos -268
+  ypos -400
+ }
+ Flare {
+  inputs 0
+  position {{Flare44.position i} {Flare44.position i}}
+  radius {0 0 21.06}
+  size_mult {{Transform1.scale i}}
+  anamorph 17.55
+  ring_color {0.3 0.29 0.47}
+  inner_color 1
+  chroma_spread 0.034
+  brightness 0.89
+  vis_mask -rgba.alpha
+  sharpness 0.88
+  name Flare40
+  xpos -142
+  ypos -485
+ }
+ Flare {
+  position {{Flare44.position i} {Flare44.position i}}
+  radius {21.87 40.81 159.36}
+  size_mult {{Transform1.scale i}}
+  anamorph 0.76275
+  ring_color {0.278333 0.278333 0.31}
+  inner_color 1
+  brightness 0.06
+  vis_mask -rgba.alpha
+  corners 12
+  flattening 100
+  sharpness 0.9
+  name Flare41
+  xpos -142
+  ypos -458
+ }
+ Flare {
+  position {{Flare44.position i} {Flare44.position i}}
+  radius {21.87 40.81 118.54}
+  size_mult {{Transform1.scale i}}
+  anamorph 0.85725
+  ring_color {0.278333 0.278333 0.31}
+  inner_color 1
+  brightness 0.105
+  vis_mask -rgba.alpha
+  corners 12
+  flattening 100
+  sharpness 0.9
+  name Flare42
+  xpos -142
+  ypos -431
+ }
+ Flare {
+  position {{Flare44.position i} {Flare44.position i}}
+  radius {21.87 40.81 293.47}
+  size_mult {{Transform1.scale i}}
+  anamorph 2.4165
+  ring_color {0.278333 0.278333 0.4}
+  inner_color 1
+  brightness 0.69
+  vis_mask -rgba.alpha
+  corners 7
+  flattening 100
+  sharpness 0.9
+  name Flare43
+  xpos -142
+  ypos -407
+ }
+ Blur {
+  size 13
+  name Blur22
+  xpos -142
+  ypos -380
+ }
+ Merge {
+  inputs 2
+  operation plus
+  mix 0.6
+  name Merge24
+  xpos -268
+  ypos -373
+ }
+ Flare {
+  inputs 0
+  position {{ffp_position i} {ffp_position i}}
+  radius {0 2.91 18.54}
+  size_mult {{Transform1.scale i}}
+  anamorph 1.35
+  inner_color 1
+  brightness {0.09 0.09 0.24}
+  vis_mask -rgba.alpha
+  name Flare44
+  label Source
+  xpos -414
+  ypos -552
+ }
+ Flare {
+  position {{Flare44.position i} {Flare44.position i}}
+  radius {8.58 50.45 99.6}
+  size_mult {{Transform1.scale i}}
+  anamorph 1.35
+  ring_color {0.47 0.5 0.47}
+  inner_color 0
+  outer_falloff 10
+  inner_falloff 10
+  chroma_spread 0.014
+  chroma_shift 0.5
+  brightness 0.055
+  vis_mask -rgba.alpha
+  name Flare45
+  label "Source Ring"
+  xpos -414
+  ypos -511
+ }
+ Merge {
+  inputs 2
+  operation plus
+  name Merge25
+  xpos -414
+  ypos -373
+ }
+ Merge {
+  inputs 2
+  operation plus
+  mix 0.62
+  name Merge26
+  xpos -414
+  ypos -347
+ }
+ Glow {
+  brightness 0.7
+  name Glow8
+  xpos -414
+  ypos -321
+ }
+ Flare {
+  position {{Flare44.position i} {Flare44.position i}}
+  offset 1.75
+  radius {75.64 126.26 141.88}
+  size_mult {{Transform1.scale i}}
+  anamorph 1.35
+  ring_color {2.82 3 2.82}
+  inner_color 0
+  outer_falloff 2.8
+  inner_falloff 7.4
+  chroma_spread 0.014
+  chroma_shift 0.5
+  brightness 0.002
+  vis_mask -rgba.alpha
+  name Flare46
+  label "Outer Ring"
+  xpos -414
+  ypos -297
+ }
+ Merge2 {
+  inputs 2
+  mix {{ff_bitmix i}}
+  name Merge70
+  xpos -414
+  ypos -103
+ }
+ ChannelMerge {
+  inputs 2
+  operation in
+  B rgba.red
+  output rgba.red
+  name ChannelMerge16
+  xpos -414
+  ypos -79
+ }
+ ChannelMerge {
+  inputs 2
+  operation in
+  B rgba.green
+  output rgba.green
+  name ChannelMerge17
+  xpos -414
+  ypos -24
+ }
+ ChannelMerge {
+  inputs 2
+  operation in
+  B rgba.blue
+  output rgba.blue
+  name ChannelMerge18
+  xpos -414
+  ypos 31
+ }
+ Grade {
+  multiply 2
+  name Grade15
+  xpos -414
+  ypos 86
+ }
+ Noise {
+  inputs 0
+  size 120
+  zoffset 1.05802
+  gain 0.4
+  gamma 2
+  center {320 240}
+  name Noise5
+  xpos -726
+  ypos -86
+ }
+set N25583cb0 [stack 0]
+push $N25583cb0
+push $N25583cb0
+ Flare {
+  inputs 0
+  position {{Flare69.position i} {Flare69.position i}}
+  radius {5 10 20}
+  size_mult {{Transform1.scale i}}
+  anamorph 1.261
+  ring_color {0.453333 0.453333 0.953333}
+  chroma_spread -0.034
+  brightness 0.065
+  vis_mask -rgba.alpha
+  flattening 0.9
+  sharpness 0.62
+  asym_falloff 1.45
+  asym_angle -32
+  mult_num 13
+  mult_offset 4
+  mult_size -0.18
+  mult_color 1.1
+  mult_brightness -0.6
+  mult_visibility -0.86
+  mult_flattening 0.2
+  name Flare66
+  label Bits
+  xpos -984
+  ypos -254
+ }
+ Flare {
+  position {{Flare69.position i} {Flare69.position i}}
+  radius {0 0 15.22}
+  size_mult {{Transform1.scale i}}
+  anamorph 1.1543
+  ring_color {0.44 0.59 0.29}
+  chroma_shift_angle_add true
+  brightness 0.13
+  vis_mask -rgba.alpha
+  flattening 0.5
+  sharpness 0.75
+  mult_num 12
+  mult_offset 3.2
+  mult_size 1
+  mult_color -0.75
+  mult_brightness -0.64
+  mult_visibility -0.4
+  name Flare67
+  label Pieces
+  xpos -984
+  ypos -212
+ }
+ Blur {
+  size {{ff_bitblur+1 i}}
+  name Blur60
+  xpos -984
+  ypos -170
+ }
+ Grade {
+  multiply {{ff_bithue.r i} {ff_bithue.g i} {ff_bithue.b i} {curve i}}
+  name Grade51
+  xpos -984
+  ypos -128
+ }
+ Flare {
+  inputs 0
+  position {{Flare69.position i} {Flare69.position i}}
+  radius {2.74 4.2 344.49}
+  size_mult {{Transform1.scale i}}
+  anamorph 0.53835
+  outer_falloff 10
+  chroma_shift_angle_add true
+  vis_mask -rgba.alpha
+  corners 15
+  flattening 77
+  sharpness 1
+  name Flare33
+  xpos -739
+  ypos -421
+ }
+ Flare {
+  position {{Flare69.position i} {Flare69.position i}}
+  radius {2.74 18.77 239.54}
+  size_mult {{Transform1.scale i}}
+  anamorph 0.6111
+  outer_falloff 10
+  chroma_shift_angle_add true
+  vis_mask -rgba.alpha
+  corners 16
+  flattening 70
+  sharpness 1
+  name Flare59
+  xpos -739
+  ypos -394
+ }
+ Flare {
+  position {{Flare69.position i} {Flare69.position i}}
+  radius {2.74 23.15 264.32}
+  size_mult {{Transform1.scale i}}
+  anamorph 1.94
+  outer_falloff 10
+  brightness 0.6
+  vis_mask -rgba.alpha
+  corners 10
+  flattening 79
+  sharpness 1
+  name Flare60
+  xpos -739
+  ypos -367
+ }
+ Flare {
+  position {{Flare69.position i} {Flare69.position i}}
+  radius {2.74 23.15 280.36}
+  size_mult {{Transform1.scale i}}
+  anamorph 1.1737
+  outer_falloff 10
+  brightness 0.35
+  vis_mask -rgba.alpha
+  corners 12
+  flattening 40
+  sharpness 1
+  name Flare61
+  xpos -739
+  ypos -340
+ }
+ Blur {
+  size 4
+  name Blur19
+  xpos -739
+  ypos -313
+ }
+ Flare {
+  inputs 0
+  position {{Flare69.position i} {Flare69.position i}}
+  offset 1.55
+  radius {116.43 120.4 125.82}
+  size_mult {{Transform1.scale i}}
+  anamorph 1.4065
+  ring_color {1 0.0735294 0.25}
+  inner_color 0
+  outer_falloff 0.66
+  inner_falloff 2.05
+  chroma_spread 0.02
+  chroma_shift -1
+  brightness 0.05
+  vis_mask -rgba.alpha
+  name Flare65
+  label "Source Ring 2"
+  xpos -981
+  ypos -420
+ }
+ Grade {
+  multiply 4
+  name Grade43
+  xpos -981
+  ypos -382
+ }
+ Flare {
+  inputs 0
+  position {{Flare69.position i} {Flare69.position i}}
+  radius {180.58 200.58 380.93}
+  size_mult {{Transform1.scale i}}
+  anamorph 1.358
+  ring_color {0.27 0.26 0.31}
+  inner_color {0.23 0.22 0.31}
+  outer_falloff {1.48333 1.38333 1.63333}
+  brightness {0.1 0.1 0.165}
+  vis_mask -rgba.alpha
+  name Flare62
+  label "Outer Corona"
+  xpos -984
+  ypos -483
+ }
+ Grade {
+  multiply 4
+  name Grade41
+  xpos -984
+  ypos -442
+ }
+ Flare {
+  inputs 0
+  position {{Flare69.position i} {Flare69.position i}}
+  radius {14.4 247.25 456.27}
+  size_mult {{Transform1.scale i}}
+  anamorph 1.358
+  ring_color 0
+  inner_color {0.53 0.34 0.57}
+  outer_falloff 0.1
+  inner_falloff {0.5 0.39 0.39}
+  chroma_spread 0.034
+  chroma_shift 1.4
+  brightness 0.67
+  vis_mask -rgba.alpha
+  name Flare64
+  label "Inner Corona"
+  xpos -728
+  ypos -510
+ }
+ Grade {
+  multiply 3
+  name Grade42
+  xpos -728
+  ypos -469
+ }
+ Flare {
+  inputs 0
+  position {{ffp_position i} {ffp_position i}}
+  radius {0 0.88 45.64}
+  size_mult {{Transform1.scale i}}
+  anamorph 0.97
+  inner_color 1
+  outer_falloff 1.2
+  chroma_spread 0.03
+  brightness {0.68 0.68 0.68}
+  vis_mask -rgba.alpha
+  corners 9
+  flattening 6
+  sharpness 0.34
+  name Flare69
+  label Source
+  xpos -874
+  ypos -563
+ }
+ Flare {
+  position {{Flare69.position i} {Flare69.position i}}
+  radius {63.96 67.93 73.36}
+  size_mult {{Transform1.scale i}}
+  anamorph 1.358
+  ring_color {0.991435 0.396574 0.396574}
+  inner_color 0
+  outer_falloff 1.9
+  inner_falloff 0.8
+  chroma_spread 0.01
+  chroma_shift 1.1
+  chroma_shift_angle_add true
+  brightness 0.2
+  vis_mask -rgba.alpha
+  name Flare63
+  label "Source Ring 1"
+  xpos -874
+  ypos -522
+ }
+ Merge2 {
+  inputs 2
+  name Merge66
+  xpos -874
+  ypos -469
+ }
+ Merge {
+  inputs 2
+  operation plus
+  mix 0.305
+  name Merge22
+  xpos -874
+  ypos -442
+ }
+ Merge2 {
+  inputs 2
+  name Merge67
+  xpos -874
+  ypos -382
+ }
+ Blur {
+  size 3
+  name Blur59
+  xpos -874
+  ypos -347
+ }
+ Merge {
+  inputs 2
+  operation plus
+  name Merge23
+  xpos -874
+  ypos -306
+ }
+ Glow {
+  brightness 0.56
+  name Glow7
+  xpos -874
+  ypos -279
+ }
+ Merge2 {
+  inputs 2
+  mix {{ff_bitmix i}}
+  name Merge69
+  xpos -874
+  ypos -128
+ }
+ ChannelMerge {
+  inputs 2
+  operation in
+  B rgba.red
+  output rgba.red
+  name ChannelMerge13
+  xpos -874
+  ypos -100
+ }
+ ChannelMerge {
+  inputs 2
+  operation in
+  B rgba.green
+  output rgba.green
+  name ChannelMerge14
+  xpos -874
+  ypos -45
+ }
+ ChannelMerge {
+  inputs 2
+  operation in
+  B rgba.blue
+  output rgba.blue
+  name ChannelMerge15
+  xpos -874
+  ypos 10
+ }
+ Noise {
+  inputs 0
+  size 45
+  zoffset 1.05802
+  gain 0.4
+  gamma 2
+  center {320 240}
+  name Noise4
+  xpos -1177
+  ypos -146
+ }
+set N255b6f40 [stack 0]
+push $N255b6f40
+push $N255b6f40
+ Flare {
+  inputs 0
+  position {{Flare28.position.x i} {Flare28.position.y i}}
+  offset 1.05578
+  radius {20.71 40.71 60.71}
+  size_mult {{Transform1.scale i}}
+  anamorph 1.3217
+  ring_color {0.0246059 0.0128327 0.00488575}
+  inner_color {{Flare30.ring_color i} {Flare30.ring_color i} {Flare30.ring_color i}}
+  corners 4
+  flattening 0.634911
+  corners_angle 53.2394
+  mult_offset 4.54023
+  name Flare30
+  xpos -1448
+  ypos -278
+ }
+ Flare {
+  position {{Flare28.position.x i} {Flare28.position.y i}}
+  offset -0.896414
+  radius {0 11.12 26.69}
+  size_mult {{Transform1.scale i}}
+  anamorph 1.41226
+  ring_color {0.0760241 0.0224649 0.0375773}
+  inner_color {{Flare32.ring_color i} {Flare32.ring_color i} {Flare32.ring_color i}}
+  corners 6
+  flattening 0.458723
+  sharpness 0.929573
+  name Flare32
+  xpos -1448
+  ypos -251
+ }
+ Blur {
+  size {{ff_bitblur+1 i}}
+  name Blur18
+  xpos -1448
+  ypos -223
+ }
+ Grade {
+  multiply {{ff_bithue.r i} {ff_bithue.g i} {ff_bithue.b i} {curve i}}
+  name Grade50
+  xpos -1448
+  ypos -181
+ }
+ Flare {
+  inputs 0
+  position {{Flare28.position.x i} {Flare28.position.y i}}
+  radius {56.33 63.02 68.22}
+  size_mult {{Transform1.scale i}}
+  anamorph 1.04229
+  ring_color {0.264979 0.137417 0.0499066}
+  inner_color 0.0512188
+  brightness 0.1
+  corners 4
+  flattening 0.311106
+  name Flare31
+  xpos -1451
+  ypos -431
+ }
+ Blur {
+  size 5
+  name Blur17
+  xpos -1451
+  ypos -403
+ }
+ Sparkles {
+  inputs 0
+  position {{Flare28.position.x i} {Flare28.position.y i}}
+  size {{Transform1.scale+210 i}}
+  anamorphic 0.5
+  rotation {{Sparkles7.rotation i}}
+  ray_nb 56.4656
+  spark_falloff 0.045283
+  ray_falloff 8.41509
+  seed 31
+  name Sparkles9
+  xpos -1462
+  ypos -616
+ }
+ Sparkles {
+  position {{Flare28.position.x i} {Flare28.position.y i}}
+  size {{Transform1.scale+139 i}}
+  anamorphic 0.649481
+  rotation {{Sparkles7.rotation+90 i}}
+  ray_nb 37.0218
+  spark_falloff 0.045283
+  ray_falloff 10
+  seed 34
+  name Sparkles10
+  xpos -1462
+  ypos -589
+ }
+ Grade {
+  white {1.44291 1 0.557093 1}
+  name Grade7
+  xpos -1462
+  ypos -562
+ }
+ Blur {
+  size 3
+  name Blur16
+  xpos -1462
+  ypos -535
+ }
+ Sparkles {
+  inputs 0
+  position {{Flare28.position.x i} {Flare28.position.y i}}
+  size {{Transform1.scale+198 i}}
+  rotation -14.9246
+  ray_nb 4
+  ray_thick 0.4
+  seed 107
+  name Sparkles7
+  xpos -1461
+  ypos -782
+ }
+ Sparkles {
+  position {{Flare28.position.x i} {Flare28.position.y i}}
+  size {{Transform1.scale+198 i}}
+  rotation {{Sparkles7.rotation i}}
+  ray_nb 4
+  ray_thick 0.4
+  seed 114
+  name Sparkles8
+  xpos -1461
+  ypos -755
+ }
+ Grade {
+  multiply {0.353562 2.29288 0.353562 1}
+  name Grade5
+  xpos -1461
+  ypos -728
+ }
+ DirBlurWrapper {
+  BlurType radial
+  BlurCenter {{Flare28.position.x i} {Flare28.position.y i}}
+  Samples 3
+  name DirBlurWrapper6
+  xpos -1461
+  ypos -701
+ }
+ Dot {
+  inputs 0
+  name Dot4
+  xpos -1290
+  ypos -949
+ }
+ Flare {
+  position {{ffp_position.x i} {ffp_position.y i}}
+  radius {7.4 15.56 29.64}
+  size_mult {{Transform1.scale i}}
+  ring_color {1.16889 1 0.831105}
+  inner_color {{Flare28.ring_color i}}
+  corners 4
+  flattening 0.699989
+  sharpness 0.899097
+  name Flare28
+  xpos -1324
+  ypos -931
+ }
+ Grade {
+  multiply {0.681309 1 0.681309 1}
+  name Grade6
+  xpos -1324
+  ypos -840
+ }
+ Flare {
+  position {{Flare28.position.x i} {Flare28.position.y i}}
+  radius {0 9.64 41.46}
+  size_mult {{Transform1.scale i}}
+  ring_color {0.910118 1 0.247462}
+  inner_color {{Flare28.ring_color i}}
+  brightness 0.412299
+  corners 4
+  flattening 0.228568
+  sharpness 0.899097
+  name Flare29
+  xpos -1324
+  ypos -813
+ }
+ Glow {
+  name Glow5
+  xpos -1324
+  ypos -759
+ }
+ Merge2 {
+  inputs 2
+  name Merge18
+  xpos -1324
+  ypos -694
+ }
+ Merge2 {
+  inputs 2
+  name Merge19
+  xpos -1324
+  ypos -528
+ }
+ Merge2 {
+  inputs 2
+  name Merge20
+  xpos -1324
+  ypos -396
+ }
+ Glow {
+  brightness 0.3
+  name Glow6
+  xpos -1324
+  ypos -315
+ }
+ Merge2 {
+  inputs 2
+  mix {{ff_bitmix i}}
+  name Merge21
+  xpos -1324
+  ypos -188
+ }
+ ChannelMerge {
+  inputs 2
+  operation in
+  B rgba.red
+  output rgba.red
+  name ChannelMerge10
+  xpos -1324
+  ypos -160
+ }
+ ChannelMerge {
+  inputs 2
+  operation in
+  B rgba.green
+  output rgba.green
+  name ChannelMerge11
+  xpos -1324
+  ypos -105
+ }
+ ChannelMerge {
+  inputs 2
+  operation in
+  B rgba.blue
+  output rgba.blue
+  name ChannelMerge12
+  xpos -1324
+  ypos -50
+ }
+ Noise {
+  inputs 0
+  size 81.4913
+  zoffset 1.05802
+  gain 0.4
+  gamma 2
+  center {320 240}
+  name Noise3
+  xpos -1716
+  ypos -272
+ }
+set N257e7570 [stack 0]
+push $N257e7570
+push $N257e7570
+ Flare {
+  inputs 0
+  position {{Flare26.position.x i} {Flare26.position.y i}}
+  offset 0.139442
+  radius {0 5.21 19.29}
+  size_mult {{Transform1.scale i}}
+  inner_color 1
+  flattening 0.7
+  sharpness 1
+  mult_num 8
+  mult_offset 2.35632
+  mult_size 1
+  mult_color 0.551724
+  mult_brightness -0.735632
+  name Flare27
+  xpos -1978
+  ypos -456
+ }
+ Blur {
+  size {{ff_bitblur+2 i}}
+  name Blur15
+  xpos -1978
+  ypos -429
+ }
+ Grade {
+  multiply {0.220226 0.150228 1 1}
+  name Grade4
+  xpos -1978
+  ypos -388
+ }
+ Grade {
+  multiply {{ff_bithue.r i} {ff_bithue.g i} {ff_bithue.b i} {curve i}}
+  name Grade49
+  xpos -1978
+  ypos -360
+ }
+ Sparkles {
+  inputs 0
+  position {{Flare26.position.x i} {Flare26.position.y i}}
+  size 141
+  ray_nb 60
+  brightness 0.15
+  color {0.380377 0.408059 1}
+  name Sparkles6
+  xpos -2191
+  ypos -663
+ }
+ Blur {
+  size 2
+  name Blur14
+  xpos -2191
+  ypos -636
+ }
+ DirBlurWrapper {
+  BlurType radial
+  BlurCenter {{Flare12.position.x i} {Flare12.position.y i}}
+  Samples 3
+  name DirBlurWrapper5
+  xpos -2089
+  ypos -636
+ }
+ Sparkles {
+  inputs 0
+  position {{Flare26.position.x i} {Flare26.position.y i}}
+  size 179
+  anamorphic 1.34389
+  rotation 57.4372
+  relative_rotation true
+  ray_nb 5
+  ray_thick 2
+  random_thick true
+  spark_falloff 0
+  ray_falloff 6.45283
+  seed 35
+  brightness 0.4
+  color {0.539874 0.56425 1}
+  broken_affected 9.89774
+  name Sparkles5
+  xpos -2091
+  ypos -706
+ }
+ Blur {
+  size 2
+  name Blur13
+  xpos -2091
+  ypos -679
+ }
+ DirBlurWrapper {
+  BlurType radial
+  BlurCenter {{Flare12.position.x i} {Flare12.position.y i}}
+  Samples 3
+  name DirBlurWrapper4
+  xpos -2004
+  ypos -679
+ }
+ Sparkles {
+  inputs 0
+  position {{Flare26.position.x i} {Flare26.position.y i}}
+  size 186
+  ray_nb 86.1213
+  seed 41
+  color {0.413729 0.462215 0.949161}
+  name Sparkles4
+  xpos -2001
+  ypos -760
+ }
+ DirBlurWrapper {
+  BlurType radial
+  BlurCenter {{Flare26.position.x i} {Flare26.position.y i}}
+  BlurLength 35
+  name DirBlurWrapper3
+  xpos -2001
+  ypos -733
+ }
+ Dot {
+  inputs 0
+  name Dot5
+  xpos -1829
+  ypos -961
+ }
+ Flare {
+  position {{ffp_position.x i} {ffp_position.y i}}
+  radius {0 0 26.67}
+  size_mult {{Transform1.scale i}}
+  inner_color 1
+  flattening 0.3
+  name Flare26
+  label Core
+  xpos -1863
+  ypos -882
+ }
+ Glow {
+  tint {0 0.0739832 1}
+  size 40
+  name Glow4
+  xpos -1863
+  ypos -841
+ }
+ Flare {
+  position {{Flare26.position.x i} {Flare26.position.y i}}
+  radius {0 12.6 143.55}
+  size_mult {{Transform1.scale i}}
+  ring_color {0.00481569 0.00734533 0.0865052}
+  inner_color {{Flare25.ring_color i} {Flare25.ring_color i} {Flare25.ring_color i}}
+  name Flare25
+  xpos -1863
+  ypos -814
+ }
+ Merge2 {
+  inputs 2
+  name Merge14
+  xpos -1863
+  ypos -726
+ }
+ Grade {
+  multiply 1.55346
+  gamma 0.672651
+  name Grade3
+  xpos -1863
+  ypos -699
+ }
+ Merge2 {
+  inputs 2
+  name Merge15
+  xpos -1863
+  ypos -672
+ }
+ Merge2 {
+  inputs 2
+  name Merge17
+  xpos -1863
+  ypos -629
+ }
+ Grade {
+  multiply {1 1 2 1}
+  name Grade2
+  xpos -1863
+  ypos -517
+ }
+ Merge2 {
+  inputs 2
+  mix {{ff_bitmix i}}
+  name Merge16
+  xpos -1863
+  ypos -360
+ }
+ ChannelMerge {
+  inputs 2
+  operation in
+  B rgba.red
+  output rgba.red
+  name ChannelMerge7
+  xpos -1863
+  ypos -286
+ }
+ ChannelMerge {
+  inputs 2
+  operation in
+  B rgba.green
+  output rgba.green
+  name ChannelMerge8
+  xpos -1863
+  ypos -231
+ }
+ ChannelMerge {
+  inputs 2
+  operation in
+  B rgba.blue
+  output rgba.blue
+  name ChannelMerge9
+  xpos -1863
+  ypos -176
+ }
+ Noise {
+  inputs 0
+  size 81.4913
+  zoffset 1.05802
+  gain 0.4
+  gamma 2
+  center {320 240}
+  name Noise2
+  xpos -2402
+  ypos -113
+ }
+set N2587f980 [stack 0]
+push $N2587f980
+push $N2587f980
+ Flare {
+  inputs 0
+  position {{Flare12.position.x i} {Flare12.position.y i}}
+  radius {0 5.21 7.46}
+  size_mult {{Transform1.scale i}}
+  inner_color 0.691524
+  brightness 1.3231
+  flattening 0.26825
+  mult_num 7
+  mult_seed 6
+  mult_offset 1.6092
+  mult_size 0.747126
+  mult_color -0.827586
+  mult_brightness -1
+  mult_visibility 0.0229885
+  mult_flattening 0.482759
+  mult_rotate 0.264368
+  name Flare22
+  label "Bits 1"
+  xpos -2388
+  ypos -412
+ }
+ Flare {
+  position {{Flare12.position.x i} {Flare12.position.y i}}
+  radius {0 5.21 7.46}
+  size_mult {{Transform1.scale i}}
+  inner_color 0.691524
+  brightness 1.39889
+  flattening 0.26825
+  mult_num 4
+  mult_seed 6
+  mult_offset 1.2069
+  mult_size 0.781609
+  mult_color 3
+  mult_brightness -0.816092
+  mult_visibility 0.0229885
+  mult_flattening 0.482759
+  mult_rotate 0.264368
+  name Flare23
+  label "Bits 2"
+  xpos -2388
+  ypos -371
+ }
+ Flare {
+  position {{Flare12.position.x i} {Flare12.position.y i}}
+  radius {0 5.21 7.46}
+  size_mult {{Transform1.scale i}}
+  inner_color 0.691524
+  brightness 1.27486
+  flattening 1.62157
+  sharpness 0.459552
+  asym_multiplier 3
+  asym_falloff 0.1
+  mult_num 2
+  mult_seed 6
+  mult_offset -0.842105
+  mult_size 1
+  mult_color -0.915789
+  mult_brightness -0.894737
+  mult_visibility 0.0229885
+  mult_flattening 0.884211
+  mult_rotate 0.264368
+  name Flare24
+  label "Bits 3"
+  xpos -2388
+  ypos -330
+ }
+ Saturation {
+  saturation 1.5
+  name Saturation1
+  xpos -2388
+  ypos -289
+ }
+ Blur {
+  size {{ff_bitblur+2 i}}
+  name Blur11
+  xpos -2388
+  ypos -262
+ }
+ Grade {
+  multiply {{ff_bithue.r i} {ff_bithue.g i} {ff_bithue.b i} {curve i}}
+  name Grade48
+  xpos -2388
+  ypos -220
+ }
+ Sparkles {
+  inputs 0
+  position {{Flare12.position.x i} {Flare12.position.y i}}
+  size {{Transform1.scale+143 i}}
+  anamorphic 1.34389
+  rotation 11.0377
+  relative_rotation true
+  ray_nb 7
+  ray_thick 1
+  random_thick true
+  spark_falloff 0
+  ray_falloff 6.45283
+  seed 15
+  brightness 0.1
+  broken_affected 9.89774
+  name Sparkles2
+  xpos -3037
+  ypos -360
+ }
+ Blur {
+  size 2
+  name Blur9
+  xpos -3037
+  ypos -333
+ }
+ Sparkles {
+  inputs 0
+  position {{Flare12.position.x i} {Flare12.position.y i}}
+  size {{Transform1.scale+178 i}}
+  anamorphic 1.34389
+  rotation -13.1156
+  relative_rotation true
+  ray_nb 20
+  ray_thick 2
+  random_thick true
+  spark_falloff 0
+  ray_falloff 6.45283
+  seed 35
+  brightness 0.2
+  broken_affected 9.89774
+  name Sparkles3
+  xpos -2934
+  ypos -387
+ }
+ Blur {
+  size 5
+  name Blur10
+  xpos -2934
+  ypos -360
+ }
+ DirBlurWrapper {
+  BlurType radial
+  BlurCenter {{Flare12.position.x i} {Flare12.position.y i}}
+  Samples 3
+  name DirBlurWrapper2
+  xpos -2846
+  ypos -360
+ }
+ Sparkles {
+  inputs 0
+  position {{Flare12.position.x i} {Flare12.position.y i}}
+  size {{Transform1.scale+178 i}}
+  anamorphic 1.34389
+  rotation -13.1156
+  relative_rotation true
+  ray_nb 5
+  ray_thick 2
+  random_thick true
+  spark_falloff 0
+  ray_falloff 6.45283
+  seed 35
+  brightness 0.4
+  broken_affected 9.89774
+  name Sparkles1
+  xpos -2747
+  ypos -414
+ }
+ Blur {
+  size 2
+  name Blur8
+  xpos -2747
+  ypos -387
+ }
+ DirBlurWrapper {
+  BlurType radial
+  BlurCenter {{Flare12.position.x i} {Flare12.position.y i}}
+  Samples 3
+  name DirBlurWrapper1
+  xpos -2659
+  ypos -387
+ }
+ Flare {
+  inputs 0
+  position {{Flare12.position.x i} {Flare12.position.y i}}
+  radius {51.89 56.33 59.34}
+  size_mult {{Transform1.scale i}}
+  ring_color {0.59304 0.107343 0.107343}
+  inner_color 0
+  chroma_spread 0.220916
+  name Flare13
+  label "Ring 1"
+  xpos -2657
+  ypos -509
+ }
+ Blur {
+  size 3
+  name Blur7
+  xpos -2657
+  ypos -468
+ }
+ Flare {
+  inputs 0
+  position {{Flare12.position.x i} {Flare12.position.y i}}
+  radius {19.23 30.35 105.09}
+  size_mult {{Transform1.scale i}}
+  ring_color {0.392583 0.399146 0.52281}
+  inner_color {{Flare15.ring_color.r i} {Flare15.ring_color.r i} {Flare15.ring_color.r i}}
+  outer_falloff 2
+  brightness 1.4
+  name Flare15
+  xpos -2801
+  ypos -902
+ }
+ Blur {
+  size 20
+  name Blur12
+  xpos -2801
+  ypos -875
+ }
+ Glow {
+  brightness 0.7
+  name Glow2
+  xpos -2801
+  ypos -834
+ }
+ Flare {
+  inputs 0
+  position {{ffp_position.x i} {ffp_position.y i}}
+  radius {0 0.77 16.33}
+  size_mult {{Transform1.scale i}}
+  inner_color 1
+  brightness 3
+  name Flare12
+  label Core
+  xpos -2684
+  ypos -940
+ }
+ Glow {
+  brightness 5
+  name Glow3
+  xpos -2684
+  ypos -899
+ }
+ Dot {
+  inputs 0
+  name Dot6
+  xpos -2515
+  ypos -970
+ }
+ Merge2 {
+  inputs 2
+  name Merge12
+  xpos -2549
+  ypos -899
+ }
+ Merge2 {
+  inputs 2
+  mix 0.8
+  name Merge11
+  xpos -2549
+  ypos -834
+ }
+ Flare {
+  position {{Flare12.position.x i} {Flare12.position.y i}}
+  offset -0.537849
+  radius {202.78 212.43 222.07}
+  size_mult {{Transform1.scale i}}
+  ring_color {0.483413 0.313869 0.182298}
+  inner_color {0.392639 0.254932 0.148067}
+  brightness 0.0202327
+  asym_multiplier 10
+  asym_falloff 0.45018
+  asym_angle -180
+  asym_angle_add true
+  name Flare14
+  label "Big Ring"
+  xpos -2549
+  ypos -807
+ }
+ Flare {
+  position {{Flare12.position.x i} {Flare12.position.y i}}
+  offset 0.856574
+  radius {85.92 95.57 105.21}
+  size_mult {{Transform1.scale i}}
+  ring_color {0.483413 0.313869 0.182298}
+  inner_color {0.392639 0.254932 0.148067}
+  brightness 0.115
+  asym_falloff 0.45018
+  asym_angle -180
+  asym_angle_add true
+  name Flare16
+  label "Big Ring 2"
+  xpos -2549
+  ypos -766
+ }
+ Flare {
+  position {{Flare12.position.x i} {Flare12.position.y i}}
+  offset 0.78
+  radius {41.54 51.19 60.83}
+  size_mult {{Transform1.scale i}}
+  ring_color {0.483413 0.313869 0.182298}
+  inner_color {0.392639 0.254932 0.148067}
+  brightness 0.212
+  asym_falloff 0.45018
+  asym_angle -180
+  asym_angle_add true
+  name Flare17
+  label "Big Ring 3"
+  xpos -2549
+  ypos -725
+ }
+ Flare {
+  position {{Flare12.position.x i} {Flare12.position.y i}}
+  offset 1.49402
+  radius {22.31 31.96 41.6}
+  size_mult {{Transform1.scale i}}
+  ring_color {0.483413 0.313869 0.182298}
+  inner_color {0.392639 0.254932 0.148067}
+  brightness 0.206
+  asym_falloff 0.45018
+  asym_angle -180
+  asym_angle_add true
+  name Flare18
+  label "Big Ring 4"
+  xpos -2549
+  ypos -684
+ }
+ Flare {
+  position {{Flare12.position.x i} {Flare12.position.y i}}
+  offset 1.5
+  radius {11.95 21.6 26.8}
+  size_mult {{Transform1.scale i}}
+  ring_color {0.182298 0.483413 0.270177}
+  inner_color {0.144038 0.381956 0.213473}
+  brightness 0.213407
+  asym_falloff 0.45018
+  asym_angle -180
+  asym_angle_add true
+  name Flare19
+  label "Big Ring 5"
+  xpos -2549
+  ypos -643
+ }
+ Flare {
+  position {{Flare12.position.x i} {Flare12.position.y i}}
+  offset 1.57
+  radius {3.07 12.72 17.92}
+  size_mult {{Transform1.scale i}}
+  ring_color {0.182298 0.483413 0.270177}
+  inner_color {0.0600837 0.159328 0.0890478}
+  brightness 0.213407
+  asym_falloff 0.45018
+  asym_angle -180
+  asym_angle_add true
+  name Flare20
+  label "Big Ring 6"
+  xpos -2549
+  ypos -602
+ }
+ Flare {
+  position {{Flare12.position.x i} {Flare12.position.y i}}
+  offset -0.458167
+  radius {22.31 31.96 41.6}
+  size_mult {{Transform1.scale i}}
+  ring_color {0.293218 0.308236 0.637256}
+  inner_color {0.296379 0.31156 0.644127}
+  brightness 0.221718
+  asym_falloff 0.45018
+  asym_angle -180
+  asym_angle_add true
+  name Flare21
+  label "Big Ring 7"
+  xpos -2549
+  ypos -561
+ }
+ Merge2 {
+  inputs 2
+  mix 0.1
+  name Merge6
+  xpos -2549
+  ypos -461
+ }
+ Merge2 {
+  inputs 2
+  name Merge7
+  xpos -2549
+  ypos -380
+ }
+ Merge2 {
+  inputs 2
+  mix 0.7
+  name Merge9
+  xpos -2549
+  ypos -353
+ }
+ Merge2 {
+  inputs 2
+  mix 0.8
+  name Merge8
+  xpos -2549
+  ypos -326
+ }
+ Merge2 {
+  inputs 2
+  mix {{ff_bitmix i}}
+  name Merge10
+  xpos -2549
+  ypos -220
+ }
+ ChannelMerge {
+  inputs 2
+  operation in
+  B rgba.red
+  output rgba.red
+  name ChannelMerge4
+  xpos -2549
+  ypos -127
+ }
+ ChannelMerge {
+  inputs 2
+  operation in
+  B rgba.green
+  output rgba.green
+  name ChannelMerge5
+  xpos -2549
+  ypos -72
+ }
+ ChannelMerge {
+  inputs 2
+  operation in
+  B rgba.blue
+  output rgba.blue
+  name ChannelMerge6
+  xpos -2549
+  ypos -17
+ }
+ Noise {
+  inputs 0
+  size 81.4913
+  gain 0.4
+  gamma 2
+  center {320 240}
+  name Noise1
+  xpos -3217
+  ypos -58
+ }
+set N25aa0f00 [stack 0]
+push $N25aa0f00
+push $N25aa0f00
+ Flare {
+  inputs 0
+  position {{Flare1.position.x i} {Flare1.position.y i}}
+  offset 2.88845
+  radius {65.2 70.41 74.14}
+  size_mult {{Transform1.scale i}}
+  ring_color {0.709749 0.471849 0.291998}
+  inner_color {0.182652 0.152276 0.121901}
+  chroma_spread 0.0209163
+  brightness 0.08
+  asym_multiplier 4
+  asym_falloff 0.674039
+  asym_angle 156.338
+  name Flare10
+  xpos -3508
+  ypos -246
+ }
+ Blur {
+  size 7
+  name Blur6
+  xpos -3508
+  ypos -219
+ }
+ Grade {
+  multiply {{ff_bithue.r i} {ff_bithue.g i} {ff_bithue.b i} {curve i}}
+  name Grade1
+  xpos -3508
+  ypos -177
+ }
+ Flare {
+  inputs 0
+  position {{Flare1.position.x i} {Flare1.position.y i}}
+  offset -2.33068
+  radius {13.31 20 25.2}
+  size_mult {{Transform1.scale i}}
+  anamorph 1.64846
+  ring_color {0.0734317 0.103519 0.258}
+  inner_color {{root.Flare6.ring_color.r i} {root.Flare6.ring_color.g i} {root.Flare6.ring_color.b i}}
+  chroma_shift 1.42322
+  brightness 3
+  corners 6
+  flattening 1.15712
+  sharpness 0.421723
+  mult_num 2
+  mult_offset 3.21839
+  mult_size 0.793103
+  mult_color 1.48276
+  mult_brightness -0.103448
+  mult_flattening 1
+  name Flare8
+  xpos -3508
+  ypos -342
+ }
+ Blur {
+  size {{ff_bitblur+3 i}}
+  name Blur4
+  xpos -3508
+  ypos -315
+ }
+ Grade {
+  multiply {{ff_bithue.r i} {ff_bithue.g i} {ff_bithue.b i} {curve i}}
+  name Grade46
+  xpos -3508
+  ypos -273
+ }
+ Flare {
+  inputs 0
+  position {{Flare1.position.x i} {Flare1.position.y i}}
+  offset -0.697211
+  radius {0 6.69 16.33}
+  size_mult {{Transform1.scale i}}
+  ring_color {0.0734317 0.103519 0.258}
+  inner_color {{Flare9.ring_color.r i} {Flare9.ring_color.r i} {Flare9.ring_color.r i}}
+  chroma_shift 1.67331
+  brightness 2
+  flattening 0.0142855
+  sharpness 0.421723
+  mult_num 10
+  mult_offset 2.93103
+  mult_size 0.0344828
+  mult_color 1.65517
+  mult_brightness -0.0804598
+  mult_flattening 1
+  name Flare9
+  xpos -3507
+  ypos -493
+ }
+ Flare {
+  position {{Flare1.position.x i} {Flare1.position.y i}}
+  offset -1.01594
+  radius {0 6.69 11.89}
+  size_mult {{Transform1.scale i}}
+  ring_color {0.0734317 0.103519 0.258}
+  inner_color {{Flare7.ring_color.r i} {Flare7.ring_color.r i} {Flare7.ring_color.r i}}
+  chroma_spread 0.0129482
+  chroma_shift 3.90438
+  brightness 2.69152
+  flattening 1.15712
+  sharpness 0.421723
+  mult_num 13
+  mult_offset 4.31034
+  mult_size 0.701149
+  mult_color 2.37931
+  mult_brightness -0.0804598
+  mult_flattening 1
+  name Flare7
+  xpos -3507
+  ypos -466
+ }
+ Flare {
+  position {{Flare1.position.x i} {Flare1.position.y i}}
+  offset -2.21116
+  radius {0 6.69 11.89}
+  size_mult {{Transform1.scale i}}
+  ring_color {0.0734317 0.103519 0.258}
+  inner_color {{Flare6.ring_color.r i} {Flare6.ring_color.r i} {Flare6.ring_color.r i}}
+  chroma_shift 1.67331
+  brightness 2.69152
+  flattening 1.15712
+  sharpness 0.421723
+  mult_num 4
+  mult_offset 2.35632
+  mult_size 0.770115
+  mult_color 1.17241
+  mult_brightness -0.0804598
+  mult_flattening 1
+  name Flare6
+  xpos -3507
+  ypos -439
+ }
+ Blur {
+  size {{ff_bitblur+2 i}}
+  name Blur5
+  xpos -3507
+  ypos -411
+ }
+ Grade {
+  multiply {{ff_bithue.r i} {ff_bithue.g i} {ff_bithue.b i} {curve i}}
+  name Grade47
+  xpos -3507
+  ypos -369
+ }
+ Flare {
+  inputs 0
+  position {{Flare69.position i} {Flare69.position i}}
+  radius {14.4 254.65 456.27}
+  size_mult {{Transform1.scale i}}
+  anamorph 1.04807
+  ring_color 0
+  inner_color {0.764064 0.250604 0.872161}
+  outer_falloff 0.1
+  inner_falloff {0.5 0.39 0.39}
+  chroma_spread 0.034
+  chroma_shift 1.4
+  brightness 0.67
+  vis_mask -rgba.alpha
+  name Flare134
+  label "Inner Corona"
+  xpos -3222
+  ypos -541
+ }
+ Grade {
+  multiply 3
+  name Grade44
+  xpos -3222
+  ypos -500
+ }
+ Flare {
+  inputs 0
+  position {{Flare1.position.x i} {Flare1.position.y i}}
+  radius {60.77 77.81 139.23}
+  size_mult {{Transform1.scale i}}
+  ring_color {0.16796 0.396161 0.596516}
+  inner_color 1
+  brightness 2
+  corners 9
+  flattening 100
+  sharpness 1
+  name Flare5
+  label "Flare Spike"
+  xpos -3594
+  ypos -654
+ }
+ Blur {
+  size 4
+  name Blur2
+  xpos -3594
+  ypos -613
+ }
+ Flare {
+  inputs 0
+  position {{Flare1.position.x i} {Flare1.position.y i}}
+  radius {168.75 168.75 172.48}
+  size_mult {{Transform1.scale i}}
+  ring_color {0.21085 0.0517612 0.0356737}
+  inner_color 0
+  chroma_spread 0.0159933
+  brightness 4
+  asym_multiplier 0.361915
+  name Flare3
+  label "Outer Ring"
+  xpos -3487
+  ypos -722
+ }
+ Blur {
+  size 7
+  name Blur1
+  xpos -3487
+  ypos -681
+ }
+ Flare {
+  inputs 0
+  position {{Flare1.position.x i} {Flare1.position.y i}}
+  radius {51.89 57.1 60.83}
+  size_mult {{Transform1.scale i}}
+  ring_color {0.851486 0.20903 0.144063}
+  inner_color 0
+  brightness 0.392271
+  name Flare2
+  label "Inner Ring"
+  xpos -3497
+  ypos -868
+ }
+ Flare {
+  position {{Flare1.position.x i} {Flare1.position.y i}}
+  radius {37.1 42.31 46.04}
+  size_mult {{Transform1.scale i}}
+  ring_color {0.851486 0.20903 0.144063}
+  inner_color 0
+  brightness 0.143601
+  name Flare11
+  label "Inner Ring 2"
+  xpos -3497
+  ypos -827
+ }
+ Blur {
+  size 4
+  name Blur58
+  xpos -3497
+  ypos -786
+ }
+ Dot {
+  inputs 0
+  name Dot7
+  xpos -3330
+  ypos -970
+ }
+ Flare {
+  position {{ffp_position.x i} {ffp_position.y i}}
+  radius {0 2.96 35.82}
+  size_mult {{Transform1.scale i}}
+  ring_color {1.125 1 0.875}
+  inner_color {1.125 1 0.875}
+  outer_falloff 1.54694
+  name Flare1
+  label Core
+  xpos -3364
+  ypos -903
+ }
+ Blur {
+  size 10
+  name Blur3
+  xpos -3364
+  ypos -862
+ }
+ Merge2 {
+  inputs 2
+  name Merge65
+  xpos -3364
+  ypos -779
+ }
+ Merge2 {
+  inputs 2
+  name Merge1
+  xpos -3364
+  ypos -674
+ }
+ Flare {
+  position {{Flare1.position.x i} {Flare1.position.y i}}
+  radius {0 24.55 185.09}
+  size_mult {{Transform1.scale i}}
+  ring_color {0.0786219 0.0809515 0.123933}
+  chroma_spread -0.0348606
+  chroma_shift 0.876494
+  brightness 3
+  asym_multiplier 0.5
+  name Flare4
+  label "Inner Core"
+  xpos -3364
+  ypos -647
+ }
+ Merge2 {
+  inputs 2
+  mix 0.205776
+  name Merge2
+  xpos -3364
+  ypos -606
+ }
+ Glow {
+  tolerance 0.244361
+  size 30
+  name Glow1
+  xpos -3364
+  ypos -579
+ }
+ Merge2 {
+  inputs 2
+  mix 0.7
+  name Merge68
+  xpos -3364
+  ypos -500
+ }
+ Merge2 {
+  inputs 2
+  mix {{ff_bitmix i}}
+  name Merge4
+  xpos -3364
+  ypos -369
+ }
+ Merge2 {
+  inputs 2
+  mix {{ff_bitmix i}}
+  name Merge3
+  xpos -3364
+  ypos -273
+ }
+ Merge2 {
+  inputs 2
+  mix {{ff_bitmix i}}
+  name Merge5
+  xpos -3364
+  ypos -177
+ }
+ ChannelMerge {
+  inputs 2
+  operation in
+  B rgba.red
+  output rgba.red
+  name ChannelMerge1
+  xpos -3364
+  ypos -72
+ }
+ ChannelMerge {
+  inputs 2
+  operation in
+  B rgba.green
+  output rgba.green
+  name ChannelMerge2
+  xpos -3364
+  ypos -17
+ }
+ ChannelMerge {
+  inputs 2
+  operation in
+  B rgba.blue
+  output rgba.blue
+  name ChannelMerge3
+  xpos -3364
+  ypos 39
+ }
+ Dot {
+  inputs 0
+  name Dot8
+  label NONE
+  note_font_size 30
+  xpos 1168
+  ypos 1548
+ }
+ Switch {
+  inputs 17
+  which {{ffp_presets i}}
+  name Switch1
+  xpos 872
+  ypos 1544
+ }
+ Crop {
+  box {0 0 {width i} {height i}}
+  name Crop1
+  xpos 872
+  ypos 1572
+ }
+ Grade {
+  white {1 1 1 1}
+  name Grade45
+  xpos 872
+  ypos 1693
+ }
+ Dot {
+  name Dot9
+  tile_color 0x9597bf00
+  xpos 906
+  ypos 1809
+ }
+set N25af2cd0 [stack 0]
+ Dot {
+  name Dot10
+  tile_color 0x9597bf00
+  xpos 1016
+  ypos 1809
+ }
+ Shuffle {
+  red blue
+  green blue
+  alpha blue
+  name Shuffle3
+  xpos 982
+  ypos 1827
+ }
+ Transform {
+  translate {{ffp_chroma i} {curve i}}
+  center {320 240}
+  shutter 1.88
+  name Transform3
+  xpos 982
+  ypos 1855
+ }
+ Dot {
+  name Dot11
+  tile_color 0x9597bf00
+  xpos 1016
+  ypos 1921
+ }
+push $N25af2cd0
+ Dot {
+  name Dot12
+  tile_color 0x9597bf00
+  xpos 796
+  ypos 1809
+ }
+ Shuffle {
+  green red
+  blue red
+  alpha red
+  name Shuffle1
+  xpos 762
+  ypos 1827
+ }
+ Transform {
+  translate {{ffp_chroma*(0-1) i} {curve i}}
+  center {320 240}
+  name Transform2
+  xpos 762
+  ypos 1854
+ }
+ Dot {
+  name Dot13
+  tile_color 0x9597bf00
+  xpos 796
+  ypos 1881
+ }
+push $N25af2cd0
+ Shuffle {
+  red green
+  blue green
+  alpha green
+  name Shuffle2
+  xpos 872
+  ypos 1827
+ }
+ Copy {
+  inputs 2
+  from0 rgba.alpha
+  to0 rgba.red
+  name Copy1
+  xpos 872
+  ypos 1870
+ }
+ Copy {
+  inputs 2
+  from0 rgba.alpha
+  to0 rgba.blue
+  name Copy2
+  xpos 872
+  ypos 1910
+ }
+ Shuffle {
+  alpha black
+  name Shuffle5
+  xpos 872
+  ypos 1951
+ }
+ Dot {
+  name Dot14
+  xpos 906
+  ypos 2077
+ }
+set N25b03840 [stack 0]
+push $N25b03840
+ ChannelMerge {
+  inputs 2
+  A rgba.red
+  B rgba.red
+  name ChannelMerge43
+  xpos 1022
+  ypos 2059
+ }
+set N25b03a90 [stack 0]
+push $N25b03a90
+ ChannelMerge {
+  inputs 2
+  A rgba.green
+  B rgba.green
+  name ChannelMerge44
+  xpos 1022
+  ypos 2114
+ }
+set N25b06840 [stack 0]
+push $N25b06840
+ ChannelMerge {
+  inputs 2
+  A rgba.blue
+  B rgba.blue
+  name ChannelMerge45
+  xpos 1022
+  ypos 2169
+ }
+push $N25b03840
+ Copy {
+  inputs 2
+  from0 rgba.alpha
+  to0 rgba.alpha
+  name Copy3
+  xpos 872
+  ypos 2176
+ }
+ ChannelMerge {
+  inputs 2
+  operation stencil
+  B rgba.red
+  output rgba.red
+  name ChannelMerge46
+  xpos 872
+  ypos 2369
+ }
+ ChannelMerge {
+  inputs 2
+  operation stencil
+  B rgba.green
+  output rgba.green
+  name ChannelMerge47
+  xpos 872
+  ypos 2424
+ }
+ ChannelMerge {
+  inputs 2
+  operation stencil
+  B rgba.blue
+  output rgba.blue
+  name ChannelMerge48
+  xpos 872
+  ypos 2479
+ }
+push $N1a269a70
+ Merge2 {
+  inputs 2
+  operation plus
+  name Merge13
+  xpos 872
+  ypos 2674
+ }
+ Output {
+  name Output1
+  xpos 872
+  ypos 2805
+ }
+ StickyNote {
+  inputs 0
+  name StickyNote1
+  label "To add new flares:\n\n1) Parent all flare and effect Positions to the first \"Core\" flare Position.\n2) Parent \"size mult\" to the Transform \"size\".\n3) Connect it up to the next Switch1 input.\n4) Add the flare name to the \"Preset\" .knob. "
+  note_font_size 30
+  xpos 941
+  ypos -1373
+ }
+push $N24ce0bd0
+ Viewer {
+  name Viewer2
+  selected true
+  xpos -210
+  ypos 1719
+ }
+end_group

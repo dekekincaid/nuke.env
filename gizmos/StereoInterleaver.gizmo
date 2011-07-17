@@ -1,0 +1,71 @@
+#! C:/Program Files/The Foundry/Nuke5.1v3/Nuke5.1.exe -nx
+version 5.1300
+Gizmo {
+ inputs 2
+}
+ Constant {
+  inputs 0
+  channels rgb
+  color {{"(frame+1) % 2" i}}
+  format "1920 1080 0 0 1920 1080 1 HD"
+  name Constant1
+  xpos 826
+  ypos -391
+ }
+ Input {
+  inputs 0
+  name LEFT
+  xpos 601
+  ypos -519
+ }
+ Shuffle {
+  alpha white
+  name Shuffle1
+  xpos 601
+  ypos -494
+ }
+ Retime {
+  input.first 12
+  input.last 905
+  output.first 12
+  output.last 1799
+  speed 0.5
+  name Retime1
+  xpos 601
+  ypos -455
+ }
+ Dot {
+  name Dot1
+  xpos 635
+  ypos -365
+ }
+ Input {
+  inputs 0
+  name RIGHT
+  xpos 697
+  ypos -518
+  number 1
+ }
+ Retime {
+  input.first 12
+  input.last 905
+  output.first 12
+  output.last 1799
+  speed 0.5
+  name Retime2
+  xpos 697
+  ypos -455
+ }
+ Merge2 {
+  inputs 2+1
+  maskChannelMask rgba.red
+  name Merge1
+  xpos 697
+  ypos -368
+ }
+ Output {
+  name Output1
+  xpos 697
+  ypos -268
+ }
+end_group

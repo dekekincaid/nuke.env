@@ -1,0 +1,102 @@
+#! C:/programs/Nuke4.5.21/nuke4.5.exe -nx
+version 4.5021
+Gizmo {
+ inputs 1
+ help "creates a simple wave distortion"
+ addUserKnob {20 "" WaveDistortion}
+ addUserKnob {41 channels channels T IDistort1.channels}
+ addUserKnob {26 "" ""}
+ addUserKnob {6 keepMap "keep distortion map" t "check this to store the internal distortion map in the UV channels,\nturn it off to keep the input's UVs. "}
+ addUserKnob {41 uv_scale "UV scale" T IDistort1.uv_scale}
+ addUserKnob {41 size size T Expression1.size}
+ addUserKnob {12 frequency frequency}
+ frequency {0.05 0.05}
+ addUserKnob {12 amplitude amplitude}
+ amplitude {1 1}
+ addUserKnob {12 phase phase}
+ phase {{frame i} {frame}}
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos -160
+  ypos -205
+ }
+set Nad0e358 [stack 0]
+ Expression {
+  temp_name0 xF
+  temp_expr0 xFrequency
+  temp_name1 yF
+  temp_expr1 yFrequency
+  temp_name2 xP
+  temp_expr2 xPhase
+  temp_name3 yP
+  temp_expr3 yPhase
+  channel0 {uv.u -uv.v}
+  expr0 sin((x-xP)/size+cos(y*xF)*xAmplitude)
+  channel1 {-uv.u uv.v}
+  expr1 sin((y-yP)/size+cos(x*yF)*yAmplitude)
+  channel2 none
+  channel3 none
+  name Expression1
+  selected true
+  xpos -160
+  ypos -138
+  addUserKnob {20 "" User}
+  addUserKnob {16 size size}
+  size 10
+  addUserKnob {7 xFrequency xFrequency R 0 1}
+  xFrequency {{frequency.x i}}
+  addUserKnob {7 yFrequency yFrequency R 0 1}
+  yFrequency {{parent.frequency.y i}}
+  addUserKnob {7 xPhase xPhase R 0 1}
+  xPhase {{parent.phase.x i}}
+  addUserKnob {7 yPhase yPhase R 0 1}
+  yPhase {{parent.phase.y i}}
+  addUserKnob {7 xAmplitude xAmplitude R 0 1}
+  xAmplitude {{parent.amplitude.x i}}
+  addUserKnob {7 yAmplitude yAmplitude R 0 1}
+  yAmplitude {{parent.amplitude.y}}
+ }
+ IDistort {
+  channels rgb
+  uv uv
+  uv_scale 2
+  name IDistort1
+  xpos -160
+  ypos -72
+ }
+set Naff73a8 [stack 0]
+push $Nad0e358
+ Dot {
+  name Dot1
+  xpos -252
+  ypos -201
+ }
+ AddChannels {
+  channels rgb
+  name AddChannels1
+  xpos -286
+  ypos -168
+ }
+push $Naff73a8
+ Copy {
+  inputs 2
+  channels uv
+  name Copy1
+  xpos -286
+  ypos -24
+ }
+ Switch {
+  inputs 2
+  which {{parent.keepMap}}
+  name Switch1
+  xpos -160
+  ypos -10
+ }
+ Output {
+  name Output1
+  xpos -160
+  ypos 44
+ }
+end_group

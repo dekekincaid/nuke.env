@@ -1,0 +1,106 @@
+#! C:/programs/Nuke4.5.21/nuke4.5.exe -nx
+version 4.5021
+Gizmo {
+ inputs 1
+ label "\[value this.mode]"
+ help "Just like the default ReadGeo node but with options to load proxies.\nThe proxy must be saved in the same location as the main obj loaded (file knob) and have the same name but with a \".proxy.obj\" suffix.\nI.e. MyGeo.obj - MyGeo.proxy.obj"
+ addUserKnob {20 "" User}
+ addUserKnob {4 mode "proxy mode" M {proxy "full res" "auto proxy" "auto proxy (gui only)"} t "proxy - always loads proxy\nfull res - always loads full res\nauto proxy - loads proxy when script is in proxy mode\nauto (gui only) - loads proxy when script is in proxy mode, always loads full res when rendering"}
+ mode "auto proxy"
+ addUserKnob {41 display display T ReadGeo1.display}
+ addUserKnob {41 gl_render_mode "knob display \$value" T ReadGeo1.gl_render_mode}
+ addUserKnob {41 gl_wireframe_overlay gl_wireframe_overlay T ReadGeo1.gl_wireframe_overlay}
+ addUserKnob {41 gl_display "knob display 0" T ReadGeo1.gl_display}
+ addUserKnob {41 selectable selectable T ReadGeo1.selectable}
+ addUserKnob {41 gl_selectable "knob selectable \$value" T ReadGeo1.gl_selectable}
+ addUserKnob {41 render render T ReadGeo1.render}
+ addUserKnob {2 file file}
+ addUserKnob {41 version INVISIBLE T ReadGeo1.version}
+ addUserKnob {41 reload reload T ReadGeo1.reload}
+}
+ Input {
+  inputs 0
+  name img
+  xpos -216
+  ypos -151
+ }
+set N1b63fe8 [stack 0]
+ ReadGeo {
+  display {{parent.display}}
+  selectable {{parent.selectable}}
+  render {{parent.render i}}
+  file "\[file  rootname \[knob parent.file]].proxy.obj"
+  name ReadGeo2
+  label proxy
+  xpos -150
+  ypos -104
+ }
+push $N1b63fe8
+ ReadGeo {
+  file "\[value parent.file]"
+  name ReadGeo1
+  label "full res"
+  xpos -289
+  ypos -103
+ }
+ Dot {
+  name Dot1
+  xpos -255
+  ypos 37
+ }
+set N1b66bb8 [stack 0]
+ Switch {
+  inputs 2
+  which {{"\[file exists \[value ReadGeo2.file]]"}}
+  name Switch3
+  label "check if file exists"
+  xpos -149
+  ypos 26
+ }
+set N1b676e8 [stack 0]
+push $N1b66bb8
+ Switch {
+  inputs 2
+  which {{proxy}}
+  name Switch2
+  label "script's proxy mode"
+  xpos -289
+  ypos 87
+ }
+set N1b684c8 [stack 0]
+push $N1b66bb8
+ Dot {
+  name Dot2
+  xpos -322
+  ypos 37
+ }
+ Dot {
+  name Dot3
+  xpos -322
+  ypos 205
+ }
+ Switch {
+  inputs 2
+  which {{"\$gui"}}
+  name Switch4
+  label "render only"
+  xpos -289
+  ypos 194
+ }
+push $N1b684c8
+push $N1b66bb8
+push $N1b676e8
+ Switch {
+  inputs 4
+  which {{parent.mode}}
+  name Switch1
+  label main
+  xpos -149
+  ypos 194
+ }
+ Output {
+  name Output1
+  xpos -149
+  ypos 257
+ }
+end_group

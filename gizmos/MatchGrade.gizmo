@@ -1,0 +1,120 @@
+#! /Applications/Nuke5.2v1/Nuke5.2v1.app/Contents/MacOS/Nuke5.2v1 -nx
+version 5.2100
+Gizmo {
+ inputs 2
+ help "Match Grade:\nInsert footage to be matched into AltBase\nSet ROI for section to be analyzed\nSet ROT for section to be adjusted\nAnalyze footage\n\nFlicker Fix:\nChoose baseline frame\nAnalyze Basline\nAnalyze Shot\nRender :)"
+ addUserKnob {20 MatchGrade l "Match Grade"}
+ addUserKnob {26 BaseAn l "Analyze Target"}
+ addUserKnob {41 go l Go! T CurveTool3.go}
+ addUserKnob {41 ROI_1 l ROI T CurveTool3.ROI}
+ addUserKnob {26 ShotAn l "Apply Color"}
+ addUserKnob {41 go_1 l Go! T CurveTool1.go}
+ addUserKnob {41 ROI T CurveTool1.ROI}
+ addUserKnob {26 Mix l "" +STARTLINE}
+ addUserKnob {41 which l Mix T Dissolve1.which}
+ addUserKnob {20 FlickerFix l "Flicker Fix" n 1}
+ FlickerFix 0
+ addUserKnob {6 AltBase l "Flicker Fix" t "Use this for a match grade." +STARTLINE}
+ addUserKnob {41 first_frame l "Flicker Baseline Frame" T FrameHold1.first_frame}
+ addUserKnob {20 endGroup n -1}
+ addUserKnob {20 White l "White Balance" n 1}
+ White 0
+ addUserKnob {6 WhiteBal l "Auto White Balance" +STARTLINE}
+ addUserKnob {41 color T Constant1.color}
+ addUserKnob {20 endGroup_1 l endGroup n -1}
+}
+ Input {
+  inputs 0
+  name A
+  xpos -77
+  ypos -237
+ }
+set N2d6ebd60 [stack 0]
+ ColorCorrect {
+  gain {{(CurveTool3.intensitydata.r/parent.CurveTool1.intensitydata.main.r) i x25 1.0402398} {CurveTool3.intensitydata.g/parent.CurveTool1.intensitydata.main.g i} {CurveTool3.intensitydata.b/parent.CurveTool1.intensitydata.main.b i} 1}
+  name ColorCorrect1
+  xpos -77
+  ypos -82
+ }
+push $N2d6ebd60
+ Dot {
+  name Dot1
+  xpos 34
+  ypos -107
+ }
+ Dot {
+  name Dot2
+  xpos 34
+  ypos -17
+ }
+ Dissolve {
+  inputs 2
+  which 1
+  name Dissolve1
+  xpos -77
+  ypos -25
+ }
+ Output {
+  name Output1
+  xpos -77
+  ypos 35
+ }
+ Constant {
+  inputs 0
+  channels rgb
+  color 0.25
+  name Constant1
+  xpos 289
+  ypos -139
+ }
+push $N2d6ebd60
+ FrameHold {
+  name FrameHold1
+  xpos 156
+  ypos -242
+ }
+ Input {
+  inputs 0
+  name B
+  xpos 310
+  ypos -203
+  number 1
+ }
+ Switch {
+  inputs 2
+  which {{AltBase}}
+  name Switch1
+  xpos 156
+  ypos -203
+ }
+ Switch {
+  inputs 2
+  which {{WhiteBal x51 0}}
+  name Switch2
+  xpos 156
+  ypos -115
+ }
+ CurveTool {
+  ROI {0 0 2048 1556}
+  autocropdata {1006 -1162 2030 -384}
+  intensitydata {{curve x1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1} {curve x1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1} {curve x1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1} 0}
+  name CurveTool3
+  xpos 156
+  ypos -82
+ }
+push $N2d6ebd60
+ CurveTool {
+  ROI {0 0 2048 1556}
+  autocropdata {-84 -1158 940 -380}
+  intensitydata {{curve x1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1} {curve x1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1} {curve x1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1} 0}
+  name CurveTool1
+  xpos -302
+  ypos -151
+ }
+ Viewer {
+  frame 300
+  name Viewer1
+  xpos -77
+  ypos 96
+ }
+end_group

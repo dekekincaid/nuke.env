@@ -1,0 +1,114 @@
+#! /mnt/xraid2/apps64/Nuke5.1v2/Nuke5.1 -nx
+version 5.1200
+Gizmo {
+ inputs 2
+ help "Useful to compare a region with the original plate.\n\nAfter connecting two inputs:\n1. Enter the Crop tab and press the EnterCropEnv to chooe the selected region\n\n    You can switch the view if it helps ...\n\n2. Enter the Result tab and press the EnterResultEnv to see the result.\n\n    You can set a separation between the images.\n    You can switch th inputs to change the image positon (left/right or right/left)\n\n\nPlease, comments, suggestions and ideas are welcome!! Write me through:\nBuddy : procher \nor email:\nprocher@intelligentcreatures.com\n\nEnjoy it and thanks for the feedback!!"
+ lock_connections true
+ addUserKnob {20 CropEnv l Crop}
+ addUserKnob {22 CEnv l EnterCropEnv t "\n" -STARTLINE T "v = nuke.thisNode ()\nr = nuke.toNode (\"_Result_\")\nD1 = nuke.toNode (\"D1\")\nD2 = nuke.toNode (\"D2\")\nside = int(nuke.knob (\"side\"))\ninfo = nuke.Node.knob (v,\"cinfo\")\nrinfo = nuke.Node.knob (v,\"rinfo\")\n\n\nnuke.EvalString_Knob.setValue (info,\"Crop environment\")\nnuke.EvalString_Knob.setValue (rinfo,\"Crop environment\")\n\nif side == 0:\n  nuke.Node.setInput (r,0,D1)\nelse:\n  nuke.Node.setInput (r,0,D2)"}
+ addUserKnob {1 cinfo l "Actual Environment" -STARTLINE}
+ cinfo "Crop environment"
+ addUserKnob {22 ChangeSide T "r = nuke.toNode (\"_Result_\")\nD1 = nuke.toNode (\"D1\")\nD2 = nuke.toNode (\"D2\")\nside = int(nuke.knob (\"side\"))\n\nif side == 0:\n  nuke.Node.setInput (r,0,D2)\n  nuke.Array_Knob.setValue ((nuke.Node.knob((nuke.thisNode()),\"side\")),1)\nelse:\n  nuke.Node.setInput (r,0,D1)\n  nuke.Array_Knob.setValue ((nuke.Node.knob((nuke.thisNode()),\"side\")),0)" +STARTLINE}
+ addUserKnob {3 side l INVISIBLE}
+ side 1
+ addUserKnob {26 ""}
+ addUserKnob {41 box l CropArea t "The cropping box." T Crop3.box}
+ addUserKnob {3 inputtt l INVISIBLE -STARTLINE}
+ inputtt 1
+ addUserKnob {3 cropStatus l INVISIBLE}
+ addUserKnob {20 Result}
+ addUserKnob {22 REnv l EnterResultEnv t "\n\n\n" T "r = nuke.toNode (\"_Result_\")\nMrg = nuke.toNode (\"Merger\")\nnuke.Node.setInput (r,0,Mrg)\n\ninfo = nuke.Node.knob (v,\"rinfo\")\ncinfo = nuke.Node.knob (v,\"cinfo\")\n\n\nnuke.EvalString_Knob.setValue (info,\"Result environment\")\nnuke.EvalString_Knob.setValue (cinfo,\"Result environment\")" +STARTLINE}
+ addUserKnob {1 rinfo l "Actual Environment" -STARTLINE}
+ rinfo "Crop environment"
+ addUserKnob {26 ""}
+ addUserKnob {7 Separation t "A separation between the two images." R 0 100}
+ Separation 45
+ addUserKnob {4 Orientation M {Horizontal Vertical}}
+ addUserKnob {22 SwitchSides -STARTLINE T "v = nuke.thisNode()\n\nD1 = nuke.toNode (\"D1\")\nD2 = nuke.toNode (\"D2\")\n\nA = nuke.toNode (\"OneSide\")\nB = nuke.toNode (\"OtherSide\")\n\ni = int(nuke.knob (\"inputtt\"))\nii = nuke.Node.knob (v,\"inputtt\")\n\n\nif i == 1:\n    nuke.Node.setInput (D1,0,A)\n    nuke.Node.setInput (D2,0,B)\n    nuke.Array_Knob.setValue (ii,0)\nelse:\n    nuke.Node.setInput (D1,0,B)\n    nuke.Node.setInput (D2,0,A)\n    nuke.Array_Knob.setValue (ii,1)"}
+}
+ Input {
+  inputs 0
+  name OneSide
+  xpos 385
+  ypos 459
+  number 1
+ }
+ Dot {
+  name D2
+  xpos 522
+  ypos 523
+ }
+set N23eeb80 [stack 0]
+ Output {
+  name _Result_
+  xpos 578
+  ypos 760
+ }
+ Input {
+  inputs 0
+  name OtherSide
+  xpos 488
+  ypos 458
+ }
+ Dot {
+  name D1
+  xpos 419
+  ypos 526
+ }
+ Crop {
+  box {1160 840 1665 1310}
+  reformat true
+  name Crop3
+  xpos 385
+  ypos 567
+ }
+ set C2403770 [stack 0]
+ Dot {
+  name Dotazo
+  xpos 419
+  ypos 628
+ }
+push $N23eeb80
+clone $C2403770 {
+  xpos 488
+  ypos 566
+  selected false
+ }
+set N23f0c40 [stack 0]
+ Crop {
+  box {0 {(-parent.Crop3.box.t+parent.Crop3.box.y)-parent.Separation i x2 -574} {parent.Crop3.box.r-parent.Crop3.box.x i x2 505} {parent.Crop3.box.t-parent.Crop3.box.y i x2 470}}
+  reformat true
+  crop false
+  name Crop2
+  xpos 576
+  ypos 609
+ }
+set N23f4410 [stack 0]
+push $N23f0c40
+ Crop {
+  box {{(Crop3.box.x-Crop3.box.r)-Separation i x2 -319.4} {parent.Crop3.box.t-parent.Crop3.box.y i} {abs(this.x)-Separation i x2 -320} 0}
+  reformat true
+  name Crop1
+  xpos 488
+  ypos 608
+ }
+ Switch {
+  inputs 2
+  which {{parent.Orientation i}}
+  name Switch1
+  xpos 525
+  ypos 663
+ }
+ Merge2 {
+  inputs 2
+  name Merger
+  xpos 489
+  ypos 712
+ }
+push $N23f4410
+ Viewer {
+  name Viewer1
+  xpos 383
+  ypos 755
+ }
+end_group

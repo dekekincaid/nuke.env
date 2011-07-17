@@ -1,0 +1,38 @@
+#! C:/Program Files/Nuke5.2v3/Nuke5.2.exe -nx
+version 5.2300
+Gizmo {
+ help "This is an implementation of Ken Perlin's gain function. It boosts micro-contrast (acutance, in photographic terms) without clipping. When set to 0.5, it has no effect. When >0.5, gain is boosted; when <.5, gain is muted. Only luminance is affected; not hue nor saturation. Superwhites remain untouched."
+ tile_color 0xcc9d6d00
+ addUserKnob {20 "" l User}
+ addUserKnob {7 realGain l "Perlin Gain function" t "This is an implementation of Ken Perlin's gain function. It boosts micro-contrast (acutance, in photographic terms) without clipping. When set to 0.5, it has no effect. When >0.5, gain is boosted; when <.5, gain is muted. Only luminance is affected; not hue nor saturation. Superwhites remain untouched."}
+ realGain 0.95
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos 130
+  ypos -89
+ }
+ Expression {
+  temp_name0 gain
+  temp_expr0 1-parent.realGain
+  temp_name1 lum
+  temp_expr1 "0.2125*Br + 0.7154*Bg + 0.0721*Bb"
+  temp_name2 val
+  temp_expr2 .5*((lum<.5)?((1-gain)>0?pow(2*lum,log(1-gain)/log(0.5)):0):2-((1-gain)>0?pow(2-2*lum,log(1-gain)/log(0.5)):0))
+  expr0 r>1?r:r*(val/(lum+0.00001))
+  expr1 g>1?g:g*(val/(lum+0.00001))
+  expr2 b>1?b:b*(val/(lum+0.00001))
+  name KPGain
+  tile_color 0xd47f3b00
+  label "TRUE GAIN\nFUNCTION"
+  xpos 130
+  ypos -24
+  addUserKnob {20 "" l User}
+ }
+ Output {
+  name Output1
+  xpos 130
+  ypos 98
+ }
+end_group

@@ -1,0 +1,157 @@
+#! modified 06/22/08 by michael@yawpitchroll.com
+#! added 'wallpaper' feature described by Andre/djdeluxe76
+
+version 5.000
+Gizmo {
+ help "Works like the Sampler, but allows you to set to points to describe an arbitrary slice of the image to sample.\n\nWill also display an expanded wallpaper of the slice, and will allow you to soften the graph.\n\nDue to the speed of the Sampler node, you must still use the 'Sample Current Frame' button to update the graph."
+ addUserKnob {20 SliceTab l Slice}
+ addUserKnob {41 pA l "Point A" T TrigOps.pA}
+ addUserKnob {41 pB l "Point B" T TrigOps.pB}
+ addUserKnob {26 "" l ""}
+ addUserKnob {41 channels l Channels T Sampler1.channels}
+ addUserKnob {6 normal_graph l "Normalize Graph" t "Set this to True to normalize the curve across the X axis; all values will be forced to the range 0 to 1.\n\nSet to False to create a curve with each X value equal to the pixel positions on the line between Point A and Point B"}
+ normal_graph true
+ addUserKnob {6 addwallpaper l "Show Wallpaper" t "Resizes the image and applies the expanded wallpaper to the left of your image.  Note that you probably don't want to leave this on for render."}
+ addwallpaper true
+ addUserKnob {26 "" l ""}
+ addUserKnob {41 lut l "" T Sampler1.lut}
+ addUserKnob {26 "" l ""}
+ addUserKnob {41 sample_current l "Sample current frame" T Sampler1.sample_current}
+ addUserKnob {41 sample_all l "Sample all frames" T Sampler1.sample_all}
+ addUserKnob {26 "" l ""}
+ addUserKnob {7 softness l Softness R 0 10}
+ softness 0
+ addUserKnob {41 mix l Brightness T Merge1.mix}
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos -320
+  ypos -189
+ }
+set N1e413fd0 [stack 0]
+ Group {
+  name TrigOps
+  xpos -200
+  ypos -189
+  help "Provides basic trigonometric data about two arbitrary points."
+  addUserKnob {20 MathTab l Math}
+  addUserKnob {41 pA l "Point A" T Pythag.pA}
+  addUserKnob {41 pB l "Point B" T Pythag.pB}
+  addUserKnob {26 "" l "Calculated Data" t "Do not delete or modify the following fields.  Reference them via expression in other nodes."}
+  addUserKnob {41 dX l "Delta X" t "The delta in X (run)." T Pythag.dX}
+  addUserKnob {41 dY l "Delta Y" t "The delta in Y (rise)." T Pythag.dY}
+  addUserKnob {41 rad l "Angle (Rad)" t "The angle between pA and pB, in radians above / below horizontal." T Pythag.rad}
+  addUserKnob {41 deg l "Angle (Deg)" t "The angle between pA and pB, in degrees above / below horizontal." T Pythag.deg}
+  addUserKnob {41 hypot l Hypotenuse t "The distance between pA and pB." T Pythag.hypot}
+ }
+  Input {
+   inputs 0
+   name Input1
+   xpos -63
+   ypos -99
+  }
+  NoOp {
+   name Pythag
+   selected true
+   xpos -63
+   ypos -59
+   addUserKnob {20 Math}
+   addUserKnob {12 pA l "Point A"}
+   pA {250 250}
+   addUserKnob {12 pB l "Point B"}
+   pB {500 250}
+   addUserKnob {7 dX l "Delta X" R -1000 1000}
+   dX {{pB.x-pA.x i}}
+   addUserKnob {7 dY l "Delta Y" R -1000 1000}
+   dY {{pB.y-pA.y i}}
+   addUserKnob {7 rad l "Angle (Rad)" R 0 3.14159}
+   rad {{atan2(dY,dX) i}}
+   addUserKnob {7 deg l "Angle (Deg)" R -180 180}
+   deg {{degrees(rad) i}}
+   addUserKnob {7 hypot l Hypotenuse R -1000 1000}
+   hypot {{sqrt(pow2(dX)+pow2(dY)) i}}
+  }
+  Output {
+   name Output1
+   xpos -63
+   ypos 41
+  }
+ end_group
+ Transform {
+  translate {{-center.x i} {-center.y i}}
+  rotate {{-TrigOps.deg i}}
+  scale {{width/TrigOps.hypot i}}
+  center {{TrigOps.pA.x i} {TrigOps.pA.y i}}
+  name xFormTrans
+  xpos -200
+  ypos -88
+ }
+ Blur {
+  size {{softness i}}
+  name Softness
+  xpos -200
+  ypos -47
+ }
+ Crop {
+  box {0 0 {width i} 1}
+  crop false
+  name WallPaper
+  xpos -200
+  ypos 6
+ }
+set N399cf690 [stack 0]
+ Crop {
+  box {0 0 {width i} {height i}}
+  crop false
+  name WallSetBBox
+  xpos -200
+  ypos 47
+  disable {{!addwallpaper}}
+ }
+ Transform {
+  translate {{width i} 0}
+  name WallRepo
+  xpos -200
+  ypos 88
+  disable {{!addwallpaper}}
+ }
+push $N1e413fd0
+ Crop {
+  box {0 0 {2*width i} {height}}
+  reformat true
+  crop false
+  name WallPaperResizeCrop
+  xpos -320
+  ypos 47
+  disable {{!addwallpaper x35 1}}
+ }
+ Merge2 {
+  inputs 2
+  bbox B
+  name Merge1
+  xpos -320
+  ypos 88
+  disable {{!addwallpaper}}
+ }
+ Output {
+  name Output1
+  selected true
+  xpos -320
+  ypos 129
+ }
+push $N399cf690
+ Crop {
+  box {0 0 {root.width-1 i} 1}
+  reformat true
+  name Scanline
+  xpos -80
+  ypos 6
+ }
+ Sampler {
+  normalize_x {{normal_graph i}}
+  name Sampler1
+  xpos -80
+  ypos 47
+ }
+end_group

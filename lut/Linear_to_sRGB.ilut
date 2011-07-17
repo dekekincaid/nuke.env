@@ -1,0 +1,30 @@
+<IRIDAScript>
+
+	//
+	// Linear to sRGB framecycler script
+	//   by Hakan Blomdahl of Filmgate AB, Sweden.
+	//
+	// Math by D2Software.
+	//
+	// "in" is between 0 and 1.
+
+	linear = in;
+
+	// Lets apply sRGB compensation.
+
+	srgb = 0;
+	if ( linear <= .04045/12.92 )
+	{
+		srgb = linear * (12.92);
+	}
+	else
+	{
+		srgb = (1.055) * pow( linear, 1 / 2.4 ) - .055;
+	}
+
+	red = srgb;
+	green = srgb;
+	blue = srgb;
+
+
+</IRIDAScript>

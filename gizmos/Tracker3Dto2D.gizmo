@@ -1,0 +1,163 @@
+# created by Howard Jones c.2010
+#v1.2
+#modified by Deke Kincaid 03.24.10
+#added axis input ability.  Now you don't have to copy in the axis positions manually
+
+version 6.0 v3
+Gizmo {
+ inputs 6
+ name Tracker3Dto2D
+ help "Tracker3Dto2D takes 3D points and a camera (both usually calculated by a 3D tracker programme) and converts these to 2D tracking data (via Reconile3D) to allow for stabilising/ match moving\n\nNOTE this will error if no camera"
+ addUserKnob {20 User l Tracks}
+ addUserKnob {22 createAll l "create ALL" T "p=nuke.Panel ('Set range')    \n_first = int(nuke.root().knob(\"first_frame\").value())\n_last = int(nuke.root().knob(\"last_frame\").value())    \n\np.addSingleLineInput('Start',_first)\np.addSingleLineInput('End',_last)\nresult=p.show()\n\nif result:\n fs=int(p.value('Start'))\n fe=int(p.value('End'))\n\n chk1=nuke.toNode('this')\['enable1'].value()\n chk2=nuke.toNode('this')\['enable2'].value()\n chk3=nuke.toNode('this')\['enable3'].value()\n chk4=nuke.toNode('this')\['enable4'].value()\n if chk1:\n    nuke.execute ('this.Reconcile3D1', fs , fe)\n    tm=nuke.toNode('this.TrackerMaster')\['track1']\n    ro=nuke.toNode('this.Reconcile3D1')\['output']\n    tm.copyAnimations(ro.animations())\n\n if chk2:\n    nuke.execute ('this.Reconcile3D2', fs , fe)\n    tm=nuke.toNode('this.TrackerMaster')\['track2']\n    ro=nuke.toNode('this.Reconcile3D2')\['output']\n    tm.copyAnimations(ro.animations())\n\n if chk3:\n    nuke.execute ('this.Reconcile3D3', fs , fe)\n    tm=nuke.toNode('this.TrackerMaster')\['track3']\n    ro=nuke.toNode('this.Reconcile3D3')\['output']\n    tm.copyAnimations(ro.animations())\n\n if chk4:\n    nuke.execute ('this.Reconcile3D4', fs , fe)\n    tm=nuke.toNode('this.TrackerMaster')\['track4']\n    ro=nuke.toNode('this.Reconcile3D4')\['output']\n    tm.copyAnimations(ro.animations())" +STARTLINE}
+ addUserKnob {26 "" l "@b;Tracker 1"}
+ addUserKnob {41 enable1 l enable T TrackerMaster.enable1}
+ addUserKnob {41 use_for1 l "Use to calculate:" -STARTLINE T TrackerMaster.use_for1}
+ addUserKnob {41 point l "3D point 01" T Reconcile3D1.point}
+ addUserKnob {22 create3DKeys01 l "create keys" -STARTLINE T "p=nuke.Panel ('Set range')    \n_first = int(nuke.root().knob(\"first_frame\").value())\n_last = int(nuke.root().knob(\"last_frame\").value())\n     \n\n\np.addSingleLineInput('Start',_first)\np.addSingleLineInput('End',_last)\nresult=p.show()\n\nif result:\n fs=int(p.value('Start'))\n fe=int(p.value('End'))\n nuke.execute ('this.Reconcile3D1', fs , fe)\n\n tm=nuke.toNode('this.TrackerMaster')\['track1']\n ro=nuke.toNode('this.Reconcile3D1')\['output']\n\n tm.copyAnimations(ro.animations())\n"}
+ addUserKnob {41 track1 t "This is the calculated track . \nThis is calculated via the create keys knob above." T TrackerMaster.track1}
+ addUserKnob {26 "" l "@b;Tracker 2"}
+ addUserKnob {41 enable2 l enable T TrackerMaster.enable2}
+ addUserKnob {41 use_for2 l "Use to calculate:" -STARTLINE T TrackerMaster.use_for2}
+ addUserKnob {41 point_1 l "3D point 02" T Reconcile3D2.point}
+ addUserKnob {22 create3DKeys02 l "create keys" -STARTLINE T "p=nuke.Panel ('Set range')    \n_first = int(nuke.root().knob(\"first_frame\").value())\n_last = int(nuke.root().knob(\"last_frame\").value())\n     \n\n\np.addSingleLineInput('Start',_first)\np.addSingleLineInput('End',_last)\nresult=p.show()\n\nif result:\n fs=int(p.value('Start'))\n fe=int(p.value('End'))\n nuke.execute ('this.Reconcile3D2', fs , fe)\n\n tm=nuke.toNode('this.TrackerMaster')\['track2']\n ro=nuke.toNode('this.Reconcile3D2')\['output']\n\n tm.copyAnimations(ro.animations())"}
+ addUserKnob {41 track2 T TrackerMaster.track2}
+ addUserKnob {26 "" l "@b;Tracker 3"}
+ addUserKnob {41 enable3 l enable T TrackerMaster.enable3}
+ addUserKnob {41 use_for3 l "Use to calculate:" -STARTLINE T TrackerMaster.use_for3}
+ addUserKnob {41 point_2 l "3D point 03" T Reconcile3D3.point}
+ addUserKnob {22 create3DKeys03 l "create keys" -STARTLINE T "p=nuke.Panel ('Set range')    \n_first = int(nuke.root().knob(\"first_frame\").value())\n_last = int(nuke.root().knob(\"last_frame\").value())\n     \n\n\np.addSingleLineInput('Start',_first)\np.addSingleLineInput('End',_last)\nresult=p.show()\n\nif result:\n fs=int(p.value('Start'))\n fe=int(p.value('End'))\n nuke.execute ('this.Reconcile3D3', fs , fe)\n\n tm=nuke.toNode('this.TrackerMaster')\['track3']\n ro=nuke.toNode('this.Reconcile3D3')\['output']\n\n tm.copyAnimations(ro.animations())"}
+ addUserKnob {41 track3 T TrackerMaster.track3}
+ addUserKnob {26 "" l "@b;Tracker 4"}
+ addUserKnob {41 enable4 l enable T TrackerMaster.enable4}
+ addUserKnob {41 use_for4 l "Use to calculate:" -STARTLINE T TrackerMaster.use_for4}
+ addUserKnob {41 point_3 l "3D point 04" T Reconcile3D4.point}
+ addUserKnob {22 create3DKeys04 l "create keys" -STARTLINE T "p=nuke.Panel ('Set range')    \n_first = int(nuke.root().knob(\"first_frame\").value())\n_last = int(nuke.root().knob(\"last_frame\").value())\n     \n\n\np.addSingleLineInput('Start',_first)\np.addSingleLineInput('End',_last)\nresult=p.show()\n\nif result:\n fs=int(p.value('Start'))\n fe=int(p.value('End'))\n nuke.execute ('this.Reconcile3D4', fs , fe)\n\n tm=nuke.toNode('this.TrackerMaster')\['track4']\n ro=nuke.toNode('this.Reconcile3D4')\['output']\n\n tm.copyAnimations(ro.animations())"}
+ addUserKnob {41 track4 T TrackerMaster.track4}
+ addUserKnob {20 "" l Transform}
+ addUserKnob {41 transform T TrackerMaster.transform}
+ addUserKnob {41 reference_frame l "reference frame" T TrackerMaster.reference_frame}
+ addUserKnob {32 setRefFrame l "set to this frame" -STARTLINE T "knob reference_frame \[knob frame]"}
+ addUserKnob {41 jitter_period l "jitter period" T TrackerMaster.jitter_period}
+ addUserKnob {41 smoothT l "smooth T" T TrackerMaster.smoothT}
+ addUserKnob {41 smoothR l R -STARTLINE T TrackerMaster.smoothR}
+ addUserKnob {41 smoothS l S -STARTLINE T TrackerMaster.smoothS}
+ addUserKnob {41 translate T TrackerMaster.translate}
+ addUserKnob {41 rotate T TrackerMaster.rotate}
+ addUserKnob {41 scale T TrackerMaster.scale}
+ addUserKnob {41 skew T TrackerMaster.skew}
+ addUserKnob {41 center T TrackerMaster.center}
+ addUserKnob {41 filter T TrackerMaster.filter}
+ addUserKnob {41 clamp -STARTLINE T TrackerMaster.clamp}
+ addUserKnob {41 black_outside l "black outside" -STARTLINE T TrackerMaster.black_outside}
+ addUserKnob {41 shuttercustomoffset l "" -STARTLINE T TrackerMaster.shuttercustomoffset}
+ addUserKnob {41 motionblur T TrackerMaster.motionblur}
+ addUserKnob {41 shutter T TrackerMaster.shutter}
+ addUserKnob {41 shutteroffset T TrackerMaster.shutteroffset}
+ addUserKnob {41 shuttercustomoffset_1 l "" -STARTLINE T TrackerMaster.shuttercustomoffset}
+}
+ Input {
+  inputs 0
+  name Img
+  xpos 60
+  ypos 13
+ }
+set N2f961010 [stack 0]
+ Tracker3 {
+  track1 {922 676}
+  offset1 {0 0}
+  pattern1 {-11 -15.642 11 15.642}
+  search1 {-7 -9.954 7 9.954}
+  enable2 true
+  track2 {1126 676}
+  offset2 {0 0}
+  pattern2 {-11 -15.642 11 15.642}
+  search2 {-7 -9.954 7 9.954}
+  enable3 true
+  track3 {1126 880}
+  offset3 {0 0}
+  pattern3 {-11 -15.642 11 15.642}
+  search3 {-7 -9.954 7 9.954}
+  enable4 true
+  track4 {922 880}
+  offset4 {0 0}
+  pattern4 {-11 -15.642 11 15.642}
+  search4 {-7 -9.954 7 9.954}
+  center {1024 778}
+  name TrackerMaster
+  xpos 60
+  ypos 229
+ }
+ Output {
+  name Output1
+  xpos 60
+  ypos 397
+ }
+ Input {
+  inputs 0
+  name axis1
+  xpos 260
+  ypos 13
+  number 2
+ }
+ Input {
+  inputs 0
+  name cam
+  xpos 160
+  ypos 13
+  number 1
+ }
+set Na8eacf0 [stack 0]
+push $N2f961010
+ Reconcile3D {
+  inputs 3
+  name Reconcile3D1
+  xpos 110
+  ypos 150
+ }
+ Input {
+  inputs 0
+  name axis2
+  xpos 360
+  ypos 13
+  number 3
+ }
+push $Na8eacf0
+push $N2f961010
+ Reconcile3D {
+  inputs 3
+  name Reconcile3D2
+  xpos 210
+  ypos 150
+ }
+ Input {
+  inputs 0
+  name axis3
+  xpos 460
+  ypos 13
+  number 4
+ }
+push $Na8eacf0
+push $N2f961010
+ Reconcile3D {
+  inputs 3
+  name Reconcile3D3
+  xpos 310
+  ypos 150
+ }
+ Input {
+  inputs 0
+  name axis4
+  xpos 560
+  ypos 13
+  number 5
+ }
+push $Na8eacf0
+push $N2f961010
+ Reconcile3D {
+  inputs 3
+  name Reconcile3D4
+  xpos 410
+  ypos 150
+ }
+end_group
