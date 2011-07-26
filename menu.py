@@ -1,7 +1,7 @@
 #Menu.py
 #this sets default formats,adds custom menu gizmos, shortcuts, python/tcl scripts
 #dekekincaid@gmail.com
-#Tested with Nuke 5.2, 6.0
+#Tested with Nuke 5.2, 6.0, 6.1, 6.2, 6.3
 #won't run under 5.1.x as is
 
 #defines default format resolutions
@@ -51,18 +51,21 @@ import replaceChecker
 #	nuke.addFavoriteDir('Isilon', '/Volumes/optimus')
 #else:
 #	nuke.addFavoriteDir('Optimus', '//optimus.render.domain.server/optimus')
+#use above to setup for multiple nuke version environment
+
 #toolbar = nuke.menu('Nodes')
 
 #import subprocess
 #m=menubar.addMenu("Footage")
 #rv version, but only one license so lets try djv
-#mplayer version because thats the only other option we have and djv can't play multiple shots
 #m.addCommand('BrokenGlass rv', "subprocess.Popen('/usr/local/tweaks/rv/bin/rv /projects01/earthquake/global/review/03-08-2010/elements/BrokenGlass/', shell = True)")
 #m.addCommand('Debris rv', "subprocess.Popen('/usr/local/tweaks/rv//bin/rv /projects01/earthquake/global/review/03-08-2010/elements/Debris/', shell = True)")
 #m.addCommand('Dust rv', "subprocess.Popen('/usr/local/tweaks/rv/bin/rv /projects01/earthquake/global/review/03-08-2010/elements/Dust/', shell = True)")
 #m.addCommand('FallingItems rv', "subprocess.Popen('/usr/local/tweaks/rv/bin/rv /projects01/earthquake/global/review/03-08-2010/elements/FallingItems/', shell = True)")
 #m.addCommand('Smoke rv', "subprocess.Popen('/usr/local/tweaks/rv/bin/rv /projects01/earthquake/global/review/03-08-2010/elements/Smoke/', shell = True)")
 #m.addCommand("-", "", "")#this command just adds a separation line in a dropdown
+
+#mplayer version because thats the only other option we have and djv can't play multiple shots
 #m.addCommand('BrokenGlass Mplayer', "subprocess.Popen('gmplayer /projects01/earthquake/global/review/03-08-2010/elements/BrokenGlass/*', shell = True)")
 #m.addCommand('Debris mplayer', "subprocess.Popen('/usr/bin/gmplayer /projects01/earthquake/global/review/03-08-2010/elements/Debris/*', shell = True)")
 #m.addCommand('Dust mplayer', "subprocess.Popen('/usr/bin/gmplayer /projects01/earthquake/global/review/03-08-2010/elements/Dust//*', shell = True)")
@@ -184,8 +187,8 @@ mco.addCommand("HighPass", "nuke.createNode(\"HighPass\")", icon="HighPass.png",
 mco.addCommand("KPGain", "nuke.createNode(\"KPGain\")", index=20)
 mco.addCommand("MatchGrade", "nuke.createNode('MatchGrade')", index=24)
 mco.addCommand("Slice Tool", "nuke.createNode('SliceTool')", index=30)
-#mco.addCommand("OCIOColorSpace", "nuke.createNode(\"OCIOColorSpace\")", index=18)
-#mco.addCommand("OCIODisplay", "nuke.createNode(\"OCIODisplay\")", index=18)
+#mco.addCommand("OCIOColorSpace", "nuke.createNode(\"OCIOColorSpace\")", index=18)#need to recompile for n63
+#mco.addCommand("OCIODisplay", "nuke.createNode(\"OCIODisplay\")", index=18)#need to recompile for n63
 
 ##########################################################################################
 
@@ -235,6 +238,7 @@ mtr.addCommand("Tracker 3D to 2D", "nuke.createNode(\"Tracker3Dto2D\")", icon="t
 mtr.addCommand("Turbulate", "nuke.createNode('turbulate')", index=28)
 mtr.addCommand("Wave Distortion", "nuke.createNode('WaveDistortion')", index=31)
 #mtr.addCommand( "CornerPin", "nuke.createNode('CornerPin2D', 'addUserKnob {20 values} addUserKnob {26 "" l Copy_and_set} addUserKnob {22 from--->to T ''CornerPin2DPY(0)'' +STARTLINE} addUserKnob {22 to--->from T ''CornerPin2DPY(1)''} addUserKnob {26 "" l Copy_from +STARTLINE} addUserKnob {22 from T ''CornerPin2DPY(3)'' +STARTLINE} addUserKnob {22 to T ''CornerPin2DPY(4)''} addUserKnob {26 "" l Paste_to +STARTLINE} addUserKnob {22 from T ''CornerPin2DPY(5)'' +STARTLINE} addUserKnob {22 to T ''CornerPin2DPY(6)''} addUserKnob {26 "" l Invert +STARTLINE} addUserKnob {22 invert T ''CornerPin2DPY(2)'' +STARTLINE} addUserKnob {26 "" l Set_key +STARTLINE} addUserKnob {22 from T ''CornerPin2DPY(7)'' +STARTLINE} addUserKnob {22 to T ''CornerPin2DPY(8)''} addUserKnob {26 "" l Info} addUserKnob {1 in_buffer} addUserKnob {3 varCopy INVISIBLE} addUserKnob {12 buf1 INVISIBLE} addUserKnob {12 buf2 INVISIBLE} addUserKnob {12 buf3 INVISIBLE} addUserKnob {12 buf4 INVISIBLE}', True)", icon = "CornerPin.png");
+#don't need this anymore, cornerpin in 6.3 has copy to/from knobs now
 
 #nuke.addOnUserCreate(im_cornerPin.cornerPin, nodeClass = 'CornerPin2D')
 #nuke.addKnobChanged(im_cornerPin.cornerPinCB, nodeClass = 'CornerPin2D')
@@ -400,7 +404,7 @@ def addSRPanel():
 	'''Run the panel script and add it as a tab into the pane it is called from'''
         srPanel = SearchReplacePanel.SearchReplacePanel()
         return srPanel.addToPane()
-nuke.menu('Pane').addCommand('SearchReplace', addSRPanel)#THIS LINE WILL ADD THE NEW ENTRY TO THE PANE MENU
+nuke.menu('Pane').addCommand('SearchReplace', addSRPanel, "ctrl+alt+s")#THIS LINE WILL ADD THE NEW ENTRY TO THE PANE MENU
 nukescripts.registerPanel('com.ohufx.SearchReplace', addSRPanel)#THIS LINE WILL REGISTER THE PANEL SO IT CAN BE RESTORED WITH LAYOUTS
 
 #add frank's icon panels
@@ -409,7 +413,7 @@ def addIconPanel():
 #    global iconPanel
     iconPanel = IconPanel.IconPanel()
     return iconPanel.addToPane()
-nuke.menu('Pane').addCommand('Universal Icons', addIconPanel)
+nuke.menu('Pane').addCommand('Universal Icons', addIconPanel, "ctrl+alt+i")
 nukescripts.registerPanel('com.ohufx.IconPanel', addIconPanel)
 
 #frank's fovCalculator
@@ -417,7 +421,7 @@ import FovCalculator
 def addFovCalc():
 	fovCalc = FovCalculator.FovCalculator()
 	return fovCalc.addToPane()
-nuke.menu('Pane').addCommand('Fov Calculator', addFovCalc)
+nuke.menu('Pane').addCommand('Fov Calculator', addFovCalc, "ctrl+alt+f")
 nukescripts.registerPanel('com.ohufx.FovCalculator', addFovCalc)
 #paneMenu = nuke.menu( 'Pane' )
 
@@ -438,6 +442,9 @@ nhe.addCommand("Nukepedia", "nuke.tcl(\"start \\\"http://www.nukepedia.com\\\"\"
 nuke.knobDefault('Grade.black_clamp','false')# this turns off black clamp on Grade nodes
 nuke.knobDefault( 'Bezier.linear', 'true' )
 nuke.knobDefault("Write.channels", "rgba")
+nuke.knobDefault("Root.format", "HD")
+nuke.knobDefault("Root.project.directory", "[file dirname [knob root.name]]")
+
 #nuke.knobDefault("PlanarTracker.previewFeatures", "true") #as of alpha 2 this can break the planar tracker so I am turning it off
 #nuke.knobDefault("PlanarTracker.display_tracks", "true") #as of alpha 2 this can break the planar tracker so I am turning it off
 
@@ -448,8 +455,12 @@ nuke.knobDefault("Viewer.gl_lighting", "true")# turn on headlamp by default, yay
 #setup stereo views_colours  
 #nuke.root().knob('setlr').execute()#not sure why this isn't working
 #nuke.root().knob('views_colours').setValue(True)#not sure why this isn't working
-nuke.knobDefault("Root.views",'left #ff0000\nright #00ff00')
-nuke.knobDefault("Root.views_colours","1")
+
+#This sets up views by default
+#TURNING THIS OFF TEMPORARILY, THIS WILL ADD LEFT RIGHT TO SCRIPTS WITH L R NAMED EYES AND YOU WILL HAVE 4 EYES.  
+#Need to make a simpler create stereo button instead
+#nuke.knobDefault("Root.views",'left #ff0000\nright #00ff00')
+#nuke.knobDefault("Root.views_colours","1")
 
 # this kills all viewers apon opening new script
 def killViewers():
@@ -482,7 +493,6 @@ nfi.addCommand("Import Geo Folder", "SourceGeoFolder.SourceGeoFolder()", index=7
 
 
 #Edit Menu
-
 import renamenodes
 menuNk.addCommand("Edit/Rename Nodes", "renamenodes.renamenodes()", 'F2', index=1 )
 
@@ -499,6 +509,8 @@ import nShakeClone
 ned.addCommand( 'CloneE', 'nShakeClone.shakeClone()', "Alt+v", index=14)
 
 #Node Menu
+#Adding a Node Menu at the top bar because there is lots of burried goodness in there that people are missing
+#Also reorganizing and removing stuff I don't need
 import nodeMenu
 nuke.menu("Nuke").addMenu('Node/Align', index=1)
 
@@ -536,13 +548,8 @@ menuNk.addCommand('Node/Align/Scale Up', 'scaleNodes.scaleNodes( 1.1 )', '=')
 menuNk.addCommand('Node/Align/Scale Down', 'scaleNodes.scaleNodes( 0.9 )', '-')
 menuNk.findItem('Node').addCommand('Toggle Viewer Pipes', 'nodeOps.toggleViewerPipes()', 'alt+t')
 
-
-
 #thumbnailer
 menuNk.addCommand('Node/Thumbnailer', 'thumbnailer.thumbnailer()', 'shift+t')
-
-
-
 
 ##########################################################################################
 # select a tracker and a bezier node and hit ctrl+t to auto link the two together
