@@ -29,7 +29,6 @@ nuke.pluginAddPath(os.path.expanduser("~/nukescripts/tcl"))
 
 #nuke.pluginAddPath("/Applications/Pixar/RenderMan.app/Versions/RenderManProServer-15.2/lib")
 #nuke.pluginAddPath(os.path.expanduser("~/nukescripts/QATools"))
-#nuke.pluginAddPath(os.path.expanduser("~/foundry/DW/pib_nk_files"))
 
 #nuke.ViewerProcess.register("Cineon", nuke.createNode, ("ViewerProcess_1DLUT", "current Cineon"))
 #nuke.pluginAddPath(os.path.expanduser("~/nkLIBRARY/LIBRARY"))
@@ -42,10 +41,10 @@ nuke.pluginAddPath(os.path.expanduser("~/nukescripts/tcl"))
 import nodeOps#I need this to render for some reason, will figure out why later
 
 #creates directory when you render to one which doesn't exist
-def createWriteDir():
-	import nuke, os
-	file = nuke.filename(nuke.thisNode())
-	dir = os.path.dirname( file )
-	osdir = nuke.callbacks.filenameFilter( dir )
-	os.makedirs( osdir )
-nuke.addBeforeRender(createWriteDir)
+#def createWriteDir():
+#	import nuke, os
+#	file = nuke.filename(nuke.thisNode())
+#	dir = os.path.dirname( file )
+#	osdir = nuke.callbacks.filenameFilter( dir )
+#	os.makedirs( osdir )
+#nuke.addBeforeRender(createWriteDir)

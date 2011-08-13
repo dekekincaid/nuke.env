@@ -1,13 +1,14 @@
 #Menu.py
 #this sets default formats,adds custom menu gizmos, shortcuts, python/tcl scripts
+#
 #dekekincaid@gmail.com
 #Tested with Nuke 5.2, 6.0, 6.1, 6.2, 6.3
 #won't run under 5.1.x as is
 
 #defines default format resolutions
 nuke.addFormat ("720 540 0 0 720 540 1.0 NTSC_square")
+nuke.addFormat ("960 540 0 0 960 540 1.0 540p")
 nuke.addFormat ("1280 720 0 0 1280 720 1.0 720p")
-nuke.addFormat ("960 540 0 0 960 540 1.0 1080p_half")
 #nuke.addFormat ("1920 1440 0 0 1920 1440 1.0 1920_4x3")
 #nuke.addFormat ("960 720 0 0 960 720 1.0 1920_4x3_half")
 nuke.addFormat ("3840 2160 0 0 3840 2160 1.0 HD_double")
@@ -44,7 +45,6 @@ import reloadallreads
 import replaceChecker
 
 
-#import J_Ops
 
 #MULTI PLATFORM FIX CODE FOR WINDOWS OSX LINUX HYBRID SETUPS
 #if sys.platform == 'darwin':
@@ -80,37 +80,9 @@ import replaceChecker
 
 #setup menu variables
 menuNo=nuke.menu("Nodes")
-mim=menuNo.addMenu("Image")
-mdr=menuNo.addMenu("Draw")
-mti=menuNo.addMenu("Time")
-mch=menuNo.addMenu("Channel")
-mco=menuNo.addMenu("Color")
-mfi=menuNo.addMenu("Filter")
-mke=menuNo.addMenu("Keyer")
-mme=menuNo.addMenu("Merge")
-mtr=menuNo.addMenu("Transform")
-m3d=menuNo.addMenu("3D")
-mve=menuNo.addMenu("Views")
-mmd=menuNo.addMenu("MetaData")
-mot=menuNo.addMenu("Other")
-
-menuNk=nuke.menu("Nuke")
-nfi=menuNk.addMenu("File")
-ned=menuNk.addMenu("Edit")
-nla=menuNk.addMenu("Layout")
-nvi=menuNk.addMenu("Viewer")
-nre=menuNk.addMenu("Render")
-nca=menuNk.addMenu("Cache")
-nhe=menuNk.addMenu("Help")
-
-man=nuke.menu("Animation");
-man.addCommand("File/Import_IFFFSE", "nuke.tcl(\"import_ifffse\")")
-
-nlut = nuke.root().knob('luts')
-nview = nuke.ViewerProcess
 
 ##########################################################################################
-
+mim=menuNo.addMenu("Image")
 # The "Image" menu
 import makewritefromread
 import sequencer
@@ -122,7 +94,7 @@ mim.addCommand("Sequencer", "sequencer.sequencer()", index=10)
 
 
 ##########################################################################################
-
+mdr=menuNo.addMenu("Draw")
 # The "Draw" menu
 
 mdr.addCommand("Bezier Old", "nuke.createNode('Bezier')", 'alt+p', index=3) #adds old Bezier node back and modified to have addgeotab
@@ -158,6 +130,7 @@ mdr.addCommand("Add Matte", "toggleMatterMode(1)", "#+a")
 #m.addCommand("Add Matte", "toggleMatterMode(1)", "#+a")
 
 ##########################################################################################
+mti=menuNo.addMenu("Time")
 
 # The "Time" menu
 import AssembleEdit
@@ -169,17 +142,20 @@ mti.addCommand('Hold Frames', 'holdFrames.holdFrames( nuke.selectedNode(), holdR
 #mti.addCommand("Telecine", "nuke.createNode(\"Telecine\")", icon="Add32.png", index=11)
 
 ##########################################################################################
+mch=menuNo.addMenu("Channel")
 
 # The Channel menu
 import branchout
 mch.addCommand("Branch Out Channels", "branchout.branchout()")
 
 ##########################################################################################
+mco=menuNo.addMenu("Color")
 
 # The Color menu
 #nuke.load('/Users/deke/dev/OpenColorIO/build/src/nuke/OCIOColorSpace.so') 
 #nuke.load('/Users/deke/dev/OpenColorIO/build/src/nuke/OCIODisplay.so') 
 mco.addCommand("HighPass", "nuke.createNode(\"HighPass\")", icon="HighPass.png", index=11)
+#import J_Ops
 #mco.addCommand("J_3Way", "J_Ops.createNode(\"J_3Way\")", index=14)
 #mco.addCommand("J_MergeHDR", "J_Ops.createNode(\"J_MergeHDR\")", index=15)
 #mco.addCommand("J_Scopes", "J_Ops.createNode(\"J_Scopes\")", index=16)
@@ -191,6 +167,7 @@ mco.addCommand("Slice Tool", "nuke.createNode('SliceTool')", index=30)
 #mco.addCommand("OCIODisplay", "nuke.createNode(\"OCIODisplay\")", index=18)#need to recompile for n63
 
 ##########################################################################################
+mfi=menuNo.addMenu("Filter")
 
 # The "Filter" menu
 import iFilter03
@@ -214,17 +191,20 @@ mfi.addCommand("StereoFake", "nuke.createNode('stereofake')")
 
 
 ##########################################################################################
+mke=menuNo.addMenu("Keyer")
 
 # The "Keyer" menu
 mke.addCommand("DeSpilla", "nuke.createNode('DeSpilla')")
 mke.addCommand("iDMattePro", "nuke.createNode('iDMattePro')")
 
 ##########################################################################################
+mme=menuNo.addMenu("Merge")
 
 # The "Merge" menu
 mme.addCommand("AE Premult", "nuke.createNode('aePremult')", index=1)
 
 ##########################################################################################
+mtr=menuNo.addMenu("Transform")
 
 # The "Transform" menu
 import im_cornerPin #giving error, must fix
@@ -244,6 +224,7 @@ mtr.addCommand("Wave Distortion", "nuke.createNode('WaveDistortion')", index=31)
 #nuke.addKnobChanged(im_cornerPin.cornerPinCB, nodeClass = 'CornerPin2D')
 
 ##########################################################################################
+m3d=menuNo.addMenu("3D")
 
 # The 3d menu
 import addconstraintab
@@ -275,9 +256,13 @@ menuNo.addCommand("3D/Lights/Direct", "nuke.createNode('DirectLight');addconstra
 menuNo.addCommand("3D/Lights/Spotlight", "nuke.createNode('Spotlight');addconstraintab.constrain();nuke.selectedNode().knob('display').setFlag(0)") #modify Spotlight to have Add Constrain Tab
 
 ##########################################################################################
+mve=menuNo.addMenu("Views")
 
 #Views > Stereo Menu
 menuNo.addCommand("Views/Stereo/Interleaver", "nuke.createNode('StereoInterleaver')")
+
+##########################################################################################
+mmd=menuNo.addMenu("MetaData")
 
 #Metadata
 #menubar=nuke.menu("Node Graph")
@@ -297,6 +282,7 @@ mmd.addCommand("Show MetaData","nuke.display('showMeta()', nuke.selectedNode(),'
 
 
 ##########################################################################################
+mot=menuNo.addMenu("Other")
 
 # The "Other" menu
 import autoBackup
@@ -353,15 +339,104 @@ mot.addCommand("Utils/TrigOps", "nuke.createNode('TrigOps')")
 
 
 ##########################################################################################
+menuNk=nuke.menu("Nuke")
+
+##########################################################################################
+nfi=menuNk.addMenu("File")
+
+#File Menu
+import SourceGeoFolder
+#nuke.toolbar('Nodes',).addCommand('RevealInFinder','revealInOS.revealInOS()')
+nfi.addCommand('RevealInFinder','revealInOS.revealInOS()', index=8)#reveal in OS
+nfi.addCommand("Import Geo Folder", "SourceGeoFolder.SourceGeoFolder()", index=7)
+
+
+##########################################################################################
+ned=menuNk.addMenu("Edit")
+
+#Edit Menu
+import renamenodes
+menuNk.addCommand("Edit/Rename Nodes", "renamenodes.renamenodes()", 'F2', index=1 )
+
+#howard & diogo's cool bookmarks
+#later put these in the top menu
+import bookmarker
+menuNk.addCommand('Edit/Bookmarks/add Bookmark', 'bookmarker.bookmarkthis()', 'F3',icon='bookmark.png')
+menuNk.addCommand('Edit/Bookmarks/find Bookmark', 'bookmarker.listbookmarks()', 'F4',icon='findBookmarks.png')
+menuNk.addCommand('Edit/Bookmarks/cycle Bookmarks', 'bookmarker.cyclebookmarks()', 'F5',icon='cycleBookmarks.png' )
+
+#shake clone
+import nShakeClone
+#molTools.addCommand( 'Shake Style Clone', 'shakeClone()', "Alt+v")
+ned.addCommand( 'CloneE', 'nShakeClone.shakeClone()', "Alt+v", index=14)
+
+#add a bunch of things to the Edit>Nodes menu
+
+#Also adding a Node Menu at the top bar because there is lots of burried goodness in there that people are missing
+#Also reorganizing and removing stuff I don't need
+import nodeMenu
+nuke.menu("Nuke").addMenu('Node/Align', index=1)
+
+#franks align nodes in x or y
+import alignNodes
+menuNk.addCommand('Node/Align/Horizontal', 'alignNodes.alignNodes( nuke.selectedNodes(), direction="x" )', 'alt+x')
+menuNk.addCommand('Node/Align/Vertical', 'alignNodes.alignNodes( nuke.selectedNodes(), direction="y" )', 'alt+y')
+
+import Dots
+menuNk.addCommand('Node/Align/Auto Dots', 'Dots.Dots()')
+
+import Ym_alignNodes
+menuNk.addCommand('Node/Align/Left X', 'Ym_alignNodes.alignLX()')
+menuNk.addCommand('Node/Align/Center X', 'Ym_alignNodes.alignCX()')
+menuNk.addCommand('Node/Align/Right X', 'Ym_alignNodes.alignRX()')
+menuNk.addCommand('Node/Align/Interval X', 'Ym_alignNodes.align_intX()')
+
+menuNk.addCommand('Node/Align/Top Y', 'Ym_alignNodes.alignTY()')
+menuNk.addCommand('Node/Align/Center Y', 'Ym_alignNodes.alignCY()')
+menuNk.addCommand('Node/Align/Under Y', 'Ym_alignNodes.alignUY()')
+menuNk.addCommand('Node/Align/Interval Y', 'Ym_alignNodes.align_intY()')
+
+menuNk.addCommand('Node/Align/Interval XX', 'Ym_alignNodes.align_intXX()')
+menuNk.addCommand('Node/Align/Interval YY', 'Ym_alignNodes.align_intYY()')
+
+import mirrorNodes
+menuNk.addCommand('Node/Align/Mirror Horiz', 'mirrorNodes.mirrorNodes( nuke.selectedNodes(), direction="x" )', 'alt+ctrl+x')
+menuNk.addCommand('Node/Align/Mirror Vert', 'mirrorNodes.mirrorNodes( nuke.selectedNodes(), direction="y" )', 'alt+ctrl+y')
+
+#frank's node scale up trick
+import scaleNodes
+menuNk.addCommand('Node/Align/Scale Up', 'scaleNodes.scaleNodes( 1.1 )', '=')
+menuNk.addCommand('Node/Align/Scale Down', 'scaleNodes.scaleNodes( 0.9 )', '-')
+menuNk.findItem('Node').addCommand('Toggle Viewer Pipes', 'nodeOps.toggleViewerPipes()', 'alt+t')
+nuke.addOnScriptLoad(nodeOps.toggleViewerPipes)
+
+#thumbnailer
+menuNk.addCommand('Node/Thumbnailer', 'thumbnailer.thumbnailer()', 'shift+t')
+
+# select a tracker and a bezier node and hit ctrl+t to auto link the two together
+#only works with Bezier, so disabling for the moment till I get it to work with Rotopaint
+#nuke.menu('Nuke').findItem('Edit/Node').addCommand("Transform/Connect2Tracker", "nuke.tcl(\"Connect2Tracker\")", 'ctrl+t') 
+#menu "Transform/Connect2Tracker" "^t" Connect2Tracker
+
+##########################################################################################
+
+nla=menuNk.addMenu("Layout")
+
+##########################################################################################
+
+nvi=menuNk.addMenu("Viewer")
+
+##########################################################################################
+
+nre=menuNk.addMenu("Render")
 
 # The Render Menu
 
-nre.addCommand("-", "", "")#this command just adds a separation line in a dropdown
+#nre.addCommand("-", "", "")#this command just adds a separation line in a dropdown
+
 #nuke.menu("Nuke").addMenu("Render").addCommand("Submit Nuke To Deadline", "nuke.tcl(\"SubmitNukeToDeadline\")", 'alt+d') #deadline render launcher
 
 #nuke.menu("Nuke").addMenu("Render").addCommand("Open in NukeX", "subprocess.Popen('/Applications/Nuke6.1v2b6/Nuke6.1v2b6.app/Contents/MacOS/Nuke6.1v2b6 --nukex [value root.name]', shell = True)")
-
-
 
 
 #nuke.scriptSave()
@@ -372,7 +447,7 @@ nre.addCommand("-", "", "")#this command just adds a separation line in a dropdo
 #subprocess.Popen(args)
 #quit()
 
-#example off list to launch script in nukex, not working at the moment
+#example off list to launch script in nukex, not working at the moment, need to finish it
 #import subprocess
 #def runInNukeX():
 #    args = [nuke.env['ExecutablePath'], '--nukex', nuke.root().name()]
@@ -383,7 +458,7 @@ nre.addCommand("-", "", "")#this command just adds a separation line in a dropdo
 #, shell = True  
     
 
-#doesn't seem to work >
+#doesn't seem to work in 6.3 anymore, will investigate later.
 #create folder in write if it is missing
 #turned off because it doesn't work
 #import nuke
@@ -396,8 +471,41 @@ nre.addCommand("-", "", "")#this command just adds a separation line in a dropdo
 #
 #nuke.addBeforeRender(create_nuke_dirs)
 
+##########################################################################################
+
+nca=menuNk.addMenu("Cache")
 
 ##########################################################################################
+nhe=menuNk.addMenu("Help")
+
+# The Help Menu
+
+nhe.addCommand("Creative Crash Nuke Downloads", "nuke.tcl(\"start \\\"http://www.creativecrash.com/nuke/downloads/\\\"\")")
+nhe.addCommand("Creative Crash Nuke Tutorials", "nuke.tcl(\"start \\\"http://www.creativecrash.com/nuke/tutorials/\\\"\")")
+nhe.addCommand("Vfxtalk Nuke Forum", "nuke.tcl(\"start \\\"http://www.vfxtalk.com/forum/nuke-foundry-f60.html\\\"\")")
+nhe.addCommand("Vfxtalk Nuke Downloads", "nuke.tcl(\"start \\\"http://www.vfxtalk.com/forum/nuke-plugins-scripts-f124.html\\\"\")")
+nhe.addCommand("Nukepedia", "nuke.tcl(\"start \\\"http://www.nukepedia.com\\\"\")")
+
+##########################################################################################
+
+man=nuke.menu("Animation");
+man.addCommand("File/Import_IFFFSE", "nuke.tcl(\"import_ifffse\")")
+
+##########################################################################################
+nlut = nuke.root().knob('luts')
+nview = nuke.ViewerProcess
+
+#custom luts for root
+#nlut.addCurve("sLog", "{pow(10.0, ((t - 0.616596 - 0.03) /0.432699)) - 0.037584}")
+#nlut.addCurve("AlexaV3LogC", "{ (t > 0.1496582 ? pow(10.0, (t - 0.385537) / 0.2471896) : t / 0.9661776 - 0.04378604) * 0.18 - 0.00937677 }")
+
+# ViewerProcess LUTs 
+#nview.register("AlexaV3Rec709", nuke.createNode, ("Vectorfield","vfield_file /Users/deke/nukescripts/lut/AlexaV3_EI0800_WYSIWYG_EE_nuke1d.cube colorspaceIn AlexaV3LogC"))
+nview.register("AlexaV3Rec709", nuke.createNode, ("Vectorfield","vfield_file /Users/deke/nukescripts/lut/AlexaV3_K1S1_LogC2Video_Rec709_EE_nuke3d.cube colorspaceIn AlexaV3LogC"))
+
+##########################################################################################
+#Custom python panels
+
 #add frank's search and replace panels
 import SearchReplacePanel
 def addSRPanel():
@@ -424,17 +532,6 @@ def addFovCalc():
 nuke.menu('Pane').addCommand('Fov Calculator', addFovCalc, "ctrl+alt+f")
 nukescripts.registerPanel('com.ohufx.FovCalculator', addFovCalc)
 #paneMenu = nuke.menu( 'Pane' )
-
-##########################################################################################
-
-# The Help Menu
-
-nhe.addCommand("Creative Crash Nuke Downloads", "nuke.tcl(\"start \\\"http://www.creativecrash.com/nuke/downloads/\\\"\")")
-nhe.addCommand("Creative Crash Nuke Tutorials", "nuke.tcl(\"start \\\"http://www.creativecrash.com/nuke/tutorials/\\\"\")")
-nhe.addCommand("Vfxtalk Nuke Forum", "nuke.tcl(\"start \\\"http://www.vfxtalk.com/forum/nuke-foundry-f60.html\\\"\")")
-nhe.addCommand("Vfxtalk Nuke Downloads", "nuke.tcl(\"start \\\"http://www.vfxtalk.com/forum/nuke-plugins-scripts-f124.html\\\"\")")
-nhe.addCommand("Nukepedia", "nuke.tcl(\"start \\\"http://www.nukepedia.com\\\"\")")
-
 
 ##########################################################################################
 
@@ -485,81 +582,9 @@ nukescripts.goto_frame = goToPlus.goToPlus
 
 ##########################################################################################
 
-#File Menu
-import SourceGeoFolder
-#nuke.toolbar('Nodes',).addCommand('RevealInFinder','revealInOS.revealInOS()')
-nfi.addCommand('RevealInFinder','revealInOS.revealInOS()', index=8)#reveal in OS
-nfi.addCommand("Import Geo Folder", "SourceGeoFolder.SourceGeoFolder()", index=7)
+#My Presets for different nodes
+import cam_presets
+cam_presets.nodePresetCamera()
 
-
-#Edit Menu
-import renamenodes
-menuNk.addCommand("Edit/Rename Nodes", "renamenodes.renamenodes()", 'F2', index=1 )
-
-#howard & diogo's cool bookmarks
-#later put these in the top menu
-import bookmarker
-menuNk.addCommand('Edit/Bookmarks/add Bookmark', 'bookmarker.bookmarkthis()', 'F3',icon='bookmark.png')
-menuNk.addCommand('Edit/Bookmarks/find Bookmark', 'bookmarker.listbookmarks()', 'F4',icon='findBookmarks.png')
-menuNk.addCommand('Edit/Bookmarks/cycle Bookmarks', 'bookmarker.cyclebookmarks()', 'F5',icon='cycleBookmarks.png' )
-
-#shake clone
-import nShakeClone
-#molTools.addCommand( 'Shake Style Clone', 'shakeClone()', "Alt+v")
-ned.addCommand( 'CloneE', 'nShakeClone.shakeClone()', "Alt+v", index=14)
-
-#Node Menu
-#Adding a Node Menu at the top bar because there is lots of burried goodness in there that people are missing
-#Also reorganizing and removing stuff I don't need
-import nodeMenu
-nuke.menu("Nuke").addMenu('Node/Align', index=1)
-
-
-
-#franks align nodes in x or y
-import alignNodes
-menuNk.addCommand('Node/Align/Horizontal', 'alignNodes.alignNodes( nuke.selectedNodes(), direction="x" )', 'alt+x')
-menuNk.addCommand('Node/Align/Vertical', 'alignNodes.alignNodes( nuke.selectedNodes(), direction="y" )', 'alt+y')
-
-import Dots
-menuNk.addCommand('Node/Align/Auto Dots', 'Dots.Dots()')
-
-import Ym_alignNodes
-menuNk.addCommand('Node/Align/Left X', 'Ym_alignNodes.alignLX()')
-menuNk.addCommand('Node/Align/Center X', 'Ym_alignNodes.alignCX()')
-menuNk.addCommand('Node/Align/Right X', 'Ym_alignNodes.alignRX()')
-menuNk.addCommand('Node/Align/Interval X', 'Ym_alignNodes.align_intX()')
-
-menuNk.addCommand('Node/Align/Top Y', 'Ym_alignNodes.alignTY()')
-menuNk.addCommand('Node/Align/Center Y', 'Ym_alignNodes.alignCY()')
-menuNk.addCommand('Node/Align/Under Y', 'Ym_alignNodes.alignUY()')
-menuNk.addCommand('Node/Align/Interval Y', 'Ym_alignNodes.align_intY()')
-
-menuNk.addCommand('Node/Align/Interval XX', 'Ym_alignNodes.align_intXX()')
-menuNk.addCommand('Node/Align/Interval YY', 'Ym_alignNodes.align_intYY()')
-
-import mirrorNodes
-menuNk.addCommand('Node/Align/Mirror Horiz', 'mirrorNodes.mirrorNodes( nuke.selectedNodes(), direction="x" )', 'alt+ctrl+x')
-menuNk.addCommand('Node/Align/Mirror Vert', 'mirrorNodes.mirrorNodes( nuke.selectedNodes(), direction="y" )', 'alt+ctrl+y')
-
-#frank's node scale up trick
-import scaleNodes
-menuNk.addCommand('Node/Align/Scale Up', 'scaleNodes.scaleNodes( 1.1 )', '=')
-menuNk.addCommand('Node/Align/Scale Down', 'scaleNodes.scaleNodes( 0.9 )', '-')
-menuNk.findItem('Node').addCommand('Toggle Viewer Pipes', 'nodeOps.toggleViewerPipes()', 'alt+t')
-
-#thumbnailer
-menuNk.addCommand('Node/Thumbnailer', 'thumbnailer.thumbnailer()', 'shift+t')
-
-##########################################################################################
-# select a tracker and a bezier node and hit ctrl+t to auto link the two together
-#only works with Bezier, so disabling for the moment till I get it to work with Rotopaint
-#nuke.menu('Nuke').findItem('Edit/Node').addCommand("Transform/Connect2Tracker", "nuke.tcl(\"Connect2Tracker\")", 'ctrl+t') 
-#menu "Transform/Connect2Tracker" "^t" Connect2Tracker
-
-#custom luts for root
-#nlut.addCurve("sLog", "{pow(10.0, ((t - 0.616596 - 0.03) /0.432699)) - 0.037584}")
-#nlut.addCurve("AlexaV3LogC", "{ (t > 0.1496582 ? pow(10.0, (t - 0.385537) / 0.2471896) : t / 0.9661776 - 0.04378604) * 0.18 - 0.00937677 }")
-
-# ViewerProcess LUTs 
-#nview.register("AlexaV3Rec709", nuke.createNode, ("Vectorfield","vfield_file /Users/deke/nukescripts/lut/AlexaV3_EI0800_WYSIWYG_EE_nuke1d.cube colorspaceIn AlexaV3LogC"))
+import reformat_presets
+reformat_presets.nodePresetReformat()
