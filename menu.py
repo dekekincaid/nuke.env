@@ -583,8 +583,8 @@ nukescripts.goto_frame = goToPlus.goToPlus
 ##########################################################################################
 
 #My Presets for different nodes
-import cam_presets
-cam_presets.nodePresetCamera()
-
-import reformat_presets
-reformat_presets.nodePresetReformat()
+if ( nuke.NUKE_VERSION_MAJOR >= 6) and ( nuke.NUKE_VERSION_MINOR >= 3 ): 
+	import cam_presets
+	cam_presets.nodePresetCamera()
+	import reformat_presets
+	reformat_presets.nodePresetReformat()
