@@ -1,3 +1,10 @@
+# reformat_presets.py
+#
+# Author: 
+# Deke Kincaid
+# The Foundry
+# dekekincaid@gmail.com
+#
 # v1.0
 # 8/12/11
 #
