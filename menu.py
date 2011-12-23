@@ -158,7 +158,7 @@ m.addCommand("Branch Out Channels", "branchout.branchout()", index=0)
 m=toolbar.addMenu("Color")
 
 # The Color menu
-n.addCommand("HighPass", "nuke.createNode(\"HighPass\")", icon="HighPass.png", index=11)
+m.addCommand("HighPass", "nuke.createNode(\"HighPass\")", icon="HighPass.png", index=11)
 #import J_Ops
 #m.addCommand("J_3Way", "J_Ops.createNode(\"J_3Way\")", index=14)
 #m.addCommand("J_MergeHDR", "J_Ops.createNode(\"J_MergeHDR\")", index=15)
@@ -237,11 +237,11 @@ m.addCommand("CopyGeo", "nuke.createNode('CopyGeo')", index=1)
 m.addCommand("Duplicator", "nuke.createNode('Duplicator')", index=2)
 #nuke.menu("Nodes").addCommand("3D/Duplicate Geo", "DuplicateGeometry.DuplicateGeometry()") #not working at the moment, diagnose later
 #m.addCommand("ImagePlane", "nuke.createNode('ImagePlane')") # broken at the moment, gives error - Obsolete_knob import_chan call is wrong, probably a missing NULL for script argument
-m.addCommand('Pan And Tile', 'panAndTile.panAndTile()', index=10)
+m.addCommand('Pan And Tile', 'panAndTile.panAndTile()', index=11)
 #m.addCommand('Point Projection', 'papiTools.PointProjection()' , icon='pointProjection.png')
-m.addCommand("Projector", "nuke.createNode('Projector')", index=11)
-m.addCommand('Position To Points', 'nuke.createNode("PositionToPoints")', index=13)#unhide unsupported built in tool
-m.addCommand('ReLight', 'nuke.createNode("ReLight")', index=14)#unhide unsupported built in tool
+m.addCommand("Projector", "nuke.createNode('Projector')", index=13)
+m.addCommand('Position To Points', 'nuke.createNode("PositionToPoints")', index=14)#unhide unsupported built in tool
+m.addCommand('ReLight', 'nuke.createNode("ReLight")', index=15)#unhide unsupported built in tool
 
 #m.addCommand("3D/Geometry/ReadGeoPlus", "nuke.createNode('ReadGeoPlus')")
 #m.addMenu("3D").addCommand("Target Camera", "TargetCamera.TargetCamera()") don't really need this right now
@@ -453,6 +453,14 @@ m=menubar.addMenu("Render")
 #
 #nuke.addBeforeRender(create_nuke_dirs)
 
+#def createWriteDir(): #added from here: http://freelunch.dk/?p=220
+#  import nuke, os
+#  file = nuke.filename(nuke.thisNode())
+#  dir = os.path.dirname( file )
+#  osdir = nuke.callbacks.filenameFilter( dir )
+#  os.makedirs( osdir )
+#nuke.addBeforeRender(createWriteDir)
+
 ##########################################################################################
 if ( nuke.NUKE_VERSION_MAJOR >= 6) and ( nuke.NUKE_VERSION_MINOR >= 3 ):#this gets rid of the cache menu from showing up in 6.2
 	m=menubar.addMenu("Cache")
@@ -470,8 +478,8 @@ m.addCommand("Nukepedia", "nuke.tcl(\"start \\\"http://www.nukepedia.com\\\"\")"
 
 ##########################################################################################
 
-man=nuke.menu("Animation");
-man.addCommand("File/Import_IFFFSE", "nuke.tcl(\"import_ifffse\")")
+m=nuke.menu("Animation");
+m.addCommand("File/Import_IFFFSE", "nuke.tcl(\"import_ifffse\")")
 
 ##########################################################################################
 nlut = nuke.root().knob('luts')
@@ -600,7 +608,7 @@ nukescripts.goto_frame = goToPlus.goToPlus
 #mari.prefs.set('Scripts/Mari Command Port/port', 6105)
                        
 
-##########################################################################################
+###########################   NODE PRESETS   ########################### 
 
 #adding presets for different nuke nodes
 if ( nuke.NUKE_VERSION_MAJOR >= 6) and ( nuke.NUKE_VERSION_MINOR >= 3 ): 
