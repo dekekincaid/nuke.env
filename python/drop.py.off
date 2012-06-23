@@ -1,0 +1,42 @@
+_gDropDataCallbacks = []
+
+def addDropDataCallback(callback):
+  """Add a function to the list of callbacks. This function will called whenever data is dropped onto the DAG. Override it to perform other actions.
+  If you handle the drop, return True, otherwise return None."""
+  _gDropDataCallbacks.append(callback)
+
+#def dropData(mimeType, text):
+#  """Handle data drops by invoking the list of callback functions until one has
+#     handled the event"""
+#  for callback in reversed(_gDropDataCallbacks):
+#    if callback(mimeType, text) == True:
+#      return True
+#  return None
+
+
+def dropFBX():
+	nuke.createNode( 'ReadGeo2', 'file text' )	
+	
+
+#def dropData( mimeType, text ):
+#	print str(mimeType)
+#	print str(text)
+#	return None
+
+
+def dropData( mimeType, text ):
+	if mimeType == 'text/plain':
+#    if callback(mimeType, text) == True:		
+#	if mimeType == 'text/plain' and text.endswith( 'fbx' ):
+#		dropFBX( text )
+		nuke.createNode( "ReadGeo2", "file text" )	
+      	return True
+#	else:
+# 		return False
+
+#    if callback(mimeType, text) == True:
+#		dropFBX( text )
+#		return True
+#	else:
+#		return False
+

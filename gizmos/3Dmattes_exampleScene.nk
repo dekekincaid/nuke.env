@@ -1,0 +1,2124 @@
+#! /bc/tools/cent5_64/package/nuke/6.1v2/Nuke6.1 -nx
+version 6.1 v2
+define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
+<layout version="1.0">
+    <window x="0" y="0" w="1920" h="1150" screen="0">
+        <splitter orientation="1">
+            <split size="507"></split>
+            <splitter orientation="1">
+                <split size="507"></split>
+                <dock id="" activePageId="Properties.1">
+                    <page id="Properties.1"></page>
+                    <page id="processesPanel"></page>
+                </dock>
+            </splitter>
+            <split size="1403"></split>
+            <splitter orientation="2">
+                <split size="40"></split>
+                <dock id="" hideTitles="1" activePageId="Toolbar.1">
+                    <page id="Toolbar.1"></page>
+                </dock>
+                <split size="1048"></split>
+                <dock id="" activePageId="DAG.1">
+                    <page id="DAG.1"></page>
+                    <page id="Curve Editor.1"></page>
+                </dock>
+            </splitter>
+        </splitter>
+    </window>
+    <window x="0" y="0" w="1920" h="1200" screen="0">
+        <splitter orientation="1">
+            <split size="955"></split>
+            <dock id="" activePageId="Viewer.2">
+                <page id="Viewer.2"></page>
+            </dock>
+            <split size="955"></split>
+            <dock id="" activePageId="Viewer.1">
+                <page id="Viewer.1"></page>
+            </dock>
+        </splitter>
+    </window>
+</layout>
+}
+Root {
+ inputs 0
+ name /bc/home/paur/Documents/3DMattes/exampleScene.nk
+ frame 64
+ first_frame 0
+ lock_range true
+ format "1828 1556 0 0 1828 1556 2 Working 2k ana - .wha"
+ proxy_type scale
+ proxy_format "640 480 0 0 640 480 1 "
+ views_colours true
+}
+BackdropNode {
+ inputs 0
+ name example1
+ tile_color 0x2a3636ff
+ note_font_size 30
+ xpos 775
+ ypos 914
+ bdwidth 596
+ bdheight 472
+}
+BackdropNode {
+ inputs 0
+ name example3
+ tile_color 0x2a3636ff
+ note_font_size 30
+ xpos 1394
+ ypos 914
+ bdwidth 596
+ bdheight 472
+}
+BackdropNode {
+ inputs 0
+ name example2
+ tile_color 0x2a3636ff
+ note_font_size 30
+ xpos 157
+ ypos 1395
+ bdwidth 596
+ bdheight 472
+}
+BackdropNode {
+ inputs 0
+ name example0
+ tile_color 0x2a3636ff
+ note_font_size 30
+ xpos 156
+ ypos 914
+ bdwidth 596
+ bdheight 472
+}
+BackdropNode {
+ inputs 0
+ name howTo
+ tile_color 0x2a3636ff
+ label "1. choose the pass to use in the 'point pass' section\n2. press the button below and put it as 'side by side'\n3. using the top colorPicker, sample a color from the upper part in\nthe viewer (which is showing the pass you have chosen)\n4. Select the shape you want (sphere, cylinder ...)\n5. fine tune the position of your shape using the numeric values for the\nsampled color\n6. press again the previous button and set it to mask.\n7. choose what channel to use as the mask output"
+ note_font_size 20
+ xpos -447
+ ypos 914
+ bdwidth 596
+ bdheight 472
+}
+Dot {
+ inputs 0
+ name Dot4
+ label "using the point position pass and outputting a sphere"
+ note_font_size 15
+ xpos 201
+ ypos 985
+ hide_input true
+}
+Dot {
+ inputs 0
+ name Dot8
+ label "using the point position pass and outputting a rotated cylinder"
+ note_font_size 15
+ xpos 818
+ ypos 985
+ hide_input true
+}
+Dot {
+ inputs 0
+ name Dot9
+ label "using the normals pass and outputting the x axe (rotated)"
+ note_font_size 15
+ xpos 200
+ ypos 1466
+ hide_input true
+}
+Dot {
+ inputs 0
+ name Dot12
+ label "using the point position pass and outputting the rotated y axis and combined with\nthe z buffer"
+ note_font_size 15
+ xpos 1437
+ ypos 985
+ hide_input true
+}
+Camera2 {
+ inputs 0
+ translate {18.61 12.075 18.127}
+ rotate {-21.623 40.815 0}
+ name Camera3
+ xpos 114
+ ypos 722
+}
+Camera2 {
+ inputs 0
+ translate {{parent.Camera3.translate.main i} {parent.Camera3.translate.main i} {parent.Camera3.translate.main i}}
+ rotate {{parent.Camera3.rotate.main i} {parent.Camera3.rotate.main i} {parent.Camera3.rotate.main i}}
+ win_scale {3.1 4.8}
+ name Camera4
+ xpos -193
+ ypos -112
+}
+Constant {
+ inputs 0
+ channels rgb
+ color 0.2
+ name Constant1
+ xpos 68
+ ypos -302
+}
+Shuffle {
+ alpha white
+ name Shuffle1
+ xpos 68
+ ypos -176
+}
+set N7fe4770 [stack 0]
+Project3D {
+ inputs 2
+ name Project3D1
+ xpos 68
+ ypos -94
+}
+Cube {
+ rows 1
+ columns 1
+ uniform_scale 0.39
+ name Cube3
+ xpos 68
+ ypos -48
+}
+Dot {
+ name Dot6
+ xpos 102
+ ypos -2
+}
+set N80283b0 [stack 0]
+TransformGeo {
+ translate {0 0 -3}
+ name TransformGeo5
+ xpos 374
+ ypos 11
+}
+push $N80283b0
+TransformGeo {
+ translate {0 0 -2}
+ name TransformGeo4
+ xpos 268
+ ypos 16
+}
+push $N80283b0
+TransformGeo {
+ translate {0 0 -1}
+ name TransformGeo2
+ xpos 156
+ ypos 18
+}
+push $N80283b0
+Scene {
+ inputs 4
+ name Scene4
+ xpos 96
+ ypos 75
+}
+set N8049520 [stack 0]
+TransformGeo {
+ translate {3 0 0}
+ name TransformGeo8
+ xpos 400
+ ypos 144
+}
+push $N8049520
+TransformGeo {
+ translate {2 0 0}
+ name TransformGeo7
+ xpos 304
+ ypos 142
+}
+push $N8049520
+TransformGeo {
+ translate {1 0 0}
+ name TransformGeo6
+ xpos 206
+ ypos 146
+}
+push $N8049520
+Scene {
+ inputs 4
+ name Scene6
+ xpos 170
+ ypos 191
+}
+set N806c740 [stack 0]
+TransformGeo {
+ translate {0 3 0}
+ name TransformGeo12
+ xpos 455
+ ypos 263
+}
+push $N806c740
+TransformGeo {
+ translate {0 2 0}
+ name TransformGeo10
+ xpos 353
+ ypos 266
+}
+push $N806c740
+TransformGeo {
+ translate {0 1 0}
+ name TransformGeo9
+ xpos 262
+ ypos 264
+}
+push $N806c740
+Scene {
+ inputs 4
+ name Scene3
+ xpos 209
+ ypos 339
+}
+set N808f690 [stack 0]
+TransformGeo {
+ translate {0 4 0}
+ name TransformGeo19
+ xpos 1003
+ ypos 377
+}
+push $N808f690
+TransformGeo {
+ translate {4 4 0}
+ name TransformGeo18
+ xpos 877
+ ypos 378
+}
+push $N808f690
+TransformGeo {
+ translate {4 0 0}
+ name TransformGeo17
+ xpos 753
+ ypos 385
+}
+push $N808f690
+TransformGeo {
+ translate {4 0 4}
+ name TransformGeo16
+ xpos 641
+ ypos 391
+}
+push $N808f690
+TransformGeo {
+ translate {4 4 4}
+ name TransformGeo15
+ xpos 524
+ ypos 383
+}
+push $N808f690
+TransformGeo {
+ translate {0 4 4}
+ name TransformGeo14
+ xpos 409
+ ypos 384
+}
+push $N808f690
+TransformGeo {
+ translate {0 0 4}
+ name TransformGeo13
+ xpos 307
+ ypos 393
+}
+push $N808f690
+Scene {
+ inputs 8
+ name Scene7
+ xpos 244
+ ypos 451
+}
+TransformGeo {
+ rotate {{sin(t*.0622)*180 i} {curve i} {curve i}}
+ pivot {3.5 3.5 0}
+ name TransformGeo1
+ xpos 234
+ ypos 598
+}
+Constant {
+ inputs 0
+ channels rgb
+ format "512 512 0 0 512 512 1 square_512"
+ name Constant6
+ xpos 318
+ ypos 641
+}
+add_layer {point point.x point.y point.z}
+add_layer {normals normals.red normals.green normals.blue normals.alpha}
+ScanlineRender {
+ inputs 3
+ output_shader_vectors true
+ P_channel point
+ N_channel normals
+ name ScanlineRender2
+ xpos 234
+ ypos 740
+}
+Dot {
+ name Dot1
+ tile_color 0x90ff90ff
+ label s
+ xpos 268
+ ypos 806
+}
+set Nbea48ea0 [stack 0]
+Dot {
+ name Dot10
+ tile_color 0xff9090ff
+ label r
+ xpos 392
+ ypos 1545
+ hide_input true
+}
+set Nbc0b4a30 [stack 0]
+Dot {
+ name Dot11
+ xpos 597
+ ypos 1545
+}
+Group {
+ name 3DMattes3
+ help "Extracts shapes from 3D passes.\n\nGizmo created by Pau Rocher.\npaur@d2.com\nbikura@gmail.com"
+ xpos 563
+ ypos 1660
+ addUserKnob {20 User}
+ addUserKnob {18 point t "The selected color will be the center for the created shape."}
+ point {0 0 1}
+ addUserKnob {26 ""}
+ addUserKnob {4 shape t "Here you can choose diferent shapes." M {sphere cylinder x y z ""}}
+ shape x
+ addUserKnob {7 expansion t "Size of shape."}
+ expansion 0.62
+ addUserKnob {7 fallof t Fallof.}
+ fallof 1
+ addUserKnob {26 ""}
+ addUserKnob {13 modifyShape l "modify shape" t "Modifies the form of the shape."}
+ modifyShape {1 1 1}
+ addUserKnob {7 rotateX t "Rotates the shape in the X axis." R -180 180}
+ rotateX 22
+ addUserKnob {7 rotateY t "Rotates the shape in the Y axis." R -180 180}
+ rotateY 38
+ addUserKnob {7 rotateZ t "Rotates the shape in the Z axis." R -180 180}
+ rotateZ -58
+ addUserKnob {18 center t "Center of rotation.\nDrag the values from the selected point to put the origin point at the center of the shape."}
+ center {0 0 0}
+ addUserKnob {26 ""}
+ addUserKnob {41 pointPass l "point pass" t "Layer selected will be used to extract the shapes.\nUsually a pointPass, xyzCamera, xyzWorld or nomalMap." T Shuffle6.in}
+ addUserKnob {22 output t "Different modes of data visualisation." T "n = nuke.thisNode()\nw = nuke.toNode('Switch3').knob('which')\nprint w.value()\nif w.value() == 0:\n  w.setValue(1)\n  n.knob('out').setLabel('       point pass')\nelif w.value() == 1:\n  w.setValue(2)\n  n.knob('out').setLabel('         side by side')\nelse:\n  w.setValue(0)\n  n.knob('out').setLabel('        mask')" +STARTLINE}
+ addUserKnob {26 out l "        mask" t "This is what is being output from this node." -STARTLINE}
+ addUserKnob {6 clamp t "Usually values go below 0. You may want to clamp ..." +STARTLINE}
+ clamp true
+ addUserKnob {26 output_1 l output}
+ addUserKnob {41 to0 l "" -STARTLINE T Copy3.to0}
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos -71
+  ypos 82
+ }
+set Nbf25abc0 [stack 0]
+ Shuffle {
+  name Shuffle4
+  xpos 49
+  ypos 151
+ }
+push $Nbf25abc0
+ Shuffle {
+  in normals
+  alpha black
+  name Shuffle6
+  xpos -71
+  ypos 218
+ }
+add_layer {diffColor diffColor.red diffColor.green diffColor.blue}
+ Copy {
+  inputs 2
+  from0 rgba.alpha
+  to0 rgba.alpha
+  to1 diffColor.green
+  name Copy1
+  xpos 49
+  ypos 201
+ }
+ Unpremult {
+  name Unpremult1
+  xpos 49
+  ypos 302
+ }
+set Nbf277ce0 [stack 0]
+ Dot {
+  name Dot2
+  xpos 83
+  ypos 956
+ }
+set Nbf27bd00 [stack 0]
+ Dot {
+  name Dot7
+  xpos 339
+  ypos 956
+ }
+set Nbf27e970 [stack 0]
+push $Nbf277ce0
+ Dot {
+  name Dot1
+  xpos 368
+  ypos 308
+ }
+ Add {
+  value {{-parent.center i} {-parent.center i} {-parent.center i} {0 i}}
+  name Add1
+  xpos 334
+  ypos 352
+ }
+ ColorMatrix {
+  matrix {
+      {{1 i} {0 i} {0 i}}
+      {{0 i} {cos(rotateX*pi/180) i} {-sin(rotateX*pi/180) i}}
+      {{0 i} {sin(rotateX*pi/180) i} {cos(rotateX*pi/180) i}}
+    }
+  name rotateX1
+  xpos 334
+  ypos 411
+ }
+ ColorMatrix {
+  matrix {
+      {{cos(rotateY*pi/180)} 0 {sin(rotateY*pi/180)}}
+      {0 1 0}
+      {{-sin(rotateY*pi/180)} 0 {cos(rotateY*pi/180)}}
+    }
+  name rotateY1
+  xpos 334
+  ypos 454
+  addUserKnob {20 User}
+  addUserKnob {1 a}
+  a cos(rotateY*pi/180)
+  addUserKnob {1 b}
+  b 0
+  addUserKnob {1 c}
+  c sin(rotateY*pi/180)
+  addUserKnob {1 d}
+  d 0
+  addUserKnob {1 e}
+  e 1
+  addUserKnob {1 f}
+  f 0
+  addUserKnob {1 g}
+  g -sin(rotateY*pi/180)
+  addUserKnob {1 h}
+  h 0
+  addUserKnob {1 i}
+  i cos(rotateY*pi/180)
+ }
+ ColorMatrix {
+  matrix {
+      {{cos(rotateZ*pi/180) i} {-sin(rotateZ*pi/180) i} {0 i}}
+      {{sin(rotateZ*pi/180) i} {cos(rotateZ*pi/180) i} {0 i}}
+      {{0 i} {0 i} {1 i}}
+    }
+  name rotateZ1
+  xpos 334
+  ypos 496
+ }
+ Add {
+  value {{parent.center i} {parent.center i} {parent.center i} {curve i}}
+  name Add2
+  xpos 334
+  ypos 545
+ }
+ Expression {
+  temp_name0 x
+  temp_expr0 (-r+parent.point.r+parent.expansion)*(r-parent.point.r+parent.expansion)*((1/parent.expansion)*(1/parent.expansion))
+  temp_name1 y
+  temp_expr1 (-g+parent.point.g+parent.expansion)*(g-parent.point.g+parent.expansion)*((1/parent.expansion)*(1/parent.expansion))
+  temp_name2 z
+  temp_expr2 (-b+parent.point.b+parent.expansion)*(b-parent.point.b+parent.expansion)*((1/parent.expansion)*(1/parent.expansion))
+  expr0 x
+  expr1 y
+  expr2 z
+  name Expression2
+  xpos 334
+  ypos 604
+ }
+ Dot {
+  name Dot3
+  xpos 368
+  ypos 668
+ }
+set Nbf2aec80 [stack 0]
+ Dot {
+  name Dot10
+  xpos 488
+  ypos 668
+ }
+set Nbe542210 [stack 0]
+ Dot {
+  name Dot4
+  xpos 608
+  ypos 668
+ }
+set Nbe544f10 [stack 0]
+ Dot {
+  name Dot5
+  xpos 728
+  ypos 668
+ }
+set Nbe547c10 [stack 0]
+ Dot {
+  name Dot6
+  xpos 848
+  ypos 668
+ }
+ Expression {
+  expr2 b/fallof
+  name Expression6
+  xpos 814
+  ypos 690
+ }
+ Shuffle {
+  red blue
+  green blue
+  alpha blue
+  name Shuffle7
+  xpos 814
+  ypos 724
+ }
+push $Nbe547c10
+ Expression {
+  expr1 g/fallof
+  name Expression5
+  xpos 694
+  ypos 690
+ }
+ Shuffle {
+  red green
+  blue green
+  alpha green
+  name Shuffle8
+  xpos 694
+  ypos 724
+ }
+push $Nbe544f10
+ Expression {
+  expr0 r/fallof
+  name Expression4
+  xpos 574
+  ypos 690
+ }
+ Shuffle {
+  green red
+  blue red
+  alpha red
+  name Shuffle9
+  xpos 574
+  ypos 724
+ }
+push $Nbe542210
+ Expression {
+  expr0 ((r*modifyShape.y)+(b*modifyShape.x))/(fallof*2)
+  name Expression1
+  xpos 454
+  ypos 690
+ }
+ Shuffle {
+  green red
+  blue red
+  alpha red
+  name Shuffle3
+  xpos 454
+  ypos 724
+ }
+push $Nbf2aec80
+ Expression {
+  expr0 ((r*modifyShape.y)+(g*modifyShape.x)+(b*modifyShape.z))/(fallof*3)
+  name Expression3
+  xpos 334
+  ypos 690
+ }
+ Shuffle {
+  green red
+  blue red
+  alpha red
+  name Shuffle10
+  xpos 334
+  ypos 724
+ }
+ Switch {
+  inputs 5
+  which {{parent.shape i}}
+  name Switch2
+  xpos 574
+  ypos 809
+ }
+ Clamp {
+  name Clamp1
+  xpos 574
+  ypos 892
+  disable {{1-parent.clamp i}}
+ }
+ Copy {
+  inputs 2
+  from0 rgba.alpha
+  to0 rgba.alpha
+  name Copy2
+  xpos 574
+  ypos 942
+ }
+ Premult {
+  name Premult1
+  xpos 574
+  ypos 992
+ }
+set Nbe5b4730 [stack 0]
+ Dot {
+  name Dot11
+  xpos 459
+  ypos 998
+ }
+ Shuffle {
+  alpha white
+  name Shuffle2
+  xpos 425
+  ypos 1166
+ }
+ Crop {
+  box {{format.x i} {format.y i} {format.w i} {format.h i}}
+  reformat true
+  name Crop2
+  xpos 425
+  ypos 1200
+ }
+ Transform {
+  center {914 778}
+  name Transform1
+  xpos 425
+  ypos 1234
+ }
+push $Nbf27e970
+ Shuffle {
+  alpha white
+  name Shuffle1
+  xpos 305
+  ypos 1166
+ }
+ Crop {
+  box {{format.x i} {format.y i} {format.w i} {format.h i}}
+  reformat true
+  name Crop3
+  xpos 305
+  ypos 1200
+ }
+ Crop {
+  box {{format.x i} {-format.h i} {format.w i} {format.h i}}
+  reformat true
+  intersect true
+  name Crop1
+  xpos 305
+  ypos 1234
+ }
+ Dot {
+  name Dot9
+  xpos 339
+  ypos 1330
+ }
+ Merge2 {
+  inputs 2
+  name Merge1
+  xpos 425
+  ypos 1324
+ }
+push $Nbf27bd00
+ Dot {
+  name Dot8
+  xpos 83
+  ypos 1459
+ }
+push $Nbe5b4730
+push $Nbe5b4730
+ Remove {
+  name Remove2
+  xpos 651
+  ypos 1036
+ }
+ Copy {
+  inputs 2
+  from0 rgba.red
+  to0 rgba.alpha
+  name Copy3
+  xpos 574
+  ypos 1101
+ }
+ Switch {
+  inputs 3
+  name Switch3
+  xpos 574
+  ypos 1453
+ }
+ Output {
+  name Output1
+  xpos 574
+  ypos 1602
+ }
+end_group
+push $Nbc0b4a30
+Unpremult {
+ name Unpremult3
+ xpos 358
+ ypos 1634
+}
+Grade {
+ inputs 1+1
+ multiply 0.16
+ name Grade2
+ xpos 358
+ ypos 1668
+}
+Premult {
+ name Premult3
+ xpos 358
+ ypos 1702
+}
+CheckerBoard2 {
+ inputs 0
+ format "512 512 0 0 512 512 1 square_512"
+ name CheckerBoard3
+ xpos 217
+ ypos 1757
+}
+Merge2 {
+ inputs 2
+ name Merge3
+ xpos 358
+ ypos 1780
+}
+push $N7fe4770
+Sphere {
+ rows 5
+ columns 5
+ radius 0.32
+ name Sphere2
+ xpos -39
+ ypos -47
+}
+push $Nbea48ea0
+Dot {
+ name Dot2
+ tile_color 0xff9090ff
+ label r
+ xpos 392
+ ypos 1064
+ hide_input true
+}
+set Nbc148190 [stack 0]
+Dot {
+ name Dot3
+ xpos 597
+ ypos 1064
+}
+Group {
+ name 3DMattes1
+ help "Extracts shapes from 3D passes.\n\nGizmo created by Pau Rocher.\npaur@d2.com\nbikura@gmail.com"
+ xpos 563
+ ypos 1179
+ addUserKnob {20 User}
+ addUserKnob {18 point t "The selected color will be the center for the created shape."}
+ point {5.1399984 5.085999966 -1.522}
+ addUserKnob {26 ""}
+ addUserKnob {4 shape t "Here you can choose diferent shapes." M {sphere cylinder x y z ""}}
+ addUserKnob {7 expansion t "Size of shape."}
+ expansion 3.5
+ addUserKnob {7 fallof t Fallof.}
+ fallof 1
+ addUserKnob {26 ""}
+ addUserKnob {13 modifyShape l "modify shape" t "Modifies the form of the shape."}
+ modifyShape {1 1 1}
+ addUserKnob {7 rotateX t "Rotates the shape in the X axis." R -180 180}
+ addUserKnob {7 rotateY t "Rotates the shape in the Y axis." R -180 180}
+ addUserKnob {7 rotateZ t "Rotates the shape in the Z axis." R -180 180}
+ addUserKnob {18 center t "Center of rotation.\nDrag the values from the selected point to put the origin point at the center of the shape."}
+ center {0 0 0}
+ addUserKnob {26 ""}
+ addUserKnob {41 pointPass l "point pass" t "Layer selected will be used to extract the shapes.\nUsually a pointPass, xyzCamera, xyzWorld or nomalMap." T Shuffle6.in}
+ addUserKnob {22 output t "Different modes of data visualisation." T "n = nuke.thisNode()\nw = nuke.toNode('Switch3').knob('which')\nprint w.value()\nif w.value() == 0:\n  w.setValue(1)\n  n.knob('out').setLabel('       point pass')\nelif w.value() == 1:\n  w.setValue(2)\n  n.knob('out').setLabel('         side by side')\nelse:\n  w.setValue(0)\n  n.knob('out').setLabel('        mask')" +STARTLINE}
+ addUserKnob {26 out l "        mask" t "This is what is being output from this node." -STARTLINE}
+ addUserKnob {6 clamp t "Usually values go below 0. You may want to clamp ..." +STARTLINE}
+ clamp true
+ addUserKnob {26 output_1 l output}
+ addUserKnob {41 to0 l "" -STARTLINE T Copy3.to0}
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos -71
+  ypos 82
+ }
+set N80fdf70 [stack 0]
+ Shuffle {
+  name Shuffle4
+  xpos 49
+  ypos 151
+ }
+push $N80fdf70
+ Shuffle {
+  in point
+  alpha black
+  name Shuffle6
+  xpos -71
+  ypos 218
+ }
+ Copy {
+  inputs 2
+  from0 rgba.alpha
+  to0 rgba.alpha
+  to1 diffColor.green
+  name Copy1
+  xpos 49
+  ypos 201
+ }
+ Unpremult {
+  name Unpremult1
+  xpos 49
+  ypos 302
+ }
+set N811c520 [stack 0]
+ Dot {
+  name Dot2
+  xpos 83
+  ypos 956
+ }
+set N8120530 [stack 0]
+ Dot {
+  name Dot7
+  xpos 339
+  ypos 956
+ }
+set N8123250 [stack 0]
+push $N811c520
+ Dot {
+  name Dot1
+  xpos 368
+  ypos 308
+ }
+ Add {
+  value {{-parent.center i} {-parent.center i} {-parent.center i} {0 i}}
+  name Add1
+  xpos 334
+  ypos 352
+ }
+ ColorMatrix {
+  matrix {
+      {{1 i} {0 i} {0 i}}
+      {{0 i} {cos(rotateX*pi/180) i} {-sin(rotateX*pi/180) i}}
+      {{0 i} {sin(rotateX*pi/180) i} {cos(rotateX*pi/180) i}}
+    }
+  name rotateX1
+  xpos 334
+  ypos 411
+ }
+ ColorMatrix {
+  matrix {
+      {{cos(rotateY*pi/180)} 0 {sin(rotateY*pi/180)}}
+      {0 1 0}
+      {{-sin(rotateY*pi/180)} 0 {cos(rotateY*pi/180)}}
+    }
+  name rotateY1
+  xpos 334
+  ypos 454
+  addUserKnob {20 User}
+  addUserKnob {1 a}
+  a cos(rotateY*pi/180)
+  addUserKnob {1 b}
+  b 0
+  addUserKnob {1 c}
+  c sin(rotateY*pi/180)
+  addUserKnob {1 d}
+  d 0
+  addUserKnob {1 e}
+  e 1
+  addUserKnob {1 f}
+  f 0
+  addUserKnob {1 g}
+  g -sin(rotateY*pi/180)
+  addUserKnob {1 h}
+  h 0
+  addUserKnob {1 i}
+  i cos(rotateY*pi/180)
+ }
+ ColorMatrix {
+  matrix {
+      {{cos(rotateZ*pi/180) i} {-sin(rotateZ*pi/180) i} {0 i}}
+      {{sin(rotateZ*pi/180) i} {cos(rotateZ*pi/180) i} {0 i}}
+      {{0 i} {0 i} {1 i}}
+    }
+  name rotateZ1
+  xpos 334
+  ypos 496
+ }
+ Add {
+  value {{parent.center i} {parent.center i} {parent.center i} {curve i}}
+  name Add2
+  xpos 334
+  ypos 545
+ }
+ Expression {
+  temp_name0 x
+  temp_expr0 (-r+parent.point.r+parent.expansion)*(r-parent.point.r+parent.expansion)*((1/parent.expansion)*(1/parent.expansion))
+  temp_name1 y
+  temp_expr1 (-g+parent.point.g+parent.expansion)*(g-parent.point.g+parent.expansion)*((1/parent.expansion)*(1/parent.expansion))
+  temp_name2 z
+  temp_expr2 (-b+parent.point.b+parent.expansion)*(b-parent.point.b+parent.expansion)*((1/parent.expansion)*(1/parent.expansion))
+  expr0 x
+  expr1 y
+  expr2 z
+  name Expression2
+  xpos 334
+  ypos 604
+ }
+ Dot {
+  name Dot3
+  xpos 368
+  ypos 668
+ }
+set N8154670 [stack 0]
+ Dot {
+  name Dot10
+  xpos 488
+  ypos 668
+ }
+set N8157460 [stack 0]
+ Dot {
+  name Dot4
+  xpos 608
+  ypos 668
+ }
+set N815a160 [stack 0]
+ Dot {
+  name Dot5
+  xpos 728
+  ypos 668
+ }
+set N815ce60 [stack 0]
+ Dot {
+  name Dot6
+  xpos 848
+  ypos 668
+ }
+ Expression {
+  expr2 b/fallof
+  name Expression6
+  xpos 814
+  ypos 690
+ }
+ Shuffle {
+  red blue
+  green blue
+  alpha blue
+  name Shuffle7
+  xpos 814
+  ypos 724
+ }
+push $N815ce60
+ Expression {
+  expr1 g/fallof
+  name Expression5
+  xpos 694
+  ypos 690
+ }
+ Shuffle {
+  red green
+  blue green
+  alpha green
+  name Shuffle8
+  xpos 694
+  ypos 724
+ }
+push $N815a160
+ Expression {
+  expr0 r/fallof
+  name Expression4
+  xpos 574
+  ypos 690
+ }
+ Shuffle {
+  green red
+  blue red
+  alpha red
+  name Shuffle9
+  xpos 574
+  ypos 724
+ }
+push $N8157460
+ Expression {
+  expr0 ((r*modifyShape.y)+(b*modifyShape.x))/(fallof*2)
+  name Expression1
+  xpos 454
+  ypos 690
+ }
+ Shuffle {
+  green red
+  blue red
+  alpha red
+  name Shuffle3
+  xpos 454
+  ypos 724
+ }
+push $N8154670
+ Expression {
+  expr0 ((r*modifyShape.y)+(g*modifyShape.x)+(b*modifyShape.z))/(fallof*3)
+  name Expression3
+  xpos 334
+  ypos 690
+ }
+ Shuffle {
+  green red
+  blue red
+  alpha red
+  name Shuffle10
+  xpos 334
+  ypos 724
+ }
+ Switch {
+  inputs 5
+  which {{parent.shape i}}
+  name Switch2
+  xpos 574
+  ypos 809
+ }
+ Clamp {
+  name Clamp1
+  xpos 574
+  ypos 892
+  disable {{1-parent.clamp i}}
+ }
+ Copy {
+  inputs 2
+  from0 rgba.alpha
+  to0 rgba.alpha
+  name Copy2
+  xpos 574
+  ypos 942
+ }
+ Premult {
+  name Premult1
+  xpos 574
+  ypos 992
+ }
+set N81ca7b0 [stack 0]
+ Dot {
+  name Dot11
+  xpos 459
+  ypos 998
+ }
+ Shuffle {
+  alpha white
+  name Shuffle2
+  xpos 425
+  ypos 1166
+ }
+ Crop {
+  box {{format.x i} {format.y i} {format.w i} {format.h i}}
+  reformat true
+  name Crop2
+  xpos 425
+  ypos 1200
+ }
+ Transform {
+  center {914 778}
+  name Transform1
+  xpos 425
+  ypos 1234
+ }
+push $N8123250
+ Shuffle {
+  alpha white
+  name Shuffle1
+  xpos 305
+  ypos 1166
+ }
+ Crop {
+  box {{format.x i} {format.y i} {format.w i} {format.h i}}
+  reformat true
+  name Crop3
+  xpos 305
+  ypos 1200
+ }
+ Crop {
+  box {{format.x i} {-format.h i} {format.w i} {format.h i}}
+  reformat true
+  intersect true
+  name Crop1
+  xpos 305
+  ypos 1234
+ }
+ Dot {
+  name Dot9
+  xpos 339
+  ypos 1330
+ }
+ Merge2 {
+  inputs 2
+  name Merge1
+  xpos 425
+  ypos 1324
+ }
+push $N8120530
+ Dot {
+  name Dot8
+  xpos 83
+  ypos 1459
+ }
+push $N81ca7b0
+push $N81ca7b0
+ Remove {
+  name Remove2
+  xpos 651
+  ypos 1036
+ }
+ Copy {
+  inputs 2
+  from0 rgba.red
+  to0 rgba.alpha
+  name Copy3
+  xpos 574
+  ypos 1101
+ }
+ Switch {
+  inputs 3
+  name Switch3
+  xpos 574
+  ypos 1453
+ }
+ Output {
+  name Output1
+  xpos 574
+  ypos 1602
+ }
+end_group
+push $Nbc148190
+Unpremult {
+ name Unpremult1
+ xpos 358
+ ypos 1153
+}
+Grade {
+ inputs 1+1
+ multiply {0.9950000048 0.6750000119 0.2039749771 1}
+ name Grade4
+ xpos 358
+ ypos 1187
+}
+Premult {
+ name Premult1
+ xpos 358
+ ypos 1221
+}
+CheckerBoard2 {
+ inputs 0
+ format "512 512 0 0 512 512 1 square_512"
+ name CheckerBoard1
+ xpos 217
+ ypos 1276
+}
+Merge2 {
+ inputs 2
+ name Merge1
+ xpos 358
+ ypos 1299
+}
+Viewer {
+ frame 64
+ useGPUForViewer false
+ input_process false
+ name Viewer1
+ xpos 1037
+ ypos 1680
+ addUserKnob {20 buffers}
+ addUserKnob {6 buffer_01 l "lock buffer_01" +STARTLINE}
+ addUserKnob {6 buffer_02 l "lock buffer_02" +STARTLINE}
+ addUserKnob {6 buffer_03 l "lock buffer_03" +STARTLINE}
+ addUserKnob {6 buffer_04 l "lock buffer_04" +STARTLINE}
+ addUserKnob {6 buffer_05 l "lock buffer_05" +STARTLINE}
+ addUserKnob {6 buffer_06 l "lock buffer_06" +STARTLINE}
+ addUserKnob {6 buffer_07 l "lock buffer_07" +STARTLINE}
+ addUserKnob {6 buffer_08 l "lock buffer_08" +STARTLINE}
+ addUserKnob {6 buffer_09 l "lock buffer_09" +STARTLINE}
+ addUserKnob {6 buffer_010 l "lock buffer_010" +STARTLINE}
+ addUserKnob {20 beginGroup l preferences n 2}
+ addUserKnob {6 noMessage l "stop showing locked buffer messages" +STARTLINE}
+ addUserKnob {20 endGroup l "" -STARTLINE n -1}
+}
+push $Nbea48ea0
+Dot {
+ name Dot7
+ tile_color 0xff9090ff
+ label r
+ xpos 1010
+ ypos 1064
+ hide_input true
+}
+set Nc1f5d9a0 [stack 0]
+Dot {
+ name Dot5
+ xpos 1215
+ ypos 1064
+}
+Group {
+ name 3DMattes2
+ help "Extracts shapes from 3D passes.\n\nGizmo created by Pau Rocher.\npaur@d2.com\nbikura@gmail.com"
+ xpos 1181
+ ypos 1179
+ addUserKnob {20 User}
+ addUserKnob {18 point t "The selected color will be the center for the created shape."}
+ point {3.5399984 3.91799997 0.722}
+ addUserKnob {26 ""}
+ addUserKnob {4 shape t "Here you can choose diferent shapes." M {sphere cylinder x y z ""}}
+ shape cylinder
+ addUserKnob {7 expansion t "Size of shape."}
+ expansion 2
+ addUserKnob {7 fallof t Fallof.}
+ fallof 0.365
+ addUserKnob {26 ""}
+ addUserKnob {13 modifyShape l "modify shape" t "Modifies the form of the shape."}
+ modifyShape {1 1 1}
+ addUserKnob {7 rotateX t "Rotates the shape in the X axis." R -180 180}
+ addUserKnob {7 rotateY t "Rotates the shape in the Y axis." R -180 180}
+ addUserKnob {7 rotateZ t "Rotates the shape in the Z axis." R -180 180}
+ rotateZ 90
+ addUserKnob {18 center t "Center of rotation.\nDrag the values from the selected point to put the origin point at the center of the shape."}
+ center {{point i} {point i} {point i}}
+ addUserKnob {26 ""}
+ addUserKnob {41 pointPass l "point pass" t "Layer selected will be used to extract the shapes.\nUsually a pointPass, xyzCamera, xyzWorld or nomalMap." T Shuffle6.in}
+ addUserKnob {22 output t "Different modes of data visualisation." T "n = nuke.thisNode()\nw = nuke.toNode('Switch3').knob('which')\nprint w.value()\nif w.value() == 0:\n  w.setValue(1)\n  n.knob('out').setLabel('       point pass')\nelif w.value() == 1:\n  w.setValue(2)\n  n.knob('out').setLabel('         side by side')\nelse:\n  w.setValue(0)\n  n.knob('out').setLabel('        mask')" +STARTLINE}
+ addUserKnob {26 out l "        mask" t "This is what is being output from this node." -STARTLINE}
+ addUserKnob {6 clamp t "Usually values go below 0. You may want to clamp ..." +STARTLINE}
+ clamp true
+ addUserKnob {26 output_1 l output}
+ addUserKnob {41 to0 l "" -STARTLINE T Copy3.to0}
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos -71
+  ypos 82
+ }
+set Nc0e711c0 [stack 0]
+ Shuffle {
+  name Shuffle4
+  xpos 49
+  ypos 151
+ }
+push $Nc0e711c0
+ Shuffle {
+  in point
+  alpha black
+  name Shuffle6
+  xpos -71
+  ypos 218
+ }
+ Copy {
+  inputs 2
+  from0 rgba.alpha
+  to0 rgba.alpha
+  to1 diffColor.green
+  name Copy1
+  xpos 49
+  ypos 201
+ }
+ Unpremult {
+  name Unpremult1
+  xpos 49
+  ypos 302
+ }
+set Nc0e471e0 [stack 0]
+ Dot {
+  name Dot2
+  xpos 83
+  ypos 956
+ }
+set Nc05df7d0 [stack 0]
+ Dot {
+  name Dot7
+  xpos 339
+  ypos 956
+ }
+set Nc0e5f790 [stack 0]
+push $Nc0e471e0
+ Dot {
+  name Dot1
+  xpos 368
+  ypos 308
+ }
+ Add {
+  value {{-parent.center i} {-parent.center i} {-parent.center i} {0 i}}
+  name Add1
+  xpos 334
+  ypos 352
+ }
+ ColorMatrix {
+  matrix {
+      {{1 i} {0 i} {0 i}}
+      {{0 i} {cos(rotateX*pi/180) i} {-sin(rotateX*pi/180) i}}
+      {{0 i} {sin(rotateX*pi/180) i} {cos(rotateX*pi/180) i}}
+    }
+  name rotateX1
+  xpos 334
+  ypos 411
+ }
+ ColorMatrix {
+  matrix {
+      {{cos(rotateY*pi/180)} 0 {sin(rotateY*pi/180)}}
+      {0 1 0}
+      {{-sin(rotateY*pi/180)} 0 {cos(rotateY*pi/180)}}
+    }
+  name rotateY1
+  xpos 334
+  ypos 454
+  addUserKnob {20 User}
+  addUserKnob {1 a}
+  a cos(rotateY*pi/180)
+  addUserKnob {1 b}
+  b 0
+  addUserKnob {1 c}
+  c sin(rotateY*pi/180)
+  addUserKnob {1 d}
+  d 0
+  addUserKnob {1 e}
+  e 1
+  addUserKnob {1 f}
+  f 0
+  addUserKnob {1 g}
+  g -sin(rotateY*pi/180)
+  addUserKnob {1 h}
+  h 0
+  addUserKnob {1 i}
+  i cos(rotateY*pi/180)
+ }
+ ColorMatrix {
+  matrix {
+      {{cos(rotateZ*pi/180) i} {-sin(rotateZ*pi/180) i} {0 i}}
+      {{sin(rotateZ*pi/180) i} {cos(rotateZ*pi/180) i} {0 i}}
+      {{0 i} {0 i} {1 i}}
+    }
+  name rotateZ1
+  xpos 334
+  ypos 496
+ }
+ Add {
+  value {{parent.center i} {parent.center i} {parent.center i} {curve i}}
+  name Add2
+  xpos 334
+  ypos 545
+ }
+ Expression {
+  temp_name0 x
+  temp_expr0 (-r+parent.point.r+parent.expansion)*(r-parent.point.r+parent.expansion)*((1/parent.expansion)*(1/parent.expansion))
+  temp_name1 y
+  temp_expr1 (-g+parent.point.g+parent.expansion)*(g-parent.point.g+parent.expansion)*((1/parent.expansion)*(1/parent.expansion))
+  temp_name2 z
+  temp_expr2 (-b+parent.point.b+parent.expansion)*(b-parent.point.b+parent.expansion)*((1/parent.expansion)*(1/parent.expansion))
+  expr0 x
+  expr1 y
+  expr2 z
+  name Expression2
+  xpos 334
+  ypos 604
+ }
+ Dot {
+  name Dot3
+  xpos 368
+  ypos 668
+ }
+set Nc29851f0 [stack 0]
+ Dot {
+  name Dot10
+  xpos 488
+  ypos 668
+ }
+set Nc270e9e0 [stack 0]
+ Dot {
+  name Dot4
+  xpos 608
+  ypos 668
+ }
+set Nc29ab0e0 [stack 0]
+ Dot {
+  name Dot5
+  xpos 728
+  ypos 668
+ }
+set Nc27023d0 [stack 0]
+ Dot {
+  name Dot6
+  xpos 848
+  ypos 668
+ }
+ Expression {
+  expr2 b/fallof
+  name Expression6
+  xpos 814
+  ypos 690
+ }
+ Shuffle {
+  red blue
+  green blue
+  alpha blue
+  name Shuffle7
+  xpos 814
+  ypos 724
+ }
+push $Nc27023d0
+ Expression {
+  expr1 g/fallof
+  name Expression5
+  xpos 694
+  ypos 690
+ }
+ Shuffle {
+  red green
+  blue green
+  alpha green
+  name Shuffle8
+  xpos 694
+  ypos 724
+ }
+push $Nc29ab0e0
+ Expression {
+  expr0 r/fallof
+  name Expression4
+  xpos 574
+  ypos 690
+ }
+ Shuffle {
+  green red
+  blue red
+  alpha red
+  name Shuffle9
+  xpos 574
+  ypos 724
+ }
+push $Nc270e9e0
+ Expression {
+  expr0 ((r*modifyShape.y)+(b*modifyShape.x))/(fallof*2)
+  name Expression1
+  xpos 454
+  ypos 690
+ }
+ Shuffle {
+  green red
+  blue red
+  alpha red
+  name Shuffle3
+  xpos 454
+  ypos 724
+ }
+push $Nc29851f0
+ Expression {
+  expr0 ((r*modifyShape.y)+(g*modifyShape.x)+(b*modifyShape.z))/(fallof*3)
+  name Expression3
+  xpos 334
+  ypos 690
+ }
+ Shuffle {
+  green red
+  blue red
+  alpha red
+  name Shuffle10
+  xpos 334
+  ypos 724
+ }
+ Switch {
+  inputs 5
+  which {{parent.shape i}}
+  name Switch2
+  xpos 574
+  ypos 809
+ }
+ Clamp {
+  name Clamp1
+  xpos 574
+  ypos 892
+  disable {{1-parent.clamp i}}
+ }
+ Copy {
+  inputs 2
+  from0 rgba.alpha
+  to0 rgba.alpha
+  name Copy2
+  xpos 574
+  ypos 942
+ }
+ Premult {
+  name Premult1
+  xpos 574
+  ypos 992
+ }
+set Nc1db2e40 [stack 0]
+ Dot {
+  name Dot11
+  xpos 459
+  ypos 998
+ }
+ Shuffle {
+  alpha white
+  name Shuffle2
+  xpos 425
+  ypos 1166
+ }
+ Crop {
+  box {{format.x i} {format.y i} {format.w i} {format.h i}}
+  reformat true
+  name Crop2
+  xpos 425
+  ypos 1200
+ }
+ Transform {
+  center {914 778}
+  name Transform1
+  xpos 425
+  ypos 1234
+ }
+push $Nc0e5f790
+ Shuffle {
+  alpha white
+  name Shuffle1
+  xpos 305
+  ypos 1166
+ }
+ Crop {
+  box {{format.x i} {format.y i} {format.w i} {format.h i}}
+  reformat true
+  name Crop3
+  xpos 305
+  ypos 1200
+ }
+ Crop {
+  box {{format.x i} {-format.h i} {format.w i} {format.h i}}
+  reformat true
+  intersect true
+  name Crop1
+  xpos 305
+  ypos 1234
+ }
+ Dot {
+  name Dot9
+  xpos 339
+  ypos 1330
+ }
+ Merge2 {
+  inputs 2
+  name Merge1
+  xpos 425
+  ypos 1324
+ }
+push $Nc05df7d0
+ Dot {
+  name Dot8
+  xpos 83
+  ypos 1459
+ }
+push $Nc1db2e40
+push $Nc1db2e40
+ Remove {
+  name Remove2
+  xpos 651
+  ypos 1036
+ }
+ Copy {
+  inputs 2
+  from0 rgba.red
+  to0 rgba.alpha
+  name Copy3
+  xpos 574
+  ypos 1101
+ }
+ Switch {
+  inputs 3
+  name Switch3
+  xpos 574
+  ypos 1453
+ }
+ Output {
+  name Output1
+  xpos 574
+  ypos 1602
+ }
+end_group
+push $Nc1f5d9a0
+Unpremult {
+ name Unpremult2
+ xpos 976
+ ypos 1153
+}
+Grade {
+ inputs 1+1
+ multiply {0.9950000048 0.6750000119 0.2039749771 1}
+ name Grade1
+ xpos 976
+ ypos 1187
+}
+Premult {
+ name Premult2
+ xpos 976
+ ypos 1221
+}
+CheckerBoard2 {
+ inputs 0
+ format "512 512 0 0 512 512 1 square_512"
+ name CheckerBoard2
+ xpos 835
+ ypos 1276
+}
+Merge2 {
+ inputs 2
+ name Merge2
+ xpos 976
+ ypos 1299
+}
+push $Nbea48ea0
+Dot {
+ name Dot13
+ tile_color 0xff9090ff
+ label r
+ xpos 1629
+ ypos 1064
+ hide_input true
+}
+set Nd82b35e0 [stack 0]
+Dot {
+ name Dot14
+ xpos 1869
+ ypos 1064
+}
+set Nd8299990 [stack 0]
+Grade {
+ channels depth
+ multiply 21
+ gamma 0.2
+ black_clamp false
+ name Grade5
+ xpos 1715
+ ypos 1128
+}
+push $Nd8299990
+Group {
+ name 3DMattes4
+ help "Extracts shapes from 3D passes.\n\nGizmo created by Pau Rocher.\npaur@d2.com\nbikura@gmail.com"
+ xpos 1835
+ ypos 1179
+ addUserKnob {20 User}
+ addUserKnob {18 point t "The selected color will be the center for the created shape."}
+ point {3.5399984 3.91799997 0.722}
+ addUserKnob {26 ""}
+ addUserKnob {4 shape t "Here you can choose diferent shapes." M {sphere cylinder x y z ""}}
+ shape y
+ addUserKnob {7 expansion t "Size of shape."}
+ expansion 3
+ addUserKnob {7 fallof t Fallof.}
+ fallof 0.28
+ addUserKnob {26 ""}
+ addUserKnob {13 modifyShape l "modify shape" t "Modifies the form of the shape."}
+ modifyShape {1 1 1}
+ addUserKnob {7 rotateX t "Rotates the shape in the X axis." R -180 180}
+ rotateX 14
+ addUserKnob {7 rotateY t "Rotates the shape in the Y axis." R -180 180}
+ addUserKnob {7 rotateZ t "Rotates the shape in the Z axis." R -180 180}
+ addUserKnob {18 center t "Center of rotation.\nDrag the values from the selected point to put the origin point at the center of the shape."}
+ center {3.5399984 3.91799997 0.722}
+ addUserKnob {26 ""}
+ addUserKnob {41 pointPass l "point pass" t "Layer selected will be used to extract the shapes.\nUsually a pointPass, xyzCamera, xyzWorld or nomalMap." T Shuffle6.in}
+ addUserKnob {22 output t "Different modes of data visualisation." T "n = nuke.thisNode()\nw = nuke.toNode('Switch3').knob('which')\nprint w.value()\nif w.value() == 0:\n  w.setValue(1)\n  n.knob('out').setLabel('       point pass')\nelif w.value() == 1:\n  w.setValue(2)\n  n.knob('out').setLabel('         side by side')\nelse:\n  w.setValue(0)\n  n.knob('out').setLabel('        mask')" +STARTLINE}
+ addUserKnob {26 out l "        mask" t "This is what is being output from this node." -STARTLINE}
+ addUserKnob {6 clamp t "Usually values go below 0. You may want to clamp ..." +STARTLINE}
+ clamp true
+ addUserKnob {26 output_1 l output}
+ addUserKnob {41 to0 l "" -STARTLINE T Copy3.to0}
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos -71
+  ypos 82
+ }
+set Nd98b9130 [stack 0]
+ Shuffle {
+  name Shuffle4
+  xpos 49
+  ypos 151
+ }
+push $Nd98b9130
+ Shuffle {
+  in point
+  alpha black
+  name Shuffle6
+  xpos -71
+  ypos 218
+ }
+ Copy {
+  inputs 2
+  from0 rgba.alpha
+  to0 rgba.alpha
+  to1 diffColor.green
+  name Copy1
+  xpos 49
+  ypos 201
+ }
+ Unpremult {
+  name Unpremult1
+  xpos 49
+  ypos 302
+ }
+set Nd98ae160 [stack 0]
+ Dot {
+  name Dot2
+  xpos 83
+  ypos 956
+ }
+set Nd98933a0 [stack 0]
+ Dot {
+  name Dot7
+  xpos 339
+  ypos 956
+ }
+set Nd869b220 [stack 0]
+push $Nd98ae160
+ Dot {
+  name Dot1
+  xpos 368
+  ypos 308
+ }
+ Add {
+  value {{-parent.center i} {-parent.center i} {-parent.center i} {0 i}}
+  name Add1
+  xpos 334
+  ypos 352
+ }
+ ColorMatrix {
+  matrix {
+      {{1 i} {0 i} {0 i}}
+      {{0 i} {cos(rotateX*pi/180) i} {-sin(rotateX*pi/180) i}}
+      {{0 i} {sin(rotateX*pi/180) i} {cos(rotateX*pi/180) i}}
+    }
+  name rotateX1
+  xpos 334
+  ypos 411
+ }
+ ColorMatrix {
+  matrix {
+      {{cos(rotateY*pi/180)} 0 {sin(rotateY*pi/180)}}
+      {0 1 0}
+      {{-sin(rotateY*pi/180)} 0 {cos(rotateY*pi/180)}}
+    }
+  name rotateY1
+  xpos 334
+  ypos 454
+  addUserKnob {20 User}
+  addUserKnob {1 a}
+  a cos(rotateY*pi/180)
+  addUserKnob {1 b}
+  b 0
+  addUserKnob {1 c}
+  c sin(rotateY*pi/180)
+  addUserKnob {1 d}
+  d 0
+  addUserKnob {1 e}
+  e 1
+  addUserKnob {1 f}
+  f 0
+  addUserKnob {1 g}
+  g -sin(rotateY*pi/180)
+  addUserKnob {1 h}
+  h 0
+  addUserKnob {1 i}
+  i cos(rotateY*pi/180)
+ }
+ ColorMatrix {
+  matrix {
+      {{cos(rotateZ*pi/180) i} {-sin(rotateZ*pi/180) i} {0 i}}
+      {{sin(rotateZ*pi/180) i} {cos(rotateZ*pi/180) i} {0 i}}
+      {{0 i} {0 i} {1 i}}
+    }
+  name rotateZ1
+  xpos 334
+  ypos 496
+ }
+ Add {
+  value {{parent.center i} {parent.center i} {parent.center i} {curve i}}
+  name Add2
+  xpos 334
+  ypos 545
+ }
+ Expression {
+  temp_name0 x
+  temp_expr0 (-r+parent.point.r+parent.expansion)*(r-parent.point.r+parent.expansion)*((1/parent.expansion)*(1/parent.expansion))
+  temp_name1 y
+  temp_expr1 (-g+parent.point.g+parent.expansion)*(g-parent.point.g+parent.expansion)*((1/parent.expansion)*(1/parent.expansion))
+  temp_name2 z
+  temp_expr2 (-b+parent.point.b+parent.expansion)*(b-parent.point.b+parent.expansion)*((1/parent.expansion)*(1/parent.expansion))
+  expr0 x
+  expr1 y
+  expr2 z
+  name Expression2
+  xpos 334
+  ypos 604
+ }
+ Dot {
+  name Dot3
+  xpos 368
+  ypos 668
+ }
+set Nd9ceae90 [stack 0]
+ Dot {
+  name Dot10
+  xpos 488
+  ypos 668
+ }
+set Nd9cedc20 [stack 0]
+ Dot {
+  name Dot4
+  xpos 608
+  ypos 668
+ }
+set Nd9cf0920 [stack 0]
+ Dot {
+  name Dot5
+  xpos 728
+  ypos 668
+ }
+set Nd9cf3620 [stack 0]
+ Dot {
+  name Dot6
+  xpos 848
+  ypos 668
+ }
+ Expression {
+  expr2 b/fallof
+  name Expression6
+  xpos 814
+  ypos 690
+ }
+ Shuffle {
+  red blue
+  green blue
+  alpha blue
+  name Shuffle7
+  xpos 814
+  ypos 724
+ }
+push $Nd9cf3620
+ Expression {
+  expr1 g/fallof
+  name Expression5
+  xpos 694
+  ypos 690
+ }
+ Shuffle {
+  red green
+  blue green
+  alpha green
+  name Shuffle8
+  xpos 694
+  ypos 724
+ }
+push $Nd9cf0920
+ Expression {
+  expr0 r/fallof
+  name Expression4
+  xpos 574
+  ypos 690
+ }
+ Shuffle {
+  green red
+  blue red
+  alpha red
+  name Shuffle9
+  xpos 574
+  ypos 724
+ }
+push $Nd9cedc20
+ Expression {
+  expr0 ((r*modifyShape.y)+(b*modifyShape.x))/(fallof*2)
+  name Expression1
+  xpos 454
+  ypos 690
+ }
+ Shuffle {
+  green red
+  blue red
+  alpha red
+  name Shuffle3
+  xpos 454
+  ypos 724
+ }
+push $Nd9ceae90
+ Expression {
+  expr0 ((r*modifyShape.y)+(g*modifyShape.x)+(b*modifyShape.z))/(fallof*3)
+  name Expression3
+  xpos 334
+  ypos 690
+ }
+ Shuffle {
+  green red
+  blue red
+  alpha red
+  name Shuffle10
+  xpos 334
+  ypos 724
+ }
+ Switch {
+  inputs 5
+  which {{parent.shape i}}
+  name Switch2
+  xpos 574
+  ypos 809
+ }
+ Clamp {
+  name Clamp1
+  xpos 574
+  ypos 892
+  disable {{1-parent.clamp i}}
+ }
+ Copy {
+  inputs 2
+  from0 rgba.alpha
+  to0 rgba.alpha
+  name Copy2
+  xpos 574
+  ypos 942
+ }
+ Premult {
+  name Premult1
+  xpos 574
+  ypos 992
+ }
+set Nd876f640 [stack 0]
+ Dot {
+  name Dot11
+  xpos 459
+  ypos 998
+ }
+ Shuffle {
+  alpha white
+  name Shuffle2
+  xpos 425
+  ypos 1166
+ }
+ Crop {
+  box {{format.x i} {format.y i} {format.w i} {format.h i}}
+  reformat true
+  name Crop2
+  xpos 425
+  ypos 1200
+ }
+ Transform {
+  center {914 778}
+  name Transform1
+  xpos 425
+  ypos 1234
+ }
+push $Nd869b220
+ Shuffle {
+  alpha white
+  name Shuffle1
+  xpos 305
+  ypos 1166
+ }
+ Crop {
+  box {{format.x i} {format.y i} {format.w i} {format.h i}}
+  reformat true
+  name Crop3
+  xpos 305
+  ypos 1200
+ }
+ Crop {
+  box {{format.x i} {-format.h i} {format.w i} {format.h i}}
+  reformat true
+  intersect true
+  name Crop1
+  xpos 305
+  ypos 1234
+ }
+ Dot {
+  name Dot9
+  xpos 339
+  ypos 1330
+ }
+ Merge2 {
+  inputs 2
+  name Merge1
+  xpos 425
+  ypos 1324
+ }
+push $Nd98933a0
+ Dot {
+  name Dot8
+  xpos 83
+  ypos 1459
+ }
+push $Nd876f640
+push $Nd876f640
+ Remove {
+  name Remove2
+  xpos 651
+  ypos 1036
+ }
+ Copy {
+  inputs 2
+  from0 rgba.red
+  to0 rgba.alpha
+  name Copy3
+  xpos 574
+  ypos 1101
+ }
+ Switch {
+  inputs 3
+  name Switch3
+  xpos 574
+  ypos 1453
+ }
+ Output {
+  name Output1
+  xpos 574
+  ypos 1602
+ }
+end_group
+Merge2 {
+ inputs 2
+ operation mask
+ Achannels {none none none depth.Z}
+ Bchannels {none none none rgba.alpha}
+ name Merge5
+ xpos 1715
+ ypos 1187
+}
+push $Nd82b35e0
+Unpremult {
+ name Unpremult4
+ xpos 1595
+ ypos 1153
+}
+Grade {
+ inputs 1+1
+ multiply {0.9950000048 0.6750000119 0.2039749771 1}
+ name Grade3
+ xpos 1595
+ ypos 1187
+}
+Premult {
+ name Premult4
+ xpos 1595
+ ypos 1221
+}
+CheckerBoard2 {
+ inputs 0
+ format "512 512 0 0 512 512 1 square_512"
+ name CheckerBoard4
+ xpos 1454
+ ypos 1276
+}
+Merge2 {
+ inputs 2
+ name Merge4
+ xpos 1595
+ ypos 1299
+}

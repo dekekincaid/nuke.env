@@ -1,0 +1,307 @@
+#! /Applications/Nuke6.3v4/Nuke6.3v4.app/Contents/MacOS/Nuke6.3v4 -nx
+version 6.3 v4
+Gizmo {
+ inputs 2
+ help "Connect main RGB pass to the Color Input and Point Position Pass to the XYZ input.\n\nThe Centerpoint rgb directly correlates to xyz pixel position.\n\nThis is extremely usefull in creating rough localized selection masks from a 3d scene.\n\nAny questions contact cameron.a.carson@gmail.com"
+ addUserKnob {20 Main}
+ addUserKnob {4 up l "Up Axis" t "Choose which direction your 3D software writes as up.\n\nExample:\nMaya = Y up\n3ds Max = Z up" M {"Y  up" "Z  up" ""}}
+ addUserKnob {18 pos l CenterPoint t "Move in 3D or Sample with Color Picker from Point Position Pass."}
+ pos {0 0 0}
+ addUserKnob {13 rad l Radius t "Width, Height, and Depth of Selection Sphere"}
+ rad {5 5 5}
+ addUserKnob {7 fall l Falloff R 0 100}
+ addUserKnob {6 premult l "Premult Alpha" t "Check this for any position passes with a black background." +STARTLINE}
+ premult true
+ addUserKnob {6 pass l "Passthrough RGB" t "Check to Retain RGB information." +STARTLINE}
+ addUserKnob {26 ""}
+ addUserKnob {6 sphere l "Selection Sphere" t "Check to display Selection Sphere." +STARTLINE}
+ sphere true
+ addUserKnob {18 selcolor l "Sphere Color" t "Chooses the color of the 3d selection sphere"}
+ selcolor {0 0.1381603 0.14}
+}
+ Input {
+  inputs 0
+  name Color
+  xpos -468
+  ypos -741
+  number 1
+ }
+ Dot {
+  name Dot3
+  xpos -434
+  ypos -615
+ }
+set N308b99e0 [stack 0]
+ Dot {
+  name Dot4
+  xpos -344
+  ypos -615
+ }
+ Dot {
+  name Dot5
+  xpos -344
+  ypos -438
+ }
+set N3091d800 [stack 0]
+ Input {
+  inputs 0
+  name XYZ
+  xpos -298
+  ypos -744
+ }
+ Dot {
+  name Dot1
+  xpos -264
+  ypos -703
+ }
+set N3091dea0 [stack 0]
+ Expression {
+  temp_name0 distR
+  temp_expr0 (Br-parent.pos.r)/rad.x
+  temp_name1 distG
+  temp_expr1 (Bg-parent.pos.g)/rad.y
+  temp_name2 distB
+  temp_expr2 (Bb-parent.pos.b)/rad.z
+  temp_name3 len
+  temp_expr3 sqrt((distR*distR)+(distG*distG)+(distB*distB))
+  expr0 pow(1-len,(fall*.05)+.0001)
+  expr1 pow(1-len,(fall*.05)+.0001)
+  expr2 pow(1-len,(fall*.05)+.0001)
+  expr3 pow(1-len,(fall*.05)+.0001)
+  name PositionKey
+  xpos -298
+  ypos -660
+ }
+ Clamp {
+  channels rgba
+  name Clamp1
+  xpos -298
+  ypos -616
+ }
+ Group {
+  name Perlin_gain
+  help "This is an implementation of Ken Perlin's gain function. It boosts micro-contrast (acutance, in photographic terms) without clipping. When set to 0.5, it has no effect. When >0.5, gain is boosted; when <.5, gain is muted. Only luminance is affected; not hue nor saturation. Superwhites remain untouched."
+  tile_color 0xcc9d6d00
+  xpos -298
+  ypos -578
+  addUserKnob {20 "" l User}
+  addUserKnob {7 realGain l "Perlin Gain function" t "This is an implementation of Ken Perlin's gain function. It boosts micro-contrast (acutance, in photographic terms) without clipping. When set to 0.5, it has no effect. When >0.5, gain is boosted; when <.5, gain is muted. Only luminance is affected; not hue nor saturation. Superwhites remain untouched."}
+  realGain 1
+ }
+  Input {
+   inputs 0
+   name Input1
+   selected true
+   xpos 130
+   ypos -89
+  }
+  Expression {
+   temp_name0 gain
+   temp_expr0 parent.realGain
+   temp_name1 lum
+   temp_expr1 "0.2125*Br + 0.7154*Bg + 0.0721*Bb"
+   temp_name2 val
+   temp_expr2 .5*((lum<.5)?((1-gain)>0?pow(2*lum,log(1-gain)/log(0.5)):0):2-((1-gain)>0?pow(2-2*lum,log(1-gain)/log(0.5)):0))
+   expr0 r>1?r:r*(val/(lum+0.00001))
+   expr1 g>1?g:g*(val/(lum+0.00001))
+   expr2 b>1?b:b*(val/(lum+0.00001))
+   name KPGain
+   tile_color 0xd47f3b00
+   label "TRUE GAIN\nFUNCTION"
+   xpos 130
+   ypos -24
+   addUserKnob {20 "" l User}
+  }
+  Output {
+   name Output1
+   xpos 130
+   ypos 98
+  }
+ end_group
+ Clamp {
+  channels rgba
+  name Clamp2
+  xpos -298
+  ypos -536
+ }
+ Shuffle {
+  red alpha
+  green alpha
+  blue alpha
+  name Shuffle10
+  xpos -298
+  ypos -490
+ }
+set N3098ec80 [stack 0]
+ ShuffleCopy {
+  inputs 2
+  name ShuffleCopy1
+  xpos -168
+  ypos -441
+ }
+ Premult {
+  name Premult1
+  xpos -168
+  ypos -399
+ }
+push $N3098ec80
+ Switch {
+  inputs 2
+  which {{parent.premult i}}
+  name premult_alpha
+  xpos -298
+  ypos -372
+ }
+set N309a6c80 [stack 0]
+push $N3091d800
+ ShuffleCopy {
+  inputs 2
+  alpha red
+  name ShuffleCopy2
+  xpos -378
+  ypos -335
+ }
+push $N309a6c80
+ Switch {
+  inputs 2
+  which {{parent.pass i}}
+  name passRGB
+  xpos -298
+  ypos -271
+ }
+ Ramp {
+  inputs 0
+  p0 {960 1112}
+  p1 {960 -100}
+  color {0 0 0 1}
+  name Ramp1
+  xpos -886
+  ypos -547
+ }
+ Constant {
+  inputs 0
+  color {{selcolor.r} {selcolor.g} {selcolor.b} {curve}}
+  name Constant2
+  xpos -758
+  ypos -651
+ }
+ Merge2 {
+  inputs 2
+  name Merge2
+  xpos -758
+  ypos -547
+ }
+set N309c5480 [stack 0]
+ Sphere {
+  render_mode off
+  translate {{parent.pos.r i} {parent.pos.b i} {-parent.pos.g i}}
+  scaling {{parent.rad.x i} {parent.rad.y i} {parent.rad.z i}}
+  name Sphere_zUp
+  xpos -758
+  ypos -495
+ }
+push $N309c5480
+ Sphere {
+  render_mode off
+  translate {{parent.pos.r i} {parent.pos.g i} {parent.pos.b i}}
+  scaling {{parent.rad.x i} {parent.rad.y i} {parent.rad.z i}}
+  name Sphere
+  xpos -873
+  ypos -496
+ }
+ Switch {
+  inputs 2
+  which {{parent.up}}
+  name upAxis2
+  xpos -758
+  ypos -440
+ }
+push 0
+ Switch {
+  inputs 2
+  which {{parent.sphere}}
+  name ShowSphere
+  xpos -758
+  ypos -380
+ }
+push $N3098ec80
+push $N308b99e0
+ Merge2 {
+  inputs 2
+  name Merge3
+  xpos -468
+  ypos -490
+ }
+push $N3091dea0
+ Dot {
+  name Dot2
+  xpos -598
+  ypos -703
+ }
+set N309f29b0 [stack 0]
+ Invert {
+  channels {-rgba.red rgba.green -rgba.blue}
+  name Invert1
+  xpos -561
+  ypos -615
+ }
+ Shuffle {
+  green blue
+  blue green
+  name Shuffle11
+  xpos -561
+  ypos -581
+ }
+push $N309f29b0
+ Switch {
+  inputs 2
+  which {{parent.up i}}
+  name upAxis
+  xpos -632
+  ypos -541
+ }
+ PositionToPoints {
+  inputs 2
+  selectable false
+  detail 1
+  pointSize 2
+  name PositionToPoints1
+  xpos -632
+  ypos -490
+ }
+ Scene {
+  inputs 2
+  name Scene3
+  xpos -622
+  ypos -401
+ }
+push $N3091d800
+ ScanlineRender {
+  inputs 2
+  output_motion_vectors_type accurate
+  name ScanlineRender1
+  xpos -554
+  ypos -318
+ }
+ Merge2 {
+  inputs 2
+  bbox intersection
+  metainput A
+  Bchannels none
+  name Merge1
+  selected true
+  xpos -641
+  ypos -271
+ }
+ Output {
+  name Output1
+  xpos -554
+  ypos -212
+ }
+ Viewer {
+  input_process false
+  name Viewer1
+  xpos -554
+  ypos -163
+ }
+end_group

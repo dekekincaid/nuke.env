@@ -1,0 +1,52 @@
+#! ./Contents/MacOS/Nuke6.0v4 -nx
+version 6.0 v4
+Gizmo {
+ inputs 2
+ help "Remap the luminance of the RGB channels based on an input colour ramp."
+ addUserKnob {20 RampMap}
+ addUserKnob {41 mode l "luminance math" T Saturation1.mode}
+}
+ Input {
+  inputs 0
+  name ramp
+  xpos -120
+  ypos -107
+  number 1
+ }
+ Reformat {
+  type "to box"
+  box_width {{"\[input \[node this.parent] 0].width" i}}
+  box_height {{"\[input \[node this.parent] 0].height" i}}
+  box_fixed true
+  name Reformat1
+  xpos -120
+  ypos 1
+ }
+ Input {
+  inputs 0
+  name image
+  xpos 58
+  ypos -105
+ }
+ Saturation {
+  saturation 0
+  name Saturation1
+  selected true
+  xpos 58
+  ypos -35
+ }
+ MergeExpression {
+  inputs 2
+  expr0 Ar(Br*width,Bg)
+  expr1 Ag(Br*width,Bg)
+  expr2 Ab(Br*width,Bg)
+  name MergeExpression1
+  xpos 58
+  ypos 1
+ }
+ Output {
+  name Output1
+  xpos 58
+  ypos 57
+ }
+end_group

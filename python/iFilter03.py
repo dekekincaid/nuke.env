@@ -1,7 +1,3 @@
-#py script by Pau Rocher Castellano
-#help, suggestions, corrections --> bikura@gmail.com
-#enjoy it!!
-
 import nuke
 
 def iFilterCreate():
@@ -226,9 +222,11 @@ def iFilter03(filter, steps, previousAmount):
   km1.setInput (1, inImage)
   km1.setInput (2, blr)
 
-####conect l'output al ultim keymix
+####conect l'output i el switch al ultim keymix
   out = nuke.toNode ("iFilterFinalMerge")
+  iFilterSwitch = nuke.toNode ('iFilterSwitch')
   out.setInput (1, creaKey)
+  iFilterSwitch.setInput (0, creaKey)
     
 ####Fora del loop reposiciono els ultims nodes d'expressio i de Blur pa posar-los al comensament i que els cables no es creuin
   nom.knob("xpos").setValue (-10)
@@ -239,3 +237,19 @@ def iFilter03(filter, steps, previousAmount):
 
 ####info
   a.knob("info").setValue (".:  Current filter: "+str(filter)+" with "+str(int(float(steps)))+" steps  (Click button to update ...) :.")
+
+
+
+
+def knobChanged():
+  n = nuke.thisNode()
+  k = nuke.thisKnob()
+  filter = n["Filter"].value()
+  steps = n['Steps'].value()
+  previousAmount = n['previousAmount'].value()
+ 
+  if k.name() == 'Steps':
+    iFilter03 (filter, steps, previousAmount)
+    
+#nuke.addKnobChanged (knobChanged, nodeClass='Group')
+nuke.removeKnobChanged (knobChanged, nodeClass='Group')

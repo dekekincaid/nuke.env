@@ -1,0 +1,387 @@
+#! /Applications/Nuke6.3v4/Nuke6.3v4.app/Contents/MacOS/Nuke6.3v4 -nx
+version 6.3 v4
+define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
+<layout version="1.0">
+    <window x="0" y="22" w="1916" h="1178" screen="0">
+        <splitter orientation="1">
+            <split size="1279"/>
+            <splitter orientation="1">
+                <split size="40"/>
+                <dock id="" hideTitles="1" activePageId="Toolbar.1">
+                    <page id="Toolbar.1"/>
+                </dock>
+                <split size="1235"/>
+                <splitter orientation="2">
+                    <split size="576"/>
+                    <dock id="" activePageId="Viewer.1">
+                        <page id="com.ohufx.SearchReplace"/>
+                        <page id="Viewer.1"/>
+                    </dock>
+                    <split size="576"/>
+                    <dock id="" activePageId="DAG.1">
+                        <page id="DAG.1"/>
+                        <page id="Curve Editor.1"/>
+                        <page id="DopeSheet.1"/>
+                        <page id="Error Console.1"/>
+                        <page id="Script Editor.2"/>
+                        <page id="DAG.2"/>
+                        <page id="DAG.3"/>
+                    </dock>
+                </splitter>
+            </splitter>
+            <split size="633"/>
+            <dock id="" activePageId="Properties.1">
+                <page id="Properties.1"/>
+            </dock>
+        </splitter>
+    </window>
+</layout>
+}
+Root {
+ inputs 0
+ name /Users/deke/nukescripts/gizmos/readObjPlus.nk
+ format "1920 1080 0 0 1920 1080 1 HD"
+ proxy_type scale
+ proxy_format "1024 778 0 0 1024 778 1 1K_Super_35(full-ap)"
+ addUserKnob {20 mariTab l Mari}
+ addUserKnob {3 socketPort l "command port" t "Port to listen on. Make sure this matches the command port set in Mari's \"Nuke\" Palette." -STARTLINE}
+ socketPort 50007
+ addUserKnob {6 enableSocket l enable -STARTLINE}
+ addUserKnob {1 hostName l "Mari host/port" t "Set machine name or ip address that Mari is running on.\nLeave empty if both Mari and Nuke are running on the same machine."}
+ addUserKnob {3 socketPortSend l "" t "Port that Mari is listening to. Make sure this matches the command port set in Mari's Preferences." -STARTLINE}
+ socketPortSend 6100
+ addUserKnob {2 mariDataDir l "mari data dir" t "Path to directory that will hold data to be sent to Mari (exrs, objs and fbx files). If this is left empty a \"mari\" directory will be created in the nk file's location"}
+ mariDataDir "\[file dirname \[value root.name]]/mariData"
+}
+Read {
+ inputs 0
+ file /Users/deke/foundry/bugs/saatchi/my11/yaris/_3dr/s_pkg/yar_10_3dr_s_pkg_6spoke_wheel_sa_carpaint.###.tga
+ format "1920 1080 0 0 1920 1080 1 HD"
+ first 0
+ last 330
+ origfirst 0
+ origlast 330
+ origset true
+ on_error black
+ premultiplied true
+ name car_base
+ label "CHANGE ME for FILE INPUT"
+ xpos -8
+ ypos 7
+ postage_stamp false
+}
+Retime {
+ input.first 0
+ input.first_lock true
+ input.last 330
+ output.first 0
+ output.last 11
+ speed 30
+ filter none
+ name Carpaint
+ label "CHANGE ME for Different Timing"
+ xpos -8
+ ypos 53
+ postage_stamp true
+}
+Read {
+ inputs 0
+ file "\[file dirname \[value car_base.file]]/\[string map -nocase \{_sa_carpaint _id_carpaint\} \[file tail \[value car_base.file]]]"
+ format "1920 1080 0 0 1920 1080 1 HD"
+ first 0
+ last 330
+ origfirst 0
+ origlast 12
+ origset true
+ name carpaint_id
+ selected true
+ xpos -340
+ ypos 10
+ postage_stamp false
+}
+Retime {
+ input.first {{parent.Carpaint.input.first}}
+ input.first_lock true
+ input.last 330
+ output.first 0
+ output.last 11
+ speed {{Carpaint.speed}}
+ filter none
+ name Light_id1
+ xpos -340
+ ypos 44
+ postage_stamp true
+}
+add_layer {rgba redguard1.glow}
+Shuffle {
+ in rgb
+ red blue
+ green alpha
+ blue alpha
+ name shuffle_to_mask_carpaint
+ xpos -340
+ ypos 117
+}
+Text {
+ inputs 0
+ message "\[file dirname \[value car_base.file]]/\[string map -nocase \{_sa_carpaint _id_carpaint\} \[file tail \[value car_base.file]]]\n\n\[file dirname \[value ReadGeo1.file]]/\[string map -nocase \{_sa_carpaint _id_carpaint\} \[file tail \[value ReadGeo1.file]]]\n\n\[file tail \[value ReadGeo1.file]]"
+ font /Library/Fonts/Arial.ttf
+ yjustify center
+ box {12 270 1908 810}
+ center {960 540}
+ name Text1
+ xpos -358
+ ypos -266
+}
+Group {
+ inputs 0
+ name Group1
+ help "Just like the default ReadGeo node but with options to load proxies.\nThe proxy must be saved in the same location as the main obj loaded (file knob) and have the same name but with a \".proxy.obj\" suffix.\nI.e. MyGeo.obj - MyGeo.proxy.obj"
+ label "\[value this.mode]"
+ xpos -78
+ ypos -427
+ addUserKnob {20 "" l User}
+ addUserKnob {4 mode l "proxy mode" t "proxy - always loads proxy\nfull res - always loads full res\nauto proxy - loads proxy when script is in proxy mode\nauto (gui only) - loads proxy when script is in proxy mode, always loads full res when rendering" M {proxy "full res" "auto proxy" "auto proxy (gui only)"}}
+ mode "auto proxy"
+ addUserKnob {41 display T ReadGeo1.display}
+ addUserKnob {41 gl_render_mode l "knob display \$value" +INVISIBLE T ReadGeo1.gl_render_mode}
+ addUserKnob {41 gl_wireframe_overlay +INVISIBLE T ReadGeo1.gl_wireframe_overlay}
+ addUserKnob {41 gl_display l "knob display 0" +INVISIBLE T ReadGeo1.gl_display}
+ addUserKnob {41 selectable T ReadGeo1.selectable}
+ addUserKnob {41 gl_selectable l "knob selectable \$value" +INVISIBLE T ReadGeo1.gl_selectable}
+ addUserKnob {41 render +INVISIBLE T ReadGeo1.render}
+ addUserKnob {2 file}
+ addUserKnob {41 version l INVISIBLE +INVISIBLE T ReadGeo1.version}
+ addUserKnob {41 reload T ReadGeo1.reload}
+}
+ Input {
+  inputs 0
+  name img
+  xpos -240
+  ypos -177
+ }
+set N21af6200 [stack 0]
+ ReadGeo {
+  display {{parent.display i}}
+  selectable {{parent.selectable i}}
+  file "\[file  rootname \[knob parent.file]].proxy.obj"
+  name ReadGeo2
+  label proxy
+  xpos -150
+  ypos -104
+ }
+push $N21af6200
+ ReadGeo {
+  file "\[value parent.file]"
+  name ReadGeo1
+  label "full res"
+  xpos -289
+  ypos -103
+ }
+ Dot {
+  name Dot1
+  xpos -255
+  ypos 37
+ }
+set N2440ed40 [stack 0]
+ Switch {
+  inputs 2
+  which {{"\[file exists \[value ReadGeo2.file]]" i}}
+  name Switch3
+  label "check if file exists"
+  xpos -149
+  ypos 26
+ }
+set N244119f0 [stack 0]
+push $N2440ed40
+ Switch {
+  inputs 2
+  which {{proxy i}}
+  name Switch2
+  label "script's proxy mode"
+  xpos -289
+  ypos 87
+ }
+set N24415f10 [stack 0]
+push $N2440ed40
+ Dot {
+  name Dot2
+  xpos -322
+  ypos 37
+ }
+ Dot {
+  name Dot3
+  xpos -322
+  ypos 205
+ }
+ Switch {
+  inputs 2
+  which {{"\$gui" i}}
+  name Switch4
+  label "render only"
+  selected true
+  xpos -289
+  ypos 194
+ }
+push $N24415f10
+push $N2440ed40
+push $N244119f0
+ Switch {
+  inputs 4
+  which {{parent.mode i}}
+  name Switch1
+  label main
+  xpos -149
+  ypos 194
+ }
+ Output {
+  name Output1
+  xpos -149
+  ypos 257
+ }
+end_group
+ReadGeo2 {
+ inputs 0
+ file /path/to/file/bob.%04d.obj
+ rot_order XYZ
+ name ReadGeo2
+ xpos -60
+ ypos -588
+}
+ReadGeo {
+ inputs 0
+ file "\[value objSeq].\[format %04d \[expression clamp(frame+offset,first,last)]].obj"
+ version 1
+ rotate {9.214656874 26.00803018 2.173573447}
+ name ReadGeo1
+ xpos 22
+ ypos -523
+ addUserKnob {20 frameControls}
+ addUserKnob {2 objSeq l file}
+ objSeq /Volumes/laraid/creativeSpecialists/Nuke_Demo/B_NissanXTrail_DeepDemo/Geo/objTmp/dogBackRightLo.%04d.obj
+ addUserKnob {3 first l "frame range"}
+ first 5
+ addUserKnob {3 last l "" -STARTLINE}
+ last 10
+ addUserKnob {3 offset}
+ offset 1
+}
+Group {
+ inputs 0
+ name ReadObjPlus
+ xpos 210
+ ypos -537
+ addUserKnob {20 ReadObjSeq}
+ addUserKnob {4 mode M {"proxy(render full)" "proxy(viewer mode)" proxy full "" ""}}
+ addUserKnob {2 file_1 l file}
+ file_1 /Users/deke/foundry/_nukeDemos/C_stereoConversion/Geo/people/boy_%03d.obj
+ addUserKnob {41 cacheLocal l "cache locally" T ReadGeo.cacheLocal}
+ addUserKnob {41 reload -STARTLINE T ReadGeo.reload}
+ addUserKnob {2 proxy}
+ addUserKnob {3 first l "frame range"}
+ first 375
+ addUserKnob {4 before l "" -STARTLINE M {hold loop bounce none "" ""}}
+ addUserKnob {3 last l "" -STARTLINE}
+ last 400
+ addUserKnob {4 after l "" -STARTLINE M {hold loop bounce none ""}}
+ addUserKnob {3 offset}
+ addUserKnob {41 read_texture_w_coord l "read texture w coord" -STARTLINE T ReadGeo.read_texture_w_coord}
+ addUserKnob {26 separator1 l "" +STARTLINE}
+ addUserKnob {41 file_menu l "" -STARTLINE T ReadGeo.file_menu}
+ addUserKnob {41 geo_select T ReadGeo.geo_select}
+ addUserKnob {41 snap_menu l "" -STARTLINE T ReadGeo.snap_menu}
+ addUserKnob {41 xform_order l "transform order" T ReadGeo.xform_order}
+ addUserKnob {41 rot_order l "rotation order" T ReadGeo.rot_order}
+ addUserKnob {41 translate T ReadGeo.translate}
+ addUserKnob {41 rotate T ReadGeo.rotate}
+ addUserKnob {41 scaling l scale T ReadGeo.scaling}
+ addUserKnob {41 uniform_scale l "uniform scale" T ReadGeo.uniform_scale}
+ addUserKnob {41 skew T ReadGeo.skew}
+ addUserKnob {41 pivot T ReadGeo.pivot}
+ addUserKnob {20 "" l "Local matrix" n 2}
+ addUserKnob {41 useMatrix l "specify matrix" T ReadGeo.useMatrix}
+ addUserKnob {41 matrix l "" -STARTLINE T ReadGeo.matrix}
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos 560
+  ypos -393
+ }
+set N21adf200 [stack 0]
+ ReadGeo2 {
+  file "\[file dirname \[knob input.file] ]/\[file rootname \[file tail \[file rootname \[knob input.file]]]]\[format %04d \[expression clamp(frame+parent.offset,parent.first,parent.last)]].obj"
+  rot_order XYZ
+  name ReadGeo
+  xpos 460
+  ypos -345
+ }
+set N21ae28e0 [stack 0]
+push $N21adf200
+ ReadGeo2 {
+  file "\[file dirname \[knob input.proxy]/\[file rootname \[file tail \[file rootname \[knob input.proxy]]]]\[format %04d \[expression clamp(frame+parent.offset,parent.first,parent.last)]].obj"
+  rot_order XYZ
+  name ReadGeoProxy
+  selected true
+  xpos 659
+  ypos -349
+ }
+push $N21ae28e0
+ Switch {
+  inputs 2
+  which {{"\[file exists \[value ReadGeoProxy.file]]"}}
+  name readProxyIfExists
+  xpos 560
+  ypos -249
+ }
+set N244e13e0 [stack 0]
+push $N21ae28e0
+push $N244e13e0
+ Switch {
+  inputs 2
+  which {{proxy}}
+  name proxyViewerButton
+  xpos 710
+  ypos -249
+ }
+push $N244e13e0
+push $N21ae28e0
+ Switch {
+  inputs 2
+  which {{"\$gui"}}
+  name guiProxy
+  xpos 410
+  ypos -249
+ }
+ Switch {
+  inputs 4
+  which {{parent.mode}}
+  name Switch2
+  label main
+  xpos 560
+  ypos -158
+ }
+ Output {
+  name Output1
+  xpos 560
+  ypos -57
+ }
+end_group
+Text {
+ inputs 0
+ message "\n\[file rootname \[file tail \[file rootname \[knob ReadGeo2.file]] ]]\n\[file dirname \[knob ReadGeo2.file] ]\n\n\[file dirname \[knob ReadGeo2.file] ]/\[file rootname \[file tail \[file rootname \[knob ReadGeo2.file]]]]\n\n\[file split \[knob ReadGeo2.file]]\n\[file rootname \[file split \[knob ReadGeo2.file]]]\n\[file root \[file tail \[file rootname \[knob ReadGeo2.file]]]]\n\[file extension \[file tail \[file rootname \[knob ReadGeo2.file]]]]\n\[file tail \[file rootname \[knob ReadGeo2.file]]]\n\[file rootname \[knob ReadGeo2.file]]\n\n\[file dirname \[knob ReadGeo2.file]]\n\[llength \[file split \[knob ReadGeo2.file]]]\n\[file split \[knob ReadGeo2.file]]\n \[knob ReadGeo2.file]]]\n\n\n\[knob ReadGeo2.file]"
+ font /Library/Fonts/Arial.ttf
+ yjustify center
+ box {10 270 1912 810}
+ center {960 540}
+ name Text2
+ xpos -140
+ ypos -513
+}
+Viewer {
+ input_process false
+ gl_lighting true
+ name Viewer1
+ xpos -140
+ ypos -489
+}

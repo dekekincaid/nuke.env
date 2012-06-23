@@ -46,6 +46,7 @@ import nodeOps
 #import nukeprocess
 #import papiTools
 import production_presets
+import psd2
 #import readwrites
 import reloadallreads
 import replaceChecker
@@ -92,48 +93,65 @@ m=toolbar.addMenu("Image")
 # The "Image" menu
 import makewritefromread
 import sequencer
-m.addCommand("Read Write", 'makewritefromread.make_write_from_read()', 'ctrl+r', index=2)
-m.addCommand("Color Noise", "nuke.createNode('ColorNoise')", index=3)
-m.addCommand("Grad", "nuke.createNode('grad')", icon='grad.png', index=9)
-m.addCommand("Ramper 2", "nuke.createNode('Ramper2')", index=10)
+#import readFromWrite
+import revealInOS
+
+m.addCommand('Reveal In Finder','revealInOS.revealInOS()', icon='Read.png', index=1)#reveal in OS
+m.addCommand('Read Folder', "nuke.load('recursiveLoad'), recursiveLoad()",  'alt+r', icon='Read.png', index=2)
+m.addCommand("ReadList", 'readList.makereadList', index=3)
+#m.addCommand('Read from Write', 'readFromWrite.readFromWrite()', icon='Read.png', 'shift+r', index=3) #not working, giving error SyntaxError: non-keyword arg after keyword arg
+#m.addCommand('Write from Read', 'makewritefromread.make_write_from_read()', icon='Write.png', 'ctrl+r', index=3)
+
 m.addCommand("Sequencer", "sequencer.sequencer()", index=11)
+
+
+
 
 
 ##########################################################################################
 m=toolbar.addMenu("Draw")
 # The "Draw" menu
+import readList
+import TX_Ramp
 
-m.addCommand("Bezier Old", "nuke.createNode('Bezier')", 'alt+p', index=3) #adds old Bezier node back and modified to have addgeotab
-m.addCommand("DeWrinkler", "nuke.createNode('deWrinkler')", index=4)
-m.addCommand('Heal Brush', 'nuke.nodes.HealBrush()', index=9)
-m.addCommand("Flare Factory Plus", "nuke.createNode(\"FlareFactory_Plus\")", icon="FlareFactoryPlus.png", index=9)
-m.addCommand("Feng Glow", "nuke.createNode('FengGlow')", index=9)
+m.addCommand('3D Mattes', "nuke.createNode('Mattes3D')", index=0)
+m.addCommand('Bezier Old', "nuke.createNode('Bezier')", 'alt+p', index=3) #adds old Bezier node back and modified to have addgeotab
+m.addCommand('Color Noise', "nuke.createNode('ColorNoise')", index=4)
 
-m.addCommand("Vignette2", "nuke.createNode('H_Vignette2')")
+m.addCommand('DeWrinkler', "nuke.createNode('deWrinkler')", index=5)
+m.addCommand('dGrad', "nuke.createNode('dGrad')", icon='grad.png', index=6)
+m.addCommand("Flare Factory Plus", "nuke.createNode(\"FlareFactory_Plus\")", icon="FlareFactoryPlus.png", index=11)
+m.addCommand("Feng Glow", "nuke.createNode('FengGlow')", index=12)
+m.addCommand('Grad', "nuke.createNode('grad')", icon='grad.png', index=13)
+m.addCommand('Heal Brush', 'nuke.nodes.HealBrush()', index=17)
+m.addCommand('Linear Ramp', "nuke.createNode('L_Ramp_v01')", icon='Ramp.png', index=21)
+m.addCommand('Magic Carpet', "nuke.createNode('magicCarpet')", icon='magicCarpet.png', index=22)
+m.addCommand('P Ramp', "nuke.createNode('P_Ramp')", icon='Ramp.png', index=25)
+m.addCommand('pPass Mask', "nuke.createNode('PP_Mask_hub_V2')", index=26)
+m.addCommand('Point Position Mask', "nuke.createNode('PointPositionMask')", index=27)
+m.addCommand('Ramper', "nuke.createNode('Ramper2')", icon='Ramp.png', index=28)
+m.addCommand('Ramp Remap', "nuke.createNode('RampMap')", icon='Ramp.png', index=29)
+m.addCommand('TX Ramp', "nuke.createNode('TX_Ramp')", icon='Ramp.png')
+m.addCommand("Vignette", "nuke.createNode('H_Vignette2')")
 #m.addCommand("ZFaker", "nuke.createNode('H_ZFaker')")
 
 
 #mbar=nuke.menu("Nuke")
 
-def toggleMatterMode(arg):
-  if arg==0:
-    for n in nuke.allNodes('Matter'):
-      n['remove_alpha'].execute()
-  else:
-    for n in nuke.allNodes('Matter'):
-      n['add_alpha'].execute()
+#def toggleMatterMode(arg):
+#  if arg==0:
+#    for n in nuke.allNodes('Matter'):
+#      n['remove_alpha'].execute()
+#  else:
+#    for n in nuke.allNodes('Matter'):
+#      n['add_alpha'].execute()
 
  
 
 # Matter Menu
-m.addCommand("Matter", "nuke.createNode('Matter')", index=18)
-m.addCommand("Remove Matte", "toggleMatterMode(0)", "#+q", index=19)
-m.addCommand("Add Matte", "toggleMatterMode(1)", "#+a", index=20)
-
-#m = mbar.addMenu("&Matter")
-#m.addCommand("Matter Gizmo", "nuke.tcl('Matter')", "#+p")
-#m.addCommand("Remove Matte", "toggleMatterMode(0)", "#+q")
-#m.addCommand("Add Matte", "toggleMatterMode(1)", "#+a")
+#m.addCommand("Matter", "nuke.createNode('Matter')", index=18)
+#m.addCommand("Remove Matte", "toggleMatterMode(0)", "#+q", index=19)
+#m.addCommand("Add Matte", "toggleMatterMode(1)", "#+a", index=20)
 
 ##########################################################################################
 m=toolbar.addMenu("Time")
@@ -180,16 +198,18 @@ import iFilter03
 #m.addCommand("&Easy_LM2DMV", "nuke.createNode('Easy_LM2DMV')") #for handeling lm2dmv motion vectors which normally are made for Reelsmart MBlur
 m.addCommand("FFT", "nuke.createNode('FFT')", index=16)#unhide unsupported built in tool
 m.addCommand("FFT Multiply", "nuke.createNode('FFTMultiply')", index=17)#unhide unsupported built in tool
-m.addCommand("Inverse FFT", "nuke.createNode('InvFFT')", index=18)#unhide unsupported built in tool
-m.addCommand("iDilateErode", "nuke.createNode('iDilateErode')", index=19)
-m.addCommand ('iFilter', 'nuke.nodes.iFilter(), iFilter03.iFilterCreate()', icon = "Constant.png", index=20)
+m.addCommand("iDilateErode", "nuke.createNode('iDilateErode')", index=20)
+m.addCommand ('iFilter', 'nuke.nodes.iFilter(), iFilter03.iFilter03()', icon = "Constant.png", index=21)
+m.addCommand("Inverse FFT", "nuke.createNode('InvFFT')", index=22)#unhide unsupported built in tool
 #m.addCommand("&LM_2DMV", "nuke.createNode('LM_2DMV')") #for handeling lm2dmv motion vectors which normally are made for Reelsmart MBlur
 m.addCommand("LensKernelFFT", "nuke.createNode('LensKernelFFT_v01')", index=24)
-m.addCommand("Matte Edge", "nuke.createNode('matte_edge')", index=27)
+#m.addCommand("Matte Edge", "nuke.createNode('matte_edge')", index=27)
 #m.addCommand("Shartifact", "nuke.createNode('Shartifact')")
 #m.addCommand("SoftErode", "nuke.createNode('SoftErode')")
 #m.addCommand("Streaks", "nuke.createNode('H_Streaks')")
-m.addCommand("StereoFake", "nuke.createNode('stereofake')", index=34)
+m.addCommand("StereoFake", "nuke.createNode('stereofake')", index=33)
+m.addCommand("V_EdgeMatte", "nuke.createNode('V_EdgeMatte')", index=36)
+
 
 
 ##########################################################################################
@@ -229,23 +249,32 @@ m.addCommand("Wave Distortion", "nuke.createNode('WaveDistortion')", index=31)
 m=toolbar.addMenu("3D")
 
 # The 3d menu
+import CopyCamForProj_v003_r01
 import addconstraintab
 import panAndTile
+import SourceGeoFolder
 #import TargetCamera
+#import vrayCameraAttributes
+#nuke.load('vrayCameraAttributes.py')
 
-m.addCommand("CopyGeo", "nuke.createNode('CopyGeo')", index=1)
-m.addCommand("Duplicator", "nuke.createNode('Duplicator')", index=2)
+m.addCommand("CopyCam", "CopyCamForProj_v003_r01.copyCamForProj()", "Shift+v", index=1)
+m.addCommand("CopyGeo", "nuke.createNode('CopyGeo')", index=2)
+m.addCommand("Duplicator", "nuke.createNode('Duplicator')", index=3)
+m.addCommand("EnvRelight", "nuke.createNode('EnvRelight')", index=4)
 #nuke.menu("Nodes").addCommand("3D/Duplicate Geo", "DuplicateGeometry.DuplicateGeometry()") #not working at the moment, diagnose later
 #m.addCommand("ImagePlane", "nuke.createNode('ImagePlane')") # broken at the moment, gives error - Obsolete_knob import_chan call is wrong, probably a missing NULL for script argument
-m.addCommand('Pan And Tile', 'panAndTile.panAndTile()', index=11)
+m.addCommand('Pan And Tile', 'panAndTile.panAndTile()', index=13)
 #m.addCommand('Point Projection', 'papiTools.PointProjection()' , icon='pointProjection.png')
-m.addCommand("Projector", "nuke.createNode('Projector')", index=13)
-m.addCommand('Position To Points', 'nuke.createNode("PositionToPoints")', index=14)#unhide unsupported built in tool
-m.addCommand('ReLight', 'nuke.createNode("ReLight")', index=15)#unhide unsupported built in tool
+m.addCommand("Projector", "nuke.createNode('Projector')", index=15)
 
-#m.addCommand("3D/Geometry/ReadGeoPlus", "nuke.createNode('ReadGeoPlus')")
+m.addCommand("Geometry/ReadGeo Folder", "SourceGeoFolder.SourceGeoFolder()", icon='Read.png', index=8)
+
+#m.addCommand("Geometry/ReadGeoPlus", "nuke.createNode('ReadGeoPlus')")
 #m.addMenu("3D").addCommand("Target Camera", "TargetCamera.TargetCamera()") don't really need this right now
-#m.addCommand("3D/Geometry/ReadGeo", "nuke.nodes.ReadGeo2();nuke.tcl('VCard');nuke.selectedNode().knob('display').setFlag(0)") #modify readGeo to have vcard
+#m.addCommand("Geometry/ReadGeo", "nuke.nodes.ReadGeo2();nuke.tcl('VCard');nuke.selectedNode().knob('display').setFlag(0)") #modify readGeo to have vcard
+if ( nuke.NUKE_VERSION_MAJOR <= 7):
+	m.addCommand('ReLight', 'nuke.createNode("ReLight")', index=17)#unhide unsupported built in tool
+	m.addCommand('Position To Points', 'nuke.createNode("PositionToPoints")', index=16)#unhide unsupported built in tool	
 
 
 ##########################################################################################
@@ -287,6 +316,7 @@ import fixPaths
 import missingFrames
 import PasteToSelected
 #import SetSelectedValue
+import writeChecker
 
 m.addCommand("Archive Script", "nuke.tcl(\"archivescript\")", index=2 )
 m.addCommand("Auto Backup", "autoBackup.autoBackup()", index=3 )
@@ -307,6 +337,9 @@ m.addCommand("Remove Dupe Read", "dupReadDestroy.dupReadDestroy()", index=16 ) #
 #m.addCommand("Single Frame Render", "singleFrameRender.singleFrameRender()")#doesn't work right now
 m.addCommand("TimeCode Generator", "nuke.createNode('TCGen')" )
 m.addCommand("TrigOps", "nuke.createNode('TrigOps')")
+m.addCommand("writeChecker", "writeChecker.writeChecker()")
+
+
 
 
 ##########################################################################################
@@ -327,10 +360,7 @@ menubar=nuke.menu("Nuke")
 m=menubar.addMenu("File")
 
 #File Menu
-import SourceGeoFolder
-#nuke.toolbar('Nodes',).addCommand('RevealInFinder','revealInOS.revealInOS()')
-m.addCommand('RevealInFinder','revealInOS.revealInOS()', index=8)#reveal in OS
-m.addCommand("Import Geo Folder", "SourceGeoFolder.SourceGeoFolder()", index=7)
+
 
 
 ##########################################################################################
@@ -364,6 +394,10 @@ import alignNodes
 menubar.addCommand('Node/Align/Horizontal', 'alignNodes.alignNodes( nuke.selectedNodes(), direction="x" )', 'alt+x')
 menubar.addCommand('Node/Align/Vertical', 'alignNodes.alignNodes( nuke.selectedNodes(), direction="y" )', 'alt+y')
 
+import convertGizmosToGroups
+#nuke.menu('Nuke').findItem('Edit/Node')
+menubar.addCommand('Node/Convert Gizmo to Group', 'convertGizmosToGroups.convertGizmosToGroups()', 'ctrl+alt+h')
+
 import Dots
 menubar.addCommand('Node/Align/Auto Dots', 'Dots.Dots()')
 
@@ -394,6 +428,10 @@ nuke.addOnScriptLoad(nodeOps.toggleViewerPipes)
 
 #thumbnailer
 menubar.addCommand('Node/Thumbnailer', 'thumbnailer.thumbnailer()', 'shift+t')
+
+#version read nodes to latest
+import versionToLatest
+menubar.addCommand( 'Edit/Node/Filename/Version to Latest (Reads only)' , versionToLatest.versionToLatest)
 
 # select a tracker and a bezier node and hit ctrl+t to auto link the two together
 #only works with Bezier, so disabling for the moment till I get it to work with Rotopaint
@@ -461,6 +499,32 @@ m=menubar.addMenu("Render")
 #  os.makedirs( osdir )
 #nuke.addBeforeRender(createWriteDir)
 
+#taken from Bill Gilman post on nuke-users list and added on by Nathan Rusch
+#def createWriteDirs():
+#    import os
+#    import re
+#    baseDir = os.path.dirname(nuke.filename(nuke.thisNode()))
+#    viewTokenRE = re.compile(r'%V')
+#    if viewTokenRE.search(baseDir):
+#        nodeViews = nuke.thisNode()['views'].value().split()
+#        outDirs = [nuke.filenameFilter(viewTokenRE.sub(v, baseDir)) for v in nodeViews]
+#    else:
+#        outDirs = [nuke.filenameFilter(baseDir)]
+#    for outDir in outDirs:
+#        if not os.path.exists(outDir):
+#            print 'Creating output directory: %s' % outDir
+#            try:
+#                os.makedirs(outDir)
+#            except (OSError, IOError) e:
+                # Don't choke if directory has been created since we checked.
+                # This can be an issue with farm renders.
+#                import errno
+#                if e.errno != errno.EEXIST:
+#                    raise
+                 
+#nuke.addBeforeRender(createWriteDir)
+
+
 ##########################################################################################
 if ( nuke.NUKE_VERSION_MAJOR >= 6) and ( nuke.NUKE_VERSION_MINOR >= 3 ):#this gets rid of the cache menu from showing up in 6.2
 	m=menubar.addMenu("Cache")
@@ -496,30 +560,30 @@ nview.register("AlexaV3Rec709", nuke.createNode, ("Vectorfield","vfield_file /Us
 
 ##########################################################################################
 #Custom python panels
-               
+paneMenu = nuke.menu( 'Pane' )
+
 #import reportABug
-def addRABPanel():
-    rabPanel = reportABug.reportABug()
-    return rabPanel.addToPane()
-nuke.menu('Pane').addCommand('Report A Bug', addRABPanel, "ctrl+alt+b")
-nukescripts.registerPanel('com.deke.reportABug', addRABPanel)
+#def addRABPanel():
+#    rabPanel = reportABug.reportABug()
+#    return rabPanel.addToPane()
+#paneMenu.addCommand('Report A Bug', addRABPanel, "ctrl+alt+b")
+#nukescripts.registerPanel('com.deke.reportABug', addRABPanel)
 
 #add frank's search and replace panels
 import SearchReplacePanel
 def addSRPanel():
-	'''Run the panel script and add it as a tab into the pane it is called from'''
         srPanel = SearchReplacePanel.SearchReplacePanel()
         return srPanel.addToPane()
-nuke.menu('Pane').addCommand('SearchReplace', addSRPanel, "ctrl+alt+s")#THIS LINE WILL ADD THE NEW ENTRY TO THE PANE MENU
+paneMenu.addCommand('SearchReplace', addSRPanel, "ctrl+alt+s")#THIS LINE WILL ADD THE NEW ENTRY TO THE PANE MENU
 nukescripts.registerPanel('com.ohufx.SearchReplace', addSRPanel)#THIS LINE WILL REGISTER THE PANEL SO IT CAN BE RESTORED WITH LAYOUTS
 
 #add frank's icon panels
 import IconPanel
 def addIconPanel():
-#    global iconPanel
+    global iconPanel
     iconPanel = IconPanel.IconPanel()
     return iconPanel.addToPane()
-nuke.menu('Pane').addCommand('Universal Icons', addIconPanel, "ctrl+alt+i")
+paneMenu.addCommand('Universal Icons', addIconPanel, "ctrl+alt+i")
 nukescripts.registerPanel('com.ohufx.IconPanel', addIconPanel)
 
 #frank's fovCalculator, not coming up for some reason, will investigate later
@@ -527,11 +591,8 @@ import FovCalculator
 def addFovCalc():
 	fovCalc = FovCalculator.FovCalculator()
 	return fovCalc.addToPane()
-#nuke.menu('Pane').addCommand('Fov Calculator', addFovCalc, "ctrl+alt+f" )
-nuke.menu('Pane').addCommand('Fov Calculator', addFovCalc )
+paneMenu.addCommand('Fov Calculator', addFovCalc, "ctrl+alt+f" )
 nukescripts.registerPanel('com.ohufx.FovCalculator', addFovCalc )
-#paneMenu = nuke.menu( 'Pane' )
-
 
 
 ##########################################################################################
@@ -546,6 +607,7 @@ nuke.knobDefault("Write.channels", "rgba")
 nuke.knobDefault("Write.file_type","jpg") 
 nuke.knobDefault("Write._jpeg_quality", "1")
 nuke.knobDefault("Write._jpeg_sub_sampling", "1")
+nuke.knobDefault('Write.beforeRender' , 'readList.updatereadList()')
 
 ##################   3D DEFAULTS   ##################
 toolbar.addCommand("3D/Camera", "nuke.createNode('Camera2');addconstraintab.constrain();nuke.selectedNode().knob('display').setFlag(0)") #modify camera to have Add Constrain Tab
@@ -560,7 +622,9 @@ toolbar.addCommand("3D/Lights/Spotlight", "nuke.createNode('Spotlight');addconst
 
 ##################   PROJECT SETTINGS   ##################
 nuke.knobDefault("Root.format", "HD")
-nuke.knobDefault("Root.project.directory", "[file dirname [knob root.name]]")                       
+nuke.knobDefault("Root.project.directory", "[file dirname [knob root.name]]")       
+               
+# os.chdir(os.path.dirname(nuke.root().name())) # set this to onScriptLoad of the project setting to automatically set the working directory to where the nuke file is located
 
 #nuke.knobDefault("PlanarTracker.previewFeatures", "true") #as of alpha 2 this can break the planar tracker so I am turning it off
 #nuke.knobDefault("PlanarTracker.display_tracks", "true") #as of alpha 2 this can break the planar tracker so I am turning it off
@@ -598,6 +662,11 @@ import goToPlus #name of the package where goToPlus.py is installed
 nukescripts.goto_frame = goToPlus.goToPlus
 
 #nuke.knobDefault("Text.font",nuke.defaultFontPathname())#[python {nuke.defaultFontPathname()}]
+
+import nuke
+import tabtabtab
+m_edit = nuke.menu("Nuke").findItem("Edit")
+m_edit.addCommand("Tabtabtab", tabtabtab.main, "Tab")
 
 ##########################################################################################
 #Nuke to Mari knob defaults

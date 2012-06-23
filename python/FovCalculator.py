@@ -50,7 +50,7 @@ class FovCalculator( nukescripts.PythonPanel ):
         self.focal.setTooltip( 'focal length in mm' )
         self.focal.setRange( 5, 200 )
         self.focal.setDefaultValue( [50] )
-        div = nuke.Text_Knob('')
+        div1 = nuke.Text_Knob('')
         self.apNames = self.apDict.keys()
         self.apNames.sort()
         self.apNames.insert( 0, 'custom')
@@ -85,6 +85,7 @@ class FovCalculator( nukescripts.PythonPanel ):
         self.useVert = nuke.Boolean_Knob( 'useVert', 'use vertical' )
         self.useVert.setTooltip( 'if checked, the vertical aperture and fov are used to calucltae the focla length. If off the gorizontal values are used.' )
         
+        div2 = nuke.Text_Knob('')
         self.driveCam = nuke.Boolean_Knob( 'driveCam', '<img src=":qrc/images/Roto/CloneToolbar.png"> Drive Existing Camera')
         self.driveCam.setTooltip( 'When checked the camera with the given name will be temprarily linked to the value sin this panel.\
                                   This is handy to do visual checks while tweaking tha panel\'s parameters.\
@@ -97,7 +98,7 @@ class FovCalculator( nukescripts.PythonPanel ):
         self.createCam = nuke.PyScript_Knob( 'createCam', '@Camera.png Create New Camera')
         self.createCam.setTooltip( 'create a new cmeara node with the current values.' )
         
-        for k in ( self.mode, self.useVert, div, self.focal, self.apList, self.haperture, self.vaperture, self.hfov, self.vfov, div, self.createCam, self.driveCam, self.driveCamName ):
+        for k in ( self.mode, self.useVert, div1, self.focal, self.apList, self.haperture, self.vaperture, self.hfov, self.vfov, div2, self.createCam, self.driveCam, self.driveCamName ):
             self.addKnob( k )
 
         self.useVert.setVisible( False )

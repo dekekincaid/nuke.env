@@ -1,0 +1,536 @@
+#! /Applications/Nuke6.3v7/NukeX6.3v7.app/../Nuke6.3v7.app/Contents/MacOS/Nuke6.3v7 -nx
+version 6.3 v7
+Group {
+ inputs 0
+ help "TX_Ramp:\nA little bit more sophisticated gradient tool.\n\n\n//v1.0 By Tomas Lefebvre\nlefebvre.tomas@gmail.com"
+ name TX_Ramp
+ addUserKnob {20 Settings}
+ addUserKnob {41 out2 l channels t "channel where the ramp will be displayed" T Shuffle1.out2}
+ addUserKnob {41 format T Constant1.format}
+ addUserKnob {26 dummy3 l "" +STARTLINE T "  "}
+ addUserKnob {4 show t "display option" M {result ramp ramp+result ""}}
+ addUserKnob {4 type t "different type of ramp" M {linear reflected radial angle diamond "" ""}}
+ addUserKnob {6 reverse t "flop the ramp" -STARTLINE}
+ addUserKnob {6 black_outside l "black outside" -STARTLINE}
+ addUserKnob {26 dummy1 l "" +STARTLINE T "  "}
+ addUserKnob {12 from}
+ from {200 800}
+ addUserKnob {12 to}
+ to {1800 800}
+ addUserKnob {3 pCounter l INVISIBLE +INVISIBLE}
+ addUserKnob {26 dummy2 l "" +STARTLINE T "  "}
+ addUserKnob {20 colors n 1}
+ addUserKnob {19 start_color l start}
+ addUserKnob {12 start l position -STARTLINE +DISABLED +NO_HANDLES}
+ start {0 50}
+ addUserKnob {22 start_add l "<img src=\":qrc/images/Add.png\">" -STARTLINE T TX_Ramp.addLine()}
+ addUserKnob {22 start_remove l "<img src=\":qrc/images/Remove.png\">" -STARTLINE +DISABLED}
+ addUserKnob {19 end_color l "  end"}
+ end_color 1
+ addUserKnob {12 end l position -STARTLINE +DISABLED +NO_HANDLES}
+ end {1920 50}
+ addUserKnob {22 end_add l "<img src=\":qrc/images/Add.png\">" -STARTLINE +DISABLED}
+ addUserKnob {22 end_remove l "<img src=\":qrc/images/Remove.png\">" -STARTLINE +DISABLED}
+}
+ Constant {
+  inputs 0
+  channels rgb
+  format "1920 1080 0 0 1920 1080 1 HD"
+  name Constant1
+  xpos 762
+  ypos -347
+ }
+ Dot {
+  name Dot7
+  xpos 796
+  ypos -105
+ }
+set N12cc09f0 [stack 0]
+ Dot {
+  name Dot1
+  xpos 796
+  ypos 458
+ }
+ Dot {
+  name Dot13
+  xpos 490
+  ypos 458
+ }
+set N12cbcbd0 [stack 0]
+ Rectangle {
+  area {0 0 {width i} {rint(height*0.15) i}}
+  name Rectangle1
+  xpos 456
+  ypos 518
+ }
+push $N12cc09f0
+ Dot {
+  name Dot6
+  xpos 1081
+  ypos -105
+ }
+ Expression {
+  expr0 "(1-x/width)*start_color.r  + x/width*end_color.r"
+  expr1 "(1-x/width)*start_color.g  + x/width*end_color.g"
+  expr2 "(1-x/width)*start_color.b  + x/width*end_color.b"
+  expr3 "(1-x/width)*start_color.a  + x/width*end_color.a"
+  name COLORAMA
+  xpos 1047
+  ypos 183
+ }
+ Mirror {
+  Horizontal true
+  name Mirror1
+  xpos 1047
+  ypos 207
+  disable {{!parent.reverse i}}
+ }
+ Dot {
+  name Dot12
+  xpos 1081
+  ypos 397
+ }
+set N140266f0 [stack 0]
+ Dot {
+  name Dot3
+  xpos 1081
+  ypos 602
+ }
+set N1404b150 [stack 0]
+push $N12cbcbd0
+ Dot {
+  name Dot14
+  xpos 340
+  ypos 458
+ }
+ Rectangle {
+  area {0 0 {width i} {parent.Rectangle1.area.t+10 i}}
+  name Rectangle2
+  xpos 306
+  ypos 518
+ }
+push $N12cc09f0
+ Dot {
+  name Dot5
+  xpos 22
+  ypos -105
+ }
+set N1402fdf0 [stack 0]
+ Expression {
+  expr0 x/width
+  expr3 1
+  name RAMP
+  xpos -151
+  ypos 15
+  addUserKnob {20 User}
+  addUserKnob {12 center}
+  center {1592 233}
+  addUserKnob {12 size l end}
+  size {100 982}
+ }
+set N1402c660 [stack 0]
+ Dot {
+  name Dot18
+  xpos -121
+  ypos 69
+ }
+set N17319b20 [stack 0]
+ Dot {
+  name Dot9
+  xpos -331
+  ypos 69
+ }
+set N17307360 [stack 0]
+ Dot {
+  name Dot10
+  xpos -456
+  ypos 69
+ }
+set N17317ac0 [stack 0]
+ Transform {
+  translate {{parent.from.x i} {parent.from.y-height/2 i}}
+  rotate {{degrees(atan2((parent.to.y-parent.from.y),(parent.to.x-parent.from.x))) i}}
+  scale {{sqrt(pow2(parent.to.y-parent.from.y)+pow2(parent.to.x-parent.from.x))/width i} 4}
+  center {0 {height/2 i}}
+  name Transform14
+  xpos -970
+  ypos 74
+ }
+set N12cc3400 [stack 0]
+ Transform {
+  rotate 270
+  center {{parent.Transform14.translate i} {parent.Transform14.translate+540 i}}
+  name Transform18
+  xpos -916
+  ypos 116
+ }
+push $N12cc3400
+ Transform {
+  rotate 180
+  center {{parent.Transform14.translate i} {parent.Transform14.translate+540 i}}
+  name Transform17
+  xpos -1017
+  ypos 115
+ }
+push 0
+push $N12cc3400
+ Transform {
+  rotate 90
+  center {{parent.Transform14.translate i} {parent.Transform14.translate+540 i}}
+  name Transform16
+  xpos -1104
+  ypos 95
+ }
+push $N12cc3400
+ Merge2 {
+  inputs 4+1
+  operation plus
+  name Merge5
+  xpos -970
+  ypos 166
+ }
+ Expression {
+  expr3 a==2
+  name Expression1
+  xpos -970
+  ypos 190
+ }
+ FilterErode {
+  size -1
+  name FilterErode1
+  xpos -970
+  ypos 214
+ }
+ FilterErode {
+  name FilterErode2
+  xpos -970
+  ypos 248
+ }
+set N140f9b80 [stack 0]
+ Transform {
+  rotate 45
+  scale 0.708
+  center {{parent.from} {parent.from}}
+  name Transform15
+  xpos -970
+  ypos 282
+ }
+push $N1402fdf0
+ Dot {
+  name Dot11
+  xpos -584
+  ypos -105
+ }
+ Expression {
+  expr0 "clamp(sqrt( pow2(x-parent.from.x) + pow2(y-parent.from.y))/(sqrt( pow2(parent.to.x-parent.from.x) + pow2(parent.to.y-parent.from.y))))"
+  expr3 "sqrt( pow2(x-parent.from.x) + pow2(y-parent.from.y))/(sqrt( pow2(parent.to.x-parent.from.x) + pow2(parent.to.y-parent.from.y)))<=1"
+  name RADIAL1
+  xpos -618
+  ypos 123
+ }
+set N17330290 [stack 0]
+ Dot {
+  name Dot17
+  xpos -710
+  ypos 126
+ }
+ Dot {
+  name Dot16
+  label angle
+  note_font_size 20
+  xpos -710
+  ypos 170
+ }
+push $N17330290
+push $N17317ac0
+ Transform {
+  translate {{parent.from.x i} {parent.from.y-height/2 i}}
+  rotate {{degrees(atan2((parent.to.y-parent.from.y),(parent.to.x-parent.from.x))) i}}
+  scale {{sqrt(pow2(parent.to.y-parent.from.y)+pow2(parent.to.x-parent.from.x))/width i} 4}
+  center {0 {height/2 i}}
+  name Transform3
+  xpos -490
+  ypos 121
+ }
+set N17341690 [stack 0]
+push $N17307360
+ Transform {
+  translate {{parent.from.x i} {parent.from.y-height/2 i}}
+  rotate {{degrees(atan2((parent.to.y-parent.from.y),(parent.to.x-parent.from.x))) i}}
+  scale {{-sqrt(pow2(parent.to.y-parent.from.y)+pow2(parent.to.x-parent.from.x))/width i} 4}
+  center {0 {height/2 i}}
+  name Transform4
+  xpos -365
+  ypos 125
+ }
+ Merge2 {
+  inputs 2
+  name Merge3
+  xpos -365
+  ypos 173
+ }
+push $N17341690
+ Switch {
+  inputs 5
+  which {{parent.type i}}
+  name TYPE_BLACKOUTSIDE
+  label "\[value parent.type]"
+  xpos -556
+  ypos 277
+ }
+ Dot {
+  name Dot8
+  xpos -522
+  ypos 500
+ }
+push $N1402c660
+ Dot {
+  name Dot19
+  xpos 301
+  ypos 18
+ }
+set N17360970 [stack 0]
+ Dot {
+  name Dot20
+  xpos 541
+  ypos 18
+ }
+set N173636d0 [stack 0]
+ Transform {
+  translate {{parent.from.x i} {parent.from.y-height/2 i}}
+  rotate {{degrees(atan2((parent.to.y-parent.from.y),(parent.to.x-parent.from.x)))+270 i}}
+  scale {{sqrt(pow2(parent.to.y-parent.from.y)+pow2(parent.to.x-parent.from.x))/width i} 4}
+  center {0 {height/2 i}}
+  black_outside false
+  name Transform9
+  xpos 641
+  ypos 54
+ }
+push $N173636d0
+ Transform {
+  translate {{parent.from.x i} {parent.from.y-height/2 i}}
+  rotate {{degrees(atan2((parent.to.y-parent.from.y),(parent.to.x-parent.from.x)))+180 i}}
+  scale {{sqrt(pow2(parent.to.y-parent.from.y)+pow2(parent.to.x-parent.from.x))/width i} 4}
+  center {0 {height/2 i}}
+  black_outside false
+  name Transform8
+  xpos 542
+  ypos 55
+ }
+push 0
+push $N173636d0
+ Transform {
+  translate {{parent.from.x i} {parent.from.y-height/2 i}}
+  rotate {{degrees(atan2((parent.to.y-parent.from.y),(parent.to.x-parent.from.x)))+90 i}}
+  scale {{sqrt(pow2(parent.to.y-parent.from.y)+pow2(parent.to.x-parent.from.x))/width i} 4}
+  center {0 {height/2 i}}
+  black_outside false
+  name Transform6
+  xpos 366
+  ypos 58
+ }
+push $N173636d0
+ Transform {
+  translate {{parent.from.x i} {parent.from.y-height/2 i}}
+  rotate {{degrees(atan2((parent.to.y-parent.from.y),(parent.to.x-parent.from.x))) i}}
+  scale {{sqrt(pow2(parent.to.y-parent.from.y)+pow2(parent.to.x-parent.from.x))/width i} 4}
+  center {0 {height/2 i}}
+  black_outside false
+  name Transform7
+  xpos 452
+  ypos 56
+ }
+ Merge2 {
+  inputs 4+1
+  operation max
+  name Merge4
+  xpos 498
+  ypos 203
+ }
+ Transform {
+  rotate 45
+  scale 0.708
+  center {{parent.from i} {parent.from i}}
+  name Transform10
+  xpos 498
+  ypos 227
+ }
+push $N17360970
+ SphericalTransform {
+  input "Lat Long map"
+  output Fisheye
+  out_rx -90
+  format "2048 2048 0 0 2048 2048 1 square_2K"
+  fix true
+  name SphericalTransform1
+  xpos 267
+  ypos 108
+ }
+ Reformat {
+  format {{{parent.Constant1.format}}}
+  pbb true
+  name Reformat3
+  xpos 267
+  ypos 142
+ }
+ Transform {
+  translate {{parent.from.x-width/2 i} {parent.from.y-height/2 i}}
+  rotate {{degrees(atan2((parent.to.y-parent.from.y),(parent.to.x-parent.from.x)))+90 i}}
+  scale {{sqrt(pow2(parent.to.y-parent.from.y)+pow2(parent.to.x-parent.from.x))/(0.5*height) i}}
+  center {{width/2 i} {height/2 i}}
+  black_outside false
+  name Transform5
+  xpos 267
+  ypos 174
+ }
+push $N1402fdf0
+ Expression {
+  expr0 "clamp(sqrt( pow2(x-parent.from.x) + pow2(y-parent.from.y))/(sqrt( pow2(parent.to.x-parent.from.x) + pow2(parent.to.y-parent.from.y))))"
+  name RADIAL
+  xpos 137
+  ypos 61
+ }
+push $N17319b20
+ Transform {
+  translate {{parent.from.x i} {parent.from.y-height/2 i}}
+  rotate {{degrees(atan2((parent.to.y-parent.from.y),(parent.to.x-parent.from.x))) i}}
+  scale {{sqrt(pow2(parent.to.y-parent.from.y)+pow2(parent.to.x-parent.from.x))/width i} 4}
+  center {0 {height/2 i}}
+  black_outside false
+  name Transform1
+  xpos -155
+  ypos 132
+ }
+set N1771cc30 [stack 0]
+push $N17319b20
+ Transform {
+  translate {{parent.from.x i} {parent.from.y-height/2 i}}
+  rotate {{degrees(atan2((parent.to.y-parent.from.y),(parent.to.x-parent.from.x))) i}}
+  scale {{-sqrt(pow2(parent.to.y-parent.from.y)+pow2(parent.to.x-parent.from.x))/width i} 4}
+  center {0 {height/2 i}}
+  black_outside false
+  name Transform2
+  xpos -11
+  ypos 66
+ }
+ Merge2 {
+  inputs 2
+  operation max
+  name Merge1
+  xpos -11
+  ypos 132
+ }
+push $N1771cc30
+ Switch {
+  inputs 5
+  which {{parent.type i}}
+  name TYPE
+  label "\[value parent.type]"
+  xpos -11
+  ypos 222
+ }
+ Reformat {
+  format {{{parent.Constant1.format}}}
+  name Reformat2
+  xpos -11
+  ypos 289
+ }
+push $N140266f0
+ STMap {
+  inputs 2
+  channels rgba
+  uv rgb
+  name STMap1
+  xpos -11
+  ypos 394
+ }
+ Multiply {
+  inputs 1+1
+  value 0
+  invert_mask true
+  name Multiply2
+  xpos -11
+  ypos 492
+  disable {{!black_outside i}}
+ }
+ Dot {
+  name Dot2
+  xpos 23
+  ypos 602
+ }
+set N17747f30 [stack 0]
+ Multiply {
+  inputs 1+1
+  value 0
+  name Multiply1
+  xpos 306
+  ypos 594
+ }
+ Merge2 {
+  inputs 2+1
+  operation copy
+  name Merge2
+  xpos 456
+  ypos 599
+ }
+ Dot {
+  name Dot15
+  xpos 490
+  ypos 657
+ }
+push $N1404b150
+ Dot {
+  name Dot4
+  xpos 1081
+  ypos 724
+ }
+push $N17747f30
+ Switch {
+  inputs 3
+  which {{"\$gui == 1 ? parent.show : \$gui" i}}
+  name TYPE1
+  label "\[value parent.show]"
+  xpos -11
+  ypos 716
+ }
+ Reformat {
+  format {{{parent.Constant1.format}}}
+  black_outside true
+  name Reformat1
+  xpos -11
+  ypos 814
+ }
+ Remove {
+  operation keep
+  channels rgba
+  name Remove1
+  xpos -11
+  ypos 873
+ }
+ Shuffle {
+  red black
+  green black
+  blue black
+  alpha black
+  black red
+  white green
+  red2 blue
+  green2 alpha
+  out2 rgba
+  name Shuffle1
+  xpos -11
+  ypos 897
+ }
+ Output {
+  name Output1
+  xpos -11
+  ypos 955
+ }
+push $N140f9b80
+ Viewer {
+  input_process false
+  name Viewer1
+  xpos -1000
+  ypos -33
+ }
+end_group

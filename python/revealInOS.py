@@ -11,9 +11,9 @@ def revealInOS():
 #osx
     subprocess.Popen(['open', '-R', '%s' % (u)])
 #gnome
-	subprocess.Popen(['nautilus','%s' % (u)])
+    subprocess.Popen(['nautilus','%s' % (u)])
 #kde
-	subprocess.Popen(['nautilus','%s' % (u)])
+    subprocess.Popen(['nautilus','%s' % (u)])
 
 #windows
     cmd = 'explorer "%s"' % (u)

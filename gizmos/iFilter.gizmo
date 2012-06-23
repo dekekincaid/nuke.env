@@ -1,0 +1,546 @@
+Group {
+ inputs 2
+ name iFilter
+ help "gizmo an py code by Pau Rocher Castellano\n--> bikura@gmail.com\nAny comments, suggestions, ... welcome!!\nThanks!!\n\n1. Plug an image\n2. Plug a Control channel in 'Mask'\n3. Choose your filter\n4. Set number of steps\n5. Click 'Regenerate'\n6. Set 'Amount' and 'Soften' values\n\nIn the 'filterSettings' tab you can modify the default settings for the chosen filter."
+ selected true
+ addUserKnob {20 iFilter}
+ addUserKnob {41 from0 l "control channel" t "This channel controlls the amount of the effect." T Copyyy.from0}
+ addUserKnob {6 invertMask l invert t "lennahc lortnoc eht strevnI" -STARTLINE}
+ addUserKnob {6 crop l "crop to mask's BBox" t "When enabled gives faster results if the image BBox size is insanely big ...\n\nWARNING: this enabled might create artifacts!!!" +STARTLINE}
+ crop true
+ addUserKnob {26 ""}
+ addUserKnob {7 Amount t Amount R -100 100}
+ Amount 20
+ addUserKnob {7 Soften t "Softens the merge between steps" R 0 100}
+ Soften 5
+ addUserKnob {26 ""}
+ addUserKnob {4 Filter t "Choose the filter to use" M {dilerFast dilerFilter dilerBlur blur defocus "" ""}}
+ Filter blur
+ addUserKnob {7 Steps t "Number of steps" R 1 100}
+ Steps 10
+ addUserKnob {22 regenerate t "Sets up the amount of steps in the filter" T "filter = nuke.Enumeration_Knob.value(nuke.thisNode().knob (\"Filter\"))\nsteps = nuke.Array_Knob.value(nuke.thisNode().knob('Steps'))\npreviousAmount = nuke.Array_Knob.value(nuke.thisNode().knob('previousAmount'))\n\niFilter03.iFilter03 (filter, steps, previousAmount)\n\nnuke.thisNode().knob('previousAmount').setValue(steps)\n" +STARTLINE}
+ addUserKnob {1 info t "information about the filter"}
+ info ".:  Current filter: blur with 10 steps  (Click button to update ...) :."
+ addUserKnob {26 ""}
+ addUserKnob {7 previousAmount l INVISIBLE +INVISIBLE}
+ previousAmount 10
+ addUserKnob {20 filterSettings t "Specific filter settings"}
+ addUserKnob {4 iFilterFilter l filter +INVISIBLE M {box triangle quadratic gaussian ""}}
+ addUserKnob {7 iFilterBlur l blur +INVISIBLE}
+ addUserKnob {3 iFilterQuality l quality +INVISIBLE}
+ iFilterQuality 15
+ addUserKnob {4 iFilterBlurFilter M {box triangle quadratic gaussian}}
+ addUserKnob {3 iFilterBlurQuality}
+ iFilterBlurQuality 15
+ addUserKnob {7 iFilterDefAspect l "aspect ratio" +INVISIBLE R 0 5}
+ iFilterDefAspect 1
+ addUserKnob {7 iFilterDefScaling l scaling +INVISIBLE R 1 10}
+ iFilterDefScaling 1
+ addUserKnob {3 iFilterDefQuality l quality +INVISIBLE}
+ iFilterDefQuality 20
+ addUserKnob {4 iFilterDefMethod l method +INVISIBLE M {accelerated "full precision"}}
+}
+ Input {
+  inputs 0
+  name mask
+  xpos 100
+  ypos -545
+  number 1
+ }
+set N14f69740 [stack 0]
+push $N14f69740
+ Copy {
+  inputs 2
+  from0 rgba.alpha
+  to0 rgba.red
+  name Copyyy
+  xpos 100
+  ypos -493
+ }
+ Invert {
+  name Invert1
+  xpos 100
+  ypos -443
+  disable {{1-parent.invertMask i}}
+ }
+ Dot {
+  name puntazoMask
+  xpos 134
+  ypos -328
+ }
+set N14f7a060 [stack 0]
+ Expression {
+  temp_name0 r9
+  temp_expr0 step(r,0.9)
+  expr0 r9
+  name idilerExpr9
+  xpos 900
+  ypos 100
+ }
+ Blur {
+  size {{parent.Soften}}
+  name idilerBlur9
+  xpos 900
+  ypos 150
+ }
+push $N14f7a060
+ Expression {
+  temp_name0 r8
+  temp_expr0 step(r,0.8)
+  expr0 r8
+  name idilerExpr8
+  xpos 800
+  ypos 100
+ }
+ Blur {
+  size {{parent.Soften}}
+  name idilerBlur8
+  xpos 800
+  ypos 150
+ }
+push $N14f7a060
+ Expression {
+  temp_name0 r7
+  temp_expr0 step(r,0.7)
+  expr0 r7
+  name idilerExpr7
+  xpos 700
+  ypos 100
+ }
+ Blur {
+  size {{parent.Soften}}
+  name idilerBlur7
+  xpos 700
+  ypos 150
+ }
+push $N14f7a060
+ Expression {
+  temp_name0 r6
+  temp_expr0 step(r,0.6)
+  expr0 r6
+  name idilerExpr6
+  xpos 600
+  ypos 100
+ }
+ Blur {
+  size {{parent.Soften}}
+  name idilerBlur6
+  xpos 600
+  ypos 150
+ }
+push $N14f7a060
+ Expression {
+  temp_name0 r5
+  temp_expr0 step(r,0.5)
+  expr0 r5
+  name idilerExpr5
+  xpos 500
+  ypos 100
+ }
+ Blur {
+  size {{parent.Soften}}
+  name idilerBlur5
+  xpos 500
+  ypos 150
+ }
+push $N14f7a060
+ Expression {
+  temp_name0 r4
+  temp_expr0 step(r,0.4)
+  expr0 r4
+  name idilerExpr4
+  xpos 400
+  ypos 100
+ }
+ Blur {
+  size {{parent.Soften}}
+  name idilerBlur4
+  xpos 400
+  ypos 150
+ }
+push $N14f7a060
+ Expression {
+  temp_name0 r3
+  temp_expr0 step(r,0.3)
+  expr0 r3
+  name idilerExpr3
+  xpos 300
+  ypos 100
+ }
+ Blur {
+  size {{parent.Soften}}
+  name idilerBlur3
+  xpos 300
+  ypos 150
+ }
+push $N14f7a060
+ Expression {
+  temp_name0 r2
+  temp_expr0 step(r,0.2)
+  expr0 r2
+  name idilerExpr2
+  xpos 200
+  ypos 100
+ }
+ Blur {
+  size {{parent.Soften}}
+  name idilerBlur2
+  xpos 200
+  ypos 150
+ }
+push $N14f7a060
+ Expression {
+  temp_name0 r1
+  temp_expr0 step(r,0.1)
+  expr0 r1
+  name idilerExpr1
+  xpos 100
+  ypos 100
+ }
+ Blur {
+  size {{parent.Soften}}
+  name idilerBlur1
+  xpos 100
+  ypos 150
+ }
+push $N14f7a060
+ Expression {
+  temp_name0 r10
+  temp_expr0 step(r,1.0)
+  expr0 r10
+  name idilerExpr10
+  xpos -10
+  ypos 100
+ }
+ Blur {
+  size {{parent.Soften}}
+  name idilerBlur10
+  xpos -10
+  ypos 150
+ }
+ Input {
+  inputs 0
+  name Image
+  xpos -100
+  ypos -543
+ }
+ Shuffle {
+  name Shuffle1
+  xpos -100
+  ypos -509
+ }
+set N14ff84c0 [stack 0]
+ Crop {
+  box {{puntazoMask.bbox.x-Amount i} {puntazoMask.bbox.y-Amount i} {puntazoMask.bbox.r+Amount i} {puntazoMask.bbox.t+Amount i}}
+  name iFilterCrop
+  xpos -100
+  ypos -475
+  disable {{1-parent.crop i}}
+ }
+ Dot {
+  name puntazo
+  xpos -66
+  ypos -326
+ }
+set N15006b10 [stack 0]
+push $N15006b10
+ Blur {
+  size {{parent.Amount/10*1}}
+  filter {{parent.iFilterBlurFilter}}
+  quality {{parent.iFilterBlurQuality}}
+  name idilerErode1
+  xpos 100
+  ypos 500
+ }
+ Keymix {
+  inputs 3
+  maskChannel rgba.red
+  name idilerKeymix1
+  xpos 100
+  ypos 550
+ }
+push $N15006b10
+ Blur {
+  size {{parent.Amount/10*2}}
+  filter {{parent.iFilterBlurFilter}}
+  quality {{parent.iFilterBlurQuality}}
+  name idilerErode2
+  xpos 200
+  ypos 500
+ }
+ Keymix {
+  inputs 3
+  maskChannel rgba.red
+  name idilerKeymix2
+  xpos 200
+  ypos 550
+ }
+push $N15006b10
+ Blur {
+  size {{parent.Amount/10*3}}
+  filter {{parent.iFilterBlurFilter}}
+  quality {{parent.iFilterBlurQuality}}
+  name idilerErode3
+  xpos 300
+  ypos 500
+ }
+ Keymix {
+  inputs 3
+  maskChannel rgba.red
+  name idilerKeymix3
+  xpos 300
+  ypos 550
+ }
+push $N15006b10
+ Blur {
+  size {{parent.Amount/10*4}}
+  filter {{parent.iFilterBlurFilter}}
+  quality {{parent.iFilterBlurQuality}}
+  name idilerErode4
+  xpos 400
+  ypos 500
+ }
+ Keymix {
+  inputs 3
+  maskChannel rgba.red
+  name idilerKeymix4
+  xpos 400
+  ypos 550
+ }
+push $N15006b10
+ Blur {
+  size {{parent.Amount/10*5}}
+  filter {{parent.iFilterBlurFilter}}
+  quality {{parent.iFilterBlurQuality}}
+  name idilerErode5
+  xpos 500
+  ypos 500
+ }
+ Keymix {
+  inputs 3
+  maskChannel rgba.red
+  name idilerKeymix5
+  xpos 500
+  ypos 550
+ }
+push $N15006b10
+ Blur {
+  size {{parent.Amount/10*6}}
+  filter {{parent.iFilterBlurFilter}}
+  quality {{parent.iFilterBlurQuality}}
+  name idilerErode6
+  xpos 600
+  ypos 500
+ }
+ Keymix {
+  inputs 3
+  maskChannel rgba.red
+  name idilerKeymix6
+  xpos 600
+  ypos 550
+ }
+push $N15006b10
+ Blur {
+  size {{parent.Amount/10*7}}
+  filter {{parent.iFilterBlurFilter}}
+  quality {{parent.iFilterBlurQuality}}
+  name idilerErode7
+  xpos 700
+  ypos 500
+ }
+ Keymix {
+  inputs 3
+  maskChannel rgba.red
+  name idilerKeymix7
+  xpos 700
+  ypos 550
+ }
+push $N15006b10
+ Blur {
+  size {{parent.Amount/10*8}}
+  filter {{parent.iFilterBlurFilter}}
+  quality {{parent.iFilterBlurQuality}}
+  name idilerErode8
+  xpos 800
+  ypos 500
+ }
+ Keymix {
+  inputs 3
+  maskChannel rgba.red
+  name idilerKeymix8
+  xpos 800
+  ypos 550
+ }
+push $N15006b10
+ Blur {
+  size {{parent.Amount/10*9}}
+  filter {{parent.iFilterBlurFilter}}
+  quality {{parent.iFilterBlurQuality}}
+  name idilerErode9
+  xpos 900
+  ypos 500
+ }
+ Keymix {
+  inputs 3
+  maskChannel rgba.red
+  name idilerKeymix9
+  xpos 900
+  ypos 550
+ }
+push $N15006b10
+ Blur {
+  size {{parent.Amount/10*10}}
+  filter {{parent.iFilterBlurFilter}}
+  quality {{parent.iFilterBlurQuality}}
+  name idilerErode10
+  xpos 1000
+  ypos 500
+ }
+ Keymix {
+  inputs 3
+  maskChannel rgba.red
+  name idilerKeymix10
+  xpos 1000
+  ypos 550
+ }
+set Nd85cd2a0 [stack 0]
+push $N14ff84c0
+ Dot {
+  name Dot1
+  xpos -130
+  ypos -467
+ }
+ Rectangle {
+  cliptype none
+  area {{puntazoMask.bbox.x i} {puntazoMask.bbox.y i} {puntazoMask.bbox.r i} {puntazoMask.bbox.t i}}
+  color 0
+  name Rectangle1
+  xpos -164
+  ypos -422
+ }
+ Merge2 {
+  inputs 2
+  bbox B
+  name iFilterFinalMerge
+  xpos -164
+  ypos 863
+ }
+push $Nd85cd2a0
+ Switch {
+  inputs 2
+  which {{parent.crop i}}
+  name iFilterSwitch
+  xpos -164
+  ypos 954
+ }
+ Output {
+  name Out
+  xpos -164
+  ypos 1035
+ }
+push $N14f7a060
+ Expression {
+  temp_name0 r33
+  temp_expr0 step(r,1.0)
+  expr0 r33
+  name idilerExpr101
+  xpos -10
+  ypos 100
+ }
+ Blur {
+  size {{parent.Soften}}
+  name idilerBlur101
+  xpos -10
+  ypos 150
+ }
+push $N14f7a060
+ Expression {
+  temp_name0 r47
+  temp_expr0 step(r,1.0)
+  expr0 r47
+  name idilerExpr118
+  xpos -10
+  ypos 100
+ }
+ Blur {
+  size {{parent.Soften}}
+  name idilerBlur118
+  xpos -10
+  ypos 150
+ }
+push $N14f7a060
+ Expression {
+  temp_name0 r40
+  temp_expr0 step(r,1.0)
+  expr0 r40
+  name idilerExpr128
+  xpos -10
+  ypos 100
+ }
+ Blur {
+  size {{parent.Soften}}
+  name idilerBlur128
+  xpos -10
+  ypos 150
+ }
+push $N14f7a060
+ Expression {
+  temp_name0 r32
+  temp_expr0 step(r,1.0)
+  expr0 r32
+  name idilerExpr130
+  xpos -10
+  ypos 100
+ }
+ Blur {
+  size {{parent.Soften}}
+  name idilerBlur130
+  xpos -10
+  ypos 150
+ }
+push $N14f7a060
+ Expression {
+  temp_name0 r52
+  temp_expr0 step(r,1.0)
+  expr0 r52
+  name idilerExpr152
+  xpos -10
+  ypos 100
+ }
+ Blur {
+  size {{parent.Soften}}
+  name idilerBlur152
+  xpos -10
+  ypos 150
+ }
+push $N14f7a060
+ Expression {
+  temp_name0 r68
+  temp_expr0 step(r,1.0)
+  expr0 r68
+  name idilerExpr104
+  xpos -10
+  ypos 100
+ }
+ Blur {
+  size {{parent.Soften}}
+  name idilerBlur104
+  xpos -10
+  ypos 150
+ }
+push $N14f7a060
+ Expression {
+  temp_name0 r100
+  temp_expr0 step(r,1.0)
+  expr0 r100
+  name idilerExpr117
+  xpos -10
+  ypos 100
+ }
+ Blur {
+  size {{parent.Soften}}
+  name idilerBlur117
+  xpos -10
+  ypos 150
+ }
+end_group

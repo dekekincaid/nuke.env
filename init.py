@@ -16,11 +16,15 @@ nuke.pluginAddPath(os.path.expanduser("~/nukescripts/gizmos"))
 nuke.pluginAddPath(os.path.expanduser("~/nukescripts/gizmos.private"))
 nuke.pluginAddPath(os.path.expanduser("~/nukescripts/icons"))
 nuke.pluginAddPath(os.path.expanduser("~/nukescripts/lut"))
-nuke.pluginAddPath(os.path.expanduser("~/nukescripts/lut.private	"))
+nuke.pluginAddPath(os.path.expanduser("~/nukescripts/lut.private"))
 nuke.pluginAddPath(os.path.expanduser("~/nukescripts/mari"))
+#nuke.pluginAddPath(os.path.expanduser("~/nukescripts/ocio")) #for custom ocio install, don't need it now that it is included with 6.3v7
+
 nuke.pluginAddPath(os.path.expanduser("~/nukescripts/plugins"))
 nuke.pluginAddPath(os.path.expanduser("~/nukescripts/python"))
 nuke.pluginAddPath(os.path.expanduser("~/nukescripts/tcl"))
+
+#nuke.pluginAddPath("/usr/local/lib") #for custom ocio install, don't need it now that it is included with 6.3v7
 
 
 #nuke.pluginAddPath(os.path.expanduser("~/nukescripts/other"))

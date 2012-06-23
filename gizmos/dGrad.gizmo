@@ -1,0 +1,174 @@
+# Draw dTools
+#! C:/Program Files/Nuke5.2v1b17/Nuke5.2.exe -nx
+# Created by Diogo Girondi
+# diogogirondi@gmail.com
+version 5.2117
+Gizmo {
+ inputs 2
+ help "@b;dGrad v1 @n;for Nuke 6.0v1\n\nA simple 2 to 8 colors linear gradient. Anything connected to the \"Custom\" input will override the linear gradient and use the luminance values of that input to drive the gradient disposition.\n\ncreated by Diogo Girondi\ndiogogirondi@gmail.com"
+ knobChanged "n = nuke.thisNode()\nk = nuke.thisKnob()\n\nif k.name() == 'colors' or k.name() == 'showPanel':\n    colors = int(n\['colors'].value())\n    if colors == 2:\n        n\['c3'].setEnabled(False)\n        n\['c4'].setEnabled(False)\n        n\['c5'].setEnabled(False)\n        n\['c6'].setEnabled(False)\n        n\['c7'].setEnabled(False)\n        n\['c8'].setEnabled(False)\n    elif colors == 3:\n        n\['c3'].setEnabled(True)\n        n\['c4'].setEnabled(False)\n        n\['c5'].setEnabled(False)\n        n\['c6'].setEnabled(False)\n        n\['c7'].setEnabled(False)\n        n\['c8'].setEnabled(False)\n    elif colors == 4:\n        n\['c3'].setEnabled(True)\n        n\['c4'].setEnabled(True)\n        n\['c5'].setEnabled(False)\n        n\['c6'].setEnabled(False)\n        n\['c7'].setEnabled(False)\n        n\['c8'].setEnabled(False)\n    elif colors == 5:\n        n\['c3'].setEnabled(True)\n        n\['c4'].setEnabled(True)\n        n\['c5'].setEnabled(True)\n        n\['c6'].setEnabled(False)\n        n\['c7'].setEnabled(False)\n        n\['c8'].setEnabled(False)\n    elif colors == 6:\n        n\['c3'].setEnabled(True)\n        n\['c4'].setEnabled(True)\n        n\['c5'].setEnabled(True)\n        n\['c6'].setEnabled(True)\n        n\['c7'].setEnabled(False)\n        n\['c8'].setEnabled(False)\n    elif colors == 7:\n        n\['c3'].setEnabled(True)\n        n\['c4'].setEnabled(True)\n        n\['c5'].setEnabled(True)\n        n\['c6'].setEnabled(True)\n        n\['c7'].setEnabled(True)\n        n\['c8'].setEnabled(False)\n    elif colors == 8:\n        n\['c3'].setEnabled(True)\n        n\['c4'].setEnabled(True)\n        n\['c5'].setEnabled(True)\n        n\['c6'].setEnabled(True)\n        n\['c7'].setEnabled(True)\n        n\['c8'].setEnabled(True)"
+ tile_color 0x777777ff
+ addUserKnob {20 dgrad l "dGrad v1"}
+ addUserKnob {4 colors l Colors M {2 3 4 5 6 7 8}}
+ addUserKnob {7 softness l " Softness" -STARTLINE R 0 2}
+ softness 1
+ addUserKnob {7 mix l Mix}
+ mix 1
+ addUserKnob {26 "" +STARTLINE}
+ addUserKnob {41 p0 l "Point 0" T Ramp1.p0}
+ addUserKnob {41 p1 l "Point 1" T Ramp1.p1}
+ addUserKnob {26 ""}
+ addUserKnob {19 c1 l "Color 1"}
+ c1 {1 0 0 0}
+ addUserKnob {19 c2 l "Color 2"}
+ c2 {1 0 0.716254 0}
+ addUserKnob {19 c3 l "Color 3" +DISABLED}
+ c3 {0.533427 0 1 0}
+ addUserKnob {19 c4 l "Color 4" +DISABLED}
+ c4 {0 0.245659 1 0}
+ addUserKnob {19 c5 l "Color 5" +DISABLED}
+ c5 {0 0.955853 1 0}
+ addUserKnob {19 c6 l "Color 6" +DISABLED}
+ c6 {0 1 0.294799 0}
+ addUserKnob {19 c7 l "Color 7" +DISABLED}
+ c7 {0.50355 1 0 0}
+ addUserKnob {19 c8 l "Color 8" +DISABLED}
+ c8 {1 0.780936 0 0}
+}
+ Input {
+  inputs 0
+  name Custom
+  xpos 116
+  ypos -210
+  number 1
+  addUserKnob {20 User}
+  addUserKnob {6 connected +STARTLINE}
+  connected {{"\[exists input1.disable]" i}}
+ }
+ Saturation {
+  saturation 0
+  name Saturation1
+  xpos 116
+  ypos -181
+ }
+ Input {
+  inputs 0
+  name Input
+  xpos 0
+  ypos -213
+ }
+set N5732190 [stack 0]
+ Ramp {
+  replace true
+  name Ramp1
+  xpos 0
+  ypos -113
+ }
+ Switch {
+  inputs 2
+  which {{Custom.connected i}}
+  name Type
+  xpos 51
+  ypos -6
+ }
+push $N5732190
+ Rectangle {
+  area {0 0 {"input.width/\[value parent.colors]" i} {input.height i}}
+  color {{parent.c1.main i} {parent.c1.main i} {parent.c1.main i} {parent.c1.main i}}
+  name c1
+  xpos -107
+  ypos -114
+ }
+ Rectangle {
+  area {{input.area.r i} 0 {"input.area.r+(input.width/\[value parent.colors])" i} {input.height i}}
+  color {{parent.c2.main i} {parent.c2.main i} {parent.c2.main i} {parent.c2.main i}}
+  name c2
+  xpos -107
+  ypos -85
+ }
+ Rectangle {
+  area {{input.area.r i} 0 {"input.area.r+(input.width/\[value parent.colors])" i} {input.height i}}
+  color {{parent.c3.main i} {parent.c3.main i} {parent.c3.main i} {parent.c3.main i}}
+  name c3
+  xpos -107
+  ypos -56
+  disable {{"\[value parent.colors] < 3" i}}
+ }
+ Rectangle {
+  area {{input.area.r i} 0 {"input.area.r+(input.width/\[value parent.colors])" i} {input.height i}}
+  color {{parent.c4.main i} {parent.c4.main i} {parent.c4.main i} {parent.c4.main i}}
+  name c4
+  xpos -107
+  ypos -27
+  disable {{"\[value parent.colors] < 4" i}}
+ }
+ Rectangle {
+  area {{input.area.r i} 0 {"input.area.r+(input.width/\[value parent.colors])" i} {input.height i}}
+  color {{parent.c5.main i} {parent.c5.main i} {parent.c5.main i} {parent.c5.main i}}
+  name c5
+  xpos -107
+  ypos 2
+  disable {{"\[value parent.colors] < 5" i}}
+ }
+ Rectangle {
+  area {{input.area.r i} 0 {"input.area.r+(input.width/\[value parent.colors])" i} {input.height i}}
+  color {{parent.c6.main i} {parent.c6.main i} {parent.c6.main i} {parent.c6.main i}}
+  name c6
+  xpos -107
+  ypos 31
+  disable {{"\[value parent.colors] < 6" i}}
+ }
+ Rectangle {
+  area {{input.area.r i} 0 {"input.area.r+(input.width/\[value parent.colors])" i} {input.height i}}
+  color {{parent.c7.main i} {parent.c7.main i} {parent.c7.main i} {parent.c7.main i}}
+  name c7
+  xpos -107
+  ypos 60
+  disable {{"\[value parent.colors] < 7" i}}
+ }
+ Rectangle {
+  area {{input.area.r i} 0 {"input.area.r+(input.width/\[value parent.colors])" i} {input.height i}}
+  color {{parent.c8.main i} {parent.c8.main i} {parent.c8.main i} {parent.c8.main i}}
+  name c8
+  xpos -107
+  ypos 89
+  disable {{"\[value parent.colors] < 8" i}}
+ }
+ Blur {
+  size {{"(input.width*(1/\[value parent.colors]))*parent.softness" i}}
+  name Blur1
+  xpos -107
+  ypos 118
+ }
+ STMap {
+  inputs 2
+  channels rgb
+  uv {rgba.red -rgba.green}
+  name STMap1
+  xpos 51
+  ypos 126
+ }
+push $N5732190
+ Dot {
+  name Dot1
+  xpos -165
+  ypos -208
+ }
+ Dot {
+  name Dot2
+  xpos -165
+  ypos 206
+ }
+ Dissolve {
+  inputs 2
+  which {{parent.mix i}}
+  name Dissolve1
+  xpos 51
+  ypos 193
+ }
+ Output {
+  name Output1
+  xpos 51
+  ypos 279
+ }
+end_group
