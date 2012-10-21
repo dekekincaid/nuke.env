@@ -1,0 +1,179 @@
+version 6.0
+Gizmo {
+ inputs 2
+ name EdgeScatter
+ help "edge scatter is meant for integrating layers of a comp in a more photographic way"
+ tile_color 0xabc5e000
+ addUserKnob {20 "" l User}
+ addUserKnob {26 inner l "" +STARTLINE T "Inner Scatter"}
+ addUserKnob {7 AMT l "Blur Amount" R 0 250}
+ AMT 4
+ addUserKnob {18 COLOR l "Scatter Color"}
+ COLOR {1 1 1}
+ addUserKnob {7 MIX l Mix}
+ MIX 1
+ addUserKnob {26 outer l "" +STARTLINE T "Outer Scatter"}
+ addUserKnob {7 AMT2 l "Blur Amount" t "this is the blur amount for\r\nthe outer blur\t\t" R 0 250}
+ AMT2 4
+ addUserKnob {18 COLOR2 l "Scatter Color" t "The outer scatter color"}
+ COLOR2 {1 1 1}
+ addUserKnob {7 MIX2 l Mix t "mix for outer scatter"}
+ MIX2 1
+ addUserKnob {26 "" l Regrain}
+ addUserKnob {18 GAMT l Amount}
+ GAMT {0.41 0.46 0.85}
+}
+ Input {
+  inputs 0
+  name ImageIn
+  xpos -390
+  ypos -88
+ }
+set Naf09e70 [stack 0]
+ Input {
+  inputs 0
+  name ScatterMatte
+  xpos -179
+  ypos -93
+  number 1
+ }
+push $Naf09e70
+ Copy {
+  inputs 2
+  from0 -rgba.alpha
+  to0 -rgba.alpha
+  channels alpha
+  name ChannelCopy1
+  tile_color 0x9e3c6300
+  xpos -179
+  ypos -13
+ }
+set N1abc2100 [stack 0]
+ Invert {
+  channels alpha
+  name Invert2
+  xpos -72
+  ypos 229
+ }
+push $N1abc2100
+ Blur {
+  channels rgba
+  size {{parent.AMT2 i}}
+  name Blur3
+  xpos 95
+  ypos 74
+ }
+ Grade {
+  multiply {{parent.COLOR2.r i} {parent.COLOR2.g i} {parent.COLOR2.b i} 1}
+  maskChannelInput -rgba.alpha
+  unpremult -rgba.alpha
+  name Grade2
+  tile_color 0x7aa9ff00
+  xpos 95
+  ypos 156
+ }
+ Grain2 {
+  name Grain2_1
+  label "Kodak 5248"
+  xpos 95
+  ypos 219
+  red_m {{parent.GAMT.r i}}
+  green_m {{parent.GAMT.g i}}
+  blue_m {{parent.GAMT.b i}}
+  black {0 0 0}
+  minimum {0 0 0}
+ }
+ ChannelMerge {
+  inputs 2
+  operation in
+  name ChannelMerge2
+  tile_color 0x4b5ec600
+  xpos -72
+  ypos 279
+ }
+push $N1abc2100
+push $N1abc2100
+ Invert {
+  channels alpha
+  name Invert1
+  tile_color 0x7aa9ff00
+  xpos -73
+  ypos 50
+ }
+ Blur {
+  channels rgba
+  size {{AMT i}}
+  name Blur1
+  tile_color 0xcc804e00
+  xpos -73
+  ypos 98
+ }
+ Grade {
+  multiply {{COLOR.r i} {COLOR.g i} {COLOR.b i} 1}
+  maskChannelInput -rgba.alpha
+  unpremult -rgba.alpha
+  name Grade1
+  tile_color 0x7aa9ff00
+  xpos -73
+  ypos 135
+ }
+ Grain2 {
+  name Grain2_2
+  label "Kodak 5248"
+  xpos -73
+  ypos 176
+  red_m {{parent.GAMT.r}}
+  green_m {{parent.GAMT.g}}
+  blue_m {{parent.GAMT.b}}
+  black {0 0 0}
+  minimum {0 0 0}
+ }
+ ChannelMerge {
+  inputs 2
+  operation in
+  name ChannelMerge1
+  tile_color 0x4b5ec600
+  xpos -179
+  ypos 205
+ }
+push $Naf09e70
+ AddMix {
+  inputs 2
+  mix {{MIX i}}
+  name AddMix1
+  tile_color 0x4b5ec600
+  xpos -271
+  ypos 293
+ }
+ AddMix {
+  inputs 2
+  mix {{parent.MIX2 i}}
+  name AddMix2
+  xpos -271
+  ypos 334
+ }
+ Copy {
+  inputs 2
+  from0 -rgba.alpha
+  to0 -rgba.alpha
+  channels alpha
+  name ChannelCopy2
+  tile_color 0x9e3c6300
+  xpos -390
+  ypos 371
+ }
+set N1adbbe60 [stack 0]
+push $N1adbbe60
+ Output {
+  name Output1
+  xpos -390
+  ypos 461
+ }
+ Viewer {
+  inputs 2
+  input_process false
+  name Viewer1
+  xpos -589
+  ypos 262
+ }
+end_group

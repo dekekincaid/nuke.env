@@ -1,0 +1,433 @@
+#! /usr/local/Nuke6.3v8/Nuke6.3 -nx
+version 6.3 v8
+Gizmo {
+ inputs 2
+ note_font "Bitstream Vera Sans"
+ addUserKnob {20 User}
+ addUserKnob {4 ChooseColour M {red green blue ""}}
+ ChooseColour green
+ addUserKnob {4 DeSpillMethod M {Minimum Average Maximum}}
+ addUserKnob {41 value l DeSpillAmount t "Choose despill amount" T DESPILL_AMOUNT.value}
+ addUserKnob {6 mask l "Enable Mask" +STARTLINE}
+ addUserKnob {6 invertMask l "Invert Mask" -STARTLINE}
+}
+ BackdropNode {
+  inputs 0
+  name choose_which_is_best
+  label "choose_which_is_best, 0=MIN, 1=AVERAGE, 2=MAX"
+  xpos -757
+  ypos -509
+  bdwidth 412
+  bdheight 126
+ }
+ BackdropNode {
+  inputs 0
+  name amount
+  label "adjust your despill amount here"
+  xpos -723
+  ypos -243
+  bdwidth 187
+  bdheight 97
+ }
+ BackdropNode {
+  inputs 0
+  name choosecolour
+  label "\t\tchoose your despill colour 0=Red, 1=Green, 2=Blue"
+  xpos -667
+  ypos -831
+  bdwidth 466
+  bdheight 92
+ }
+ Input {
+  inputs 0
+  name Input
+  xpos -624
+  ypos -1018
+ }
+ Dot {
+  name Dot10
+  xpos -590
+  ypos -966
+ }
+set N13089e70 [stack 0]
+ Dot {
+  name Dot12
+  xpos -956
+  ypos -966
+ }
+ Dot {
+  name Dot11
+  xpos -956
+  ypos 114
+ }
+push $N13089e70
+ Dot {
+  name Dot19
+  xpos -506
+  ypos -966
+ }
+set N584be10 [stack 0]
+ Dot {
+  name Dot18
+  xpos -356
+  ypos -966
+ }
+set N1157b7b0 [stack 0]
+ Shuffle {
+  red blue
+  blue red
+  name BGR
+  xpos -390
+  ypos -898
+ }
+ Dot {
+  name Dot20
+  xpos -356
+  ypos -798
+ }
+push $N584be10
+ Shuffle {
+  red green
+  green blue
+  blue red
+  name GBR
+  xpos -540
+  ypos -898
+ }
+ Dot {
+  name Dot21
+  xpos -506
+  ypos -798
+ }
+push $N13089e70
+ Switch {
+  inputs 3
+  which {{ChooseColour}}
+  name despill_R_G_B
+  xpos -624
+  ypos -802
+ }
+set N56ec780 [stack 0]
+ Shuffle {
+  red blue
+  green blue
+  alpha black
+  name BBB
+  xpos -440
+  ypos -706
+ }
+set N15d78db0 [stack 0]
+ Dot {
+  name Dot5
+  xpos -306
+  ypos -702
+ }
+ Dot {
+  name Dot6
+  xpos -306
+  ypos -127
+ }
+ Shuffle {
+  red black
+  green black
+  blue red
+  alpha black
+  name _00R0
+  xpos -440
+  ypos -131
+ }
+ Dot {
+  name Dot13
+  xpos -406
+  ypos -31
+ }
+push $N56ec780
+ Shuffle {
+  red green
+  blue green
+  alpha black
+  name GGG
+  xpos -740
+  ypos -706
+ }
+set N651d580 [stack 0]
+ Dot {
+  name Dot4
+  xpos -506
+  ypos -702
+ }
+ Shuffle {
+  red black
+  green red
+  blue black
+  alpha black
+  name _0R00
+  xpos -540
+  ypos -141
+ }
+ Dot {
+  name Dot14
+  xpos -506
+  ypos -79
+ }
+push $N56ec780
+ Dot {
+  name Dot16
+  xpos -856
+  ypos -798
+ }
+ Shuffle {
+  green red
+  blue red
+  alpha black
+  name RRR
+  xpos -890
+  ypos -634
+ }
+ Dot {
+  name Dot17
+  xpos -856
+  ypos -366
+ }
+set N1406fbb0 [stack 0]
+push $N1406fbb0
+push $N651d580
+ Dot {
+  name Dot3
+  xpos -606
+  ypos -702
+ }
+set N11b4d5e0 [stack 0]
+push $N15d78db0
+ Merge2 {
+  inputs 2
+  operation max
+  name Max
+  xpos -441
+  ypos -610
+ }
+ Dot {
+  name Dot2
+  xpos -407
+  ypos -438
+ }
+push $N11b4d5e0
+push $N15d78db0
+ Merge2 {
+  inputs 2
+  operation plus
+  name Plus
+  xpos -640
+  ypos -610
+ }
+ Multiply {
+  value 0.5
+  name Multiply1
+  xpos -640
+  ypos -544
+ }
+push $N651d580
+push $N15d78db0
+ Merge2 {
+  inputs 2
+  operation min
+  name Min
+  xpos -740
+  ypos -610
+ }
+ Dot {
+  name Dot1
+  xpos -706
+  ypos -439
+ }
+ Switch {
+  inputs 3
+  which {{DeSpillMethod}}
+  name MIN_AVG_MAX
+  xpos -640
+  ypos -443
+ }
+ Merge2 {
+  inputs 2
+  operation minus
+  name Difference
+  xpos -640
+  ypos -370
+ }
+ Grade {
+  white 0.88
+  name Grade1
+  xpos -640
+  ypos -333
+ }
+ Clamp {
+  maximum 20
+  name Clamp1
+  xpos -640
+  ypos -304
+ }
+ Multiply {
+  value 1.1
+  name DESPILL_AMOUNT
+  xpos -640
+  ypos -208
+ }
+ Merge2 {
+  inputs 2
+  operation minus
+  name Difference1
+  xpos -890
+  ypos -204
+ }
+ Shuffle {
+  green black
+  blue black
+  alpha black
+  name R000
+  xpos -890
+  ypos -155
+ }
+ Dot {
+  name Dot15
+  xpos -856
+  ypos -80
+ }
+ ShuffleCopy {
+  inputs 2
+  green green
+  blue black
+  alpha black
+  name ShuffleCopy1
+  xpos -690
+  ypos -83
+ }
+ ShuffleCopy {
+  inputs 2
+  blue blue
+  alpha black
+  name ShuffleCopy2
+  xpos -690
+  ypos -35
+ }
+set N132480c0 [stack 0]
+ Shuffle {
+  red blue
+  blue red
+  alpha black
+  name BGR_2
+  xpos -569
+  ypos 10
+ }
+ Dot {
+  name Dot9
+  xpos -535
+  ypos 113
+ }
+push $N132480c0
+ Shuffle {
+  red blue
+  green red
+  blue green
+  alpha black
+  name BRG
+  xpos -690
+  ypos 6
+ }
+ Dot {
+  name Dot8
+  xpos -656
+  ypos 65
+ }
+push $N132480c0
+ Dot {
+  name Dot7
+  xpos -806
+  ypos -31
+ }
+ Switch {
+  inputs 3
+  which {{despill_R_G_B.which i}}
+  name R_G_B
+  xpos -840
+  ypos 109
+ }
+set N17847600 [stack 0]
+ Copy {
+  inputs 2
+  from0 rgba.alpha
+  to0 rgba.alpha
+  name Copy1
+  xpos -940
+  ypos 104
+ }
+ Input {
+  inputs 0
+  name mask
+  label Mask
+  xpos -1090
+  ypos -1024
+  number 1
+ }
+ Invert {
+  name Invert1
+  xpos -1090
+  ypos -986
+  disable {{-(parent.invertMask.main-1) i}}
+ }
+ Dot {
+  name Dot22
+  xpos -1056
+  ypos 258
+ }
+ Merge2 {
+  inputs 2
+  operation in
+  name Merge1
+  xpos -940
+  ypos 254
+ }
+push $N1157b7b0
+ Dot {
+  name Dot23
+  xpos -156
+  ypos -966
+ }
+ Dot {
+  name Dot24
+  xpos -156
+  ypos 306
+ }
+ Merge2 {
+  inputs 2
+  name Merge2
+  xpos -940
+  ypos 302
+ }
+ Dot {
+  name Dot25
+  xpos -906
+  ypos 378
+ }
+push $N17847600
+ Switch {
+  inputs 2
+  which {{parent.invertMask i}}
+  name Switch1
+  xpos -840
+  ypos 374
+ }
+set N1134ba00 [stack 0]
+ Viewer {
+  input_process false
+  gl_lighting true
+  name Viewer1
+  xpos -1040
+  ypos 470
+ }
+push $N1134ba00
+ Output {
+  name Output1
+  xpos -840
+  ypos 470
+ }
+end_group

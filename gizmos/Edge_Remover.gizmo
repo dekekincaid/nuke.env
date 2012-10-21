@@ -1,0 +1,34 @@
+#! C:/Program Files/Nuke6.3v1/Nuke6.3.exe -nx
+version 6.3 v1
+Gizmo {
+ tile_color 0xff
+ addUserKnob {20 Edge_Remover}
+ addUserKnob {41 size T Dilate3.size}
+ addUserKnob {41 size_1 l size T Blur5.size}
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos 541
+  ypos 295
+ }
+ Dilate {
+  channels alpha
+  size -1
+  name Dilate3
+  xpos 541
+  ypos 335
+ }
+ Blur {
+  channels alpha
+  size 1.2
+  name Blur5
+  xpos 541
+  ypos 382
+ }
+ Output {
+  name Output1
+  xpos 541
+  ypos 482
+ }
+end_group

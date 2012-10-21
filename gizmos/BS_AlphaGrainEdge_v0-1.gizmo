@@ -1,0 +1,103 @@
+#! C:/Program Files/Nuke6.2v4/Nuke6.2.exe -nx
+version 6.2 v4
+Gizmo {
+ tile_color 0xfc8823ff
+ gl_color 0xff
+ note_font "Arial Bold"
+ note_font_color 0x96ff
+ addUserKnob {20 alphagrainedgetab l AlphaGrainEdge_BS_v0.1}
+ addUserKnob {3 in_seed l seed}
+ in_seed 134
+ addUserKnob {7 in_grainSize l Size R 0 100}
+ in_grainSize 1.8
+ addUserKnob {7 in_grainIrregularity l Irregularity}
+ in_grainIrregularity 0.6
+ addUserKnob {7 in_grainIntensity l Intensity}
+ in_grainIntensity 1
+ addUserKnob {26 "" +STARTLINE}
+ addUserKnob {26 description l "" +STARTLINE T "AlphaGrainEdge_BS_v0.1\n\nThis gizmo is made by Ben Sumner\n\nquestions?\nben.m.sumner@gmail.com"}
+}
+ BackdropNode {
+  inputs 0
+  name BackdropNode2
+  tile_color 0x7171c600
+  label "AlphaGrainEdge\n"
+  note_font_size 12
+  xpos -681
+  ypos -438
+  bdwidth 177
+  bdheight 197
+ }
+ Input {
+  inputs 0
+  name Input1
+  xpos -592
+  ypos -469
+ }
+ Dot {
+  name in
+  label "in, and controls\n"
+  xpos -558
+  ypos -429
+  addUserKnob {20 alphagrainedgetab l AlphaGrainEdge_BS_v0.1}
+  addUserKnob {3 seed}
+  seed {{parent.in_seed}}
+  addUserKnob {7 grainSize l Size R 0 100}
+  grainSize {{parent.in_grainSize}}
+  addUserKnob {7 grainIrregularity l Irregularity}
+  grainIrregularity {{parent.in_grainIrregularity}}
+  addUserKnob {7 grainIntensity l Intensity}
+  grainIntensity {{parent.in_grainIntensity}}
+ }
+set N9a7c3550 [stack 0]
+ Dot {
+  name Dot9
+  xpos -668
+  ypos -311
+ }
+push $N9a7c3550
+ Shuffle {
+  blue alpha
+  name Shuffle4
+  xpos -592
+  ypos -411
+ }
+ Invert {
+  channels alpha
+  name Invert3
+  xpos -592
+  ypos -393
+ }
+ Shuffle {
+  name Shuffle5
+  xpos -592
+  ypos -355
+ }
+ Grain2 {
+  name Grain1
+  label "adjust blue \ngrain for aalpha"
+  xpos -592
+  ypos -329
+  seed {{parent.in.seed i}}
+  blue_size {{parent.in.grainSize i}}
+  blue_i {{parent.in.grainIrregularity i}}
+  blue_m {{parent.in.grainIntensity i}}
+  black {0 0 0}
+  minimum {0 0 0}
+ }
+ ShuffleCopy {
+  inputs 2
+  red red
+  green green
+  blue blue
+  alpha blue2
+  name ShuffleCopy2
+  xpos -592
+  ypos -277
+ }
+ Output {
+  name Output1
+  xpos -592
+  ypos -177
+ }
+end_group

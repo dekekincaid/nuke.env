@@ -4,7 +4,7 @@ homepage: https://github.com/dbr/tabtabtab-nuke
 license: http://unlicense.org/
 """
 
-__version__ = (1, 3)
+__version__ = (1, 5)
 
 import os
 import sys
@@ -316,10 +316,11 @@ class TabyLineEdit(QtGui.QLineEdit):
             self.cancelled.emit()
             return True
 
-        return super(TabyLineEdit, self).event(event)
+        else:
+            return super(TabyLineEdit, self).event(event)
 
 
-class TabTabTabWidget(QtGui.QWidget):
+class TabTabTabWidget(QtGui.QDialog):
     def __init__(self, on_create = None, parent = None, winflags = None):
         super(TabTabTabWidget, self).__init__(parent = parent)
         if winflags is not None:
@@ -336,7 +337,7 @@ class TabTabTabWidget(QtGui.QWidget):
 
         # Node weighting
         self.weights = NodeWeights(os.path.expanduser("~/.nuke/tabtabtab_weights.json"))
-        self.weights.load() # save called in close method
+        self.weights.load() # weights.save() called in close method
 
         try:
             import nuke
@@ -515,7 +516,11 @@ def main():
     t.show()
     t.raise_()
 
-    _tabtabtab_instance = t
+    # Keep the TabTabTabWidget alive, but don't keep an extra
+    # reference to it, otherwise Nuke segfaults on exit. Hacky.
+    # https://github.com/dbr/tabtabtab-nuke/issues/4
+    import weakref
+    _tabtabtab_instance = weakref.proxy(t)
 
 
 if __name__ == '__main__':
@@ -528,4 +533,3 @@ if __name__ == '__main__':
         app = QtGui.QApplication(sys.argv)
         main()
         app.exec_()
-

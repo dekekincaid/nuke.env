@@ -1,0 +1,293 @@
+#! C:/Program Files/Nuke6.3v4/Nuke6.3.exe -nx
+version 6.3 v4
+define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
+<layout version="1.0">
+    <window x="0" y="16" w="1680" h="1024" screen="0">
+        <splitter orientation="1">
+            <split size="1052"/>
+            <splitter orientation="1">
+                <split size="40"/>
+                <dock id="" hideTitles="1" activePageId="Toolbar.1">
+                    <page id="Toolbar.1"/>
+                </dock>
+                <split size="1008"/>
+                <splitter orientation="2">
+                    <split size="480"/>
+                    <dock id="" activePageId="Viewer.1">
+                        <page id="Viewer.1"/>
+                    </dock>
+                    <split size="479"/>
+                    <dock id="" activePageId="DAG.1">
+                        <page id="DAG.1"/>
+                        <page id="Curve Editor.1"/>
+                        <page id="DopeSheet.1"/>
+                    </dock>
+                </splitter>
+            </splitter>
+            <split size="608"/>
+            <dock id="" activePageId="Properties.1">
+                <page id="Properties.1"/>
+            </dock>
+        </splitter>
+    </window>
+</layout>
+}
+Root {
+ inputs 0
+ name C:/Users/Natarajan/Desktop/stereoDaily.nk
+ frame 76
+ lock_range true
+ format "2048 1556 0 0 2048 1556 1 2K_Super_35(full-ap)"
+ proxy_type scale
+ proxy_format "1024 778 0 0 1024 778 1 1K_Super_35(full-ap)"
+ views "left #ff0000
+right #00ff00"
+}
+BackdropNode {
+ inputs 0
+ name BackdropNode2
+ tile_color 0x828c8eff
+ gl_color 0xb6ccccff
+ label Anaglyph
+ note_font_size 42
+ xpos -1241
+ ypos -116
+ bdwidth 183
+ bdheight 380
+}
+BackdropNode {
+ inputs 0
+ name BackdropNode3
+ tile_color 0x778e7bff
+ label "1K SBS\n(nvidia 3D Vision)"
+ note_font_size 30
+ xpos -914
+ ypos -118
+ bdwidth 354
+ bdheight 378
+}
+BackdropNode {
+ inputs 0
+ name BackdropNode1
+ tile_color 0x72788eff
+ label "HD TV ( LG 3D TV)"
+ note_font_size 35
+ xpos -308
+ ypos -118
+ bdwidth 351
+ bdheight 383
+}
+StickyNote {
+ inputs 0
+ name StickyNote2
+ label "Right eye input"
+ note_font_size 15
+ xpos -260
+ ypos -439
+}
+StickyNote {
+ inputs 0
+ name StickyNote1
+ label "Left eye input"
+ note_font_size 15
+ xpos -654
+ ypos -438
+}
+StickyNote {
+ inputs 0
+ name StickyNote3
+ label "your stereo Daily path"
+ note_font_size 15
+ xpos -1476
+ ypos 70
+}
+NoOp {
+ inputs 0
+ name Daily
+ xpos -1437
+ ypos 151
+ addUserKnob {20 Daily}
+ addUserKnob {2 path}
+ path G:/Dailys/
+}
+Text {
+ inputs 0
+ message "\[string trim \[file tail \[lindex \[split \[string trim \[file tail \[value Read1.file]] .dpx] .] 0] ]]"
+ font C:/Windows/Fonts/arial.ttf
+ size 30
+ xjustify right
+ yjustify center
+ box {512 389 1536 1167}
+ translate {-642 -719}
+ center {1024 778}
+ name Shot_Name
+ xpos -466
+ ypos -61
+ postage_stamp true
+}
+Text {
+ message "\[frame]"
+ font C:/Windows/Fonts/arial.ttf
+ size 30
+ xjustify right
+ yjustify center
+ box {512 389 1536 1167}
+ translate {-534 -720}
+ center {1024 778}
+ name Text1
+ xpos -466
+ ypos -37
+}
+set N86c9490 [stack 0]
+push $N86c9490
+Merge2 {
+ inputs 2
+ name Merge4
+ xpos -466
+ ypos -37
+}
+set N846ea00 [stack 0]
+Transform {
+ translate {-125 0}
+ center {1024 778}
+ name Transform1
+ xpos -273
+ ypos -37
+}
+Dot {
+ inputs 0
+ name Dot4
+ xpos -285
+ ypos -434
+}
+Dot {
+ inputs 0
+ name Dot3
+ xpos -537
+ ypos -431
+}
+JoinViews {
+ inputs 2
+ name JoinViews1
+ xpos -465
+ ypos -292
+ viewassoc "left\nright"
+}
+set N40686b0 [stack 0]
+Dot {
+ name Dot2
+ xpos -115
+ ypos -289
+}
+Reformat {
+ format "960 1080 0 0 960 1080 1 HalfHD"
+ resize distort
+ name Reformat2
+ xpos -149
+ ypos -184
+}
+Merge2 {
+ inputs 2
+ name Merge2
+ xpos -149
+ ypos -37
+}
+SideBySide {
+ name SideBySide2
+ xpos -149
+ ypos 28
+}
+Write {
+ file "\[value Daily.path]/03_3D_TV/\[clock format \[clock seconds] -format \{%d-%m-%Y\}]/\[string trim \[file tail \[lindex \[split \[string trim \[file tail \[value Read1.file]] .dpx] .] 0] ]].mov"
+ views {left}
+ file_type mov
+ codec avc1
+ keyframerate 0
+ settings 0000000000000000000000000000019a7365616e0000000100000001000000000000018676696465000000010000000e00000000000000227370746c00000001000000000000000061766331000000000018000003ff000000207470726c000000010000000000000000000000000018000000000000000000246472617400000001000000000000000000000000000000530000010000000100000000156d70736f00000001000000000000000000000000186d66726100000001000000000000000000000000000000187073667200000001000000000000000000000000000000156266726100000001000000000000000000000000166d70657300000001000000000000000000000000002868617264000000010000000000000000000000000000000000000000000000000000000000000016656e647300000001000000000000000000000000001663666c67000000010000000000000000004400000018636d66720000000100000000000000006170706c00000014636c75740000000100000000000000000000001c766572730000000100000000000000000003001c00010000
+ checkHashOnRead false
+ version 9
+ beforeRender "def createWriteDir(): \n    import nuke, os \n    file = nuke.filename(nuke.thisNode()) \n    dir = os.path.dirname( file ) \n    osdir = nuke.callbacks.filenameFilter( dir ) \n    try: \n        os.makedirs( osdir ) \n        return \n    except: \n        return \n \nnuke.addBeforeRender( createWriteDir )"
+ name HD_SBS
+ xpos -149
+ ypos 116
+ postage_stamp true
+}
+push $N846ea00
+push $N40686b0
+Dot {
+ name Dot1
+ xpos -750
+ ypos -289
+}
+Reformat {
+ format "1024 778 0 0 1024 778 1 1K_Super_35(full-ap)"
+ filter Rifman
+ black_outside true
+ name Reformat1
+ xpos -784
+ ypos -178
+}
+set N86f9220 [stack 0]
+Merge2 {
+ inputs 2
+ name Merge1
+ xpos -784
+ ypos -37
+}
+SideBySide {
+ name SideBySide1
+ xpos -784
+ ypos 21
+}
+Write {
+ file "\[value Daily.path]/01_SBS/\[clock format \[clock seconds] -format \{%d-%m-%Y\}]/\[string trim \[file tail \[lindex \[split \[string trim \[file tail \[value Read1.file]] .dpx] .] 0] ]].mov"
+ views {left}
+ file_type mov
+ codec jpeg
+ checkHashOnRead false
+ version 10
+ beforeRender "def createWriteDir(): \n    import nuke, os \n    file = nuke.filename(nuke.thisNode()) \n    dir = os.path.dirname( file ) \n    osdir = nuke.callbacks.filenameFilter( dir ) \n    try: \n        os.makedirs( osdir ) \n        return \n    except: \n        return \n \nnuke.addBeforeRender( createWriteDir )"
+ name SBS
+ xpos -784
+ ypos 118
+ postage_stamp true
+}
+push $N846ea00
+push $N86f9220
+Dot {
+ name Dot5
+ xpos -1154
+ ypos -169
+}
+Merge2 {
+ inputs 2
+ name Merge3
+ xpos -1188
+ ypos -35
+}
+Anaglyph {
+ views {left right}
+ name Anaglyph1
+ xpos -1188
+ ypos 37
+}
+Write {
+ file "\[value Daily.path]/02_Anaglyph/\[clock format \[clock seconds] -format \{%d-%m-%Y\}]/\[string trim \[file tail \[lindex \[split \[string trim \[file tail \[value Read1.file]] .dpx] .] 0] ]].mov"
+ views {left}
+ file_type mov
+ codec jpeg
+ checkHashOnRead false
+ version 10
+ beforeRender "def createWriteDir(): \n    import nuke, os \n    file = nuke.filename(nuke.thisNode()) \n    dir = os.path.dirname( file ) \n    osdir = nuke.callbacks.filenameFilter( dir ) \n    try: \n        os.makedirs( osdir ) \n        return \n    except: \n        return \n \nnuke.addBeforeRender( createWriteDir )"
+ name Anaglyph
+ xpos -1188
+ ypos 119
+ postage_stamp true
+}
+Viewer {
+ input_process false
+ name Viewer2
+ selected true
+ xpos -1188
+ ypos 290
+}
