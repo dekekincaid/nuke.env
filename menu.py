@@ -39,6 +39,7 @@ import autowrite
 import ChangeMissingFrame
 import customNode
 import diskcache
+import exrCam
 import glt_reloadRange
 import mocha_import
 import nodecount
@@ -51,7 +52,19 @@ import psd2
 import reloadallreads
 import replaceChecker
 
-
+from mS_Helpers import vidTOdpx
+from mS_Helpers import vidTOexr
+from mS_Helpers import seqTOexr
+from mS_Helpers import shuffleNwrite
+from mS_Helpers import autoWrite
+from mS_Helpers import readReload
+from mS_Helpers import geoReload
+from mS_Helpers import rootAutocrop
+from mS_Helpers import readAutocrop
+from mS_Helpers import mBlurToggle
+from mS_Helpers import MakeProjectionCam
+from mS_Helpers import setValue
+from mS_Helpers import setExpression
 
 #MULTI PLATFORM FIX CODE FOR WINDOWS OSX LINUX HYBRID SETUPS
 #if sys.platform == 'darwin':
@@ -94,11 +107,11 @@ m=toolbar.addMenu("Image")
 import makewritefromread
 import sequencer
 #import readFromWrite
-import revealInOS
+#import revealInOS
 
-m.addCommand('Reveal In Finder','revealInOS.revealInOS()', icon='Read.png', index=1)#reveal in OS
+#m.addCommand('Reveal In Finder','revealInOS.revealInOS()', icon='Read.png', index=1)#reveal in OS, error in windows, will investigate, turning off for the moment
 m.addCommand('Read Folder', "nuke.load('recursiveLoad'), recursiveLoad()",  'alt+r', icon='Read.png', index=2)
-m.addCommand("ReadList", 'readList.makereadList', index=3)
+#m.addCommand("ReadList", 'readList.makereadList', index=3)
 #m.addCommand('Read from Write', 'readFromWrite.readFromWrite()', icon='Read.png', 'shift+r', index=3) #not working, giving error SyntaxError: non-keyword arg after keyword arg
 #m.addCommand('Write from Read', 'makewritefromread.make_write_from_read()', icon='Write.png', 'ctrl+r', index=3)
 
@@ -111,7 +124,7 @@ m.addCommand("Sequencer", "sequencer.sequencer()", index=11)
 ##########################################################################################
 m=toolbar.addMenu("Draw")
 # The "Draw" menu
-import readList
+#import readList
 import TX_Ramp
 
 m.addCommand('3D Mattes', "nuke.createNode('Mattes3D')", index=0)
@@ -171,6 +184,7 @@ m=toolbar.addMenu("Channel")
 # The Channel menu
 import branchout
 m.addCommand("Branch Out Channels", "branchout.branchout()", index=0)
+m.addCommand('ChannelList', "nuke.createNode('ChannelList')", index=1)
 
 ##########################################################################################
 m=toolbar.addMenu("Color")
@@ -198,33 +212,47 @@ m=toolbar.addMenu("Filter")
 
 # The "Filter" menu
 import iFilter03
+
+m.addCommand("Alpha Grain Edge", "nuke.createNode('BS_AlphaGrainEdge_v0-1')", index=0)
+m.addCommand("Depth Slice", "nuke.createNode('DepthSlice')", index=10)
+
+m.addCommand("Edge Extend", "nuke.createNode('EdgeExtend')", index=12)
+m.addCommand("Edge Extend 2", "nuke.createNode('EdgeExtend2')", index=13)
+m.addCommand("Edge Remover", "nuke.createNode('Edge_Remover')", index=14)
+m.addCommand("Edge Scatter", "nuke.createNode('EdgeScatter')", index=15)
 #m.addCommand("akromatism_stRub", "nuke.createNode('akromatism_stRub')")
 #m.addCommand("alphaEdge", "nuke.createNode('alphaEdge')")
 #m.addCommand("ChromAbb", "nuke.createNode('ChromAbb')")
 #m.addCommand("degrainFB", "nuke.createNode('degrainFB')")
 #m.addCommand("&Easy_LM2DMV", "nuke.createNode('Easy_LM2DMV')") #for handeling lm2dmv motion vectors which normally are made for Reelsmart MBlur
-m.addCommand("FFT", "nuke.createNode('FFT')", index=16)#unhide unsupported built in tool
-m.addCommand("FFT Multiply", "nuke.createNode('FFTMultiply')", index=17)#unhide unsupported built in tool
-m.addCommand("iDilateErode", "nuke.createNode('iDilateErode')", index=20)
-m.addCommand ('iFilter', 'nuke.nodes.iFilter(), iFilter03.iFilter03()', icon = "Constant.png", index=21)
-m.addCommand("Inverse FFT", "nuke.createNode('InvFFT')", index=22)#unhide unsupported built in tool
+m.addCommand("FFT", "nuke.createNode('FFT')", index=22)#unhide unsupported built in tool
+m.addCommand("FFT Multiply", "nuke.createNode('FFTMultiply')", index=23)#unhide unsupported built in tool
+m.addCommand("Fine Edge Detect", "nuke.createNode('FineEdgeDetect')", index=24)
+m.addCommand("iDilate Erode", "nuke.createNode('iDilateErode')", index=27)
+m.addCommand ('iFilter', 'nuke.nodes.iFilter(), iFilter03.iFilter03()', icon = "Constant.png", index=28)
+m.addCommand("Inverse FFT", "nuke.createNode('InvFFT')", index=28)#unhide unsupported built in tool
 #m.addCommand("&LM_2DMV", "nuke.createNode('LM_2DMV')") #for handeling lm2dmv motion vectors which normally are made for Reelsmart MBlur
-m.addCommand("LensKernelFFT", "nuke.createNode('LensKernelFFT_v01')", index=24)
+m.addCommand("Lens Kernel FFT", "nuke.createNode('LensKernelFFT_v01')", index=31)
 #m.addCommand("Matte Edge", "nuke.createNode('matte_edge')", index=27)
 #m.addCommand("Shartifact", "nuke.createNode('Shartifact')")
 #m.addCommand("SoftErode", "nuke.createNode('SoftErode')")
 #m.addCommand("Streaks", "nuke.createNode('H_Streaks')")
-m.addCommand("StereoFake", "nuke.createNode('stereofake')", index=33)
-m.addCommand("V_EdgeMatte", "nuke.createNode('V_EdgeMatte')", index=36)
-
-
+m.addCommand("Stereo Fake", "nuke.createNode('stereofake')", index=37)
+m.addCommand("V Edge Matte", "nuke.createNode('V_EdgeMatte')", index=40)
+m.addCommand("Vector Extend Edge", "nuke.createNode('VectorExtendEdge')", index=41)
 
 ##########################################################################################
 m=toolbar.addMenu("Keyer")
 
 # The "Keyer" menu
-m.addCommand("DeSpilla", "nuke.createNode('DeSpilla')", index=0)
-m.addCommand("iDMattePro", "nuke.createNode('iDMattePro')", index=5)
+m.addCommand("DeSpilla", "nuke.createNode('DeSpilla2')", index=0)
+m.addCommand("DespillMadness", "nuke.createNode('DespillMadness')", index=1)
+
+m.addCommand("iDMattePro", "nuke.createNode('iDMattePro')", index=6)
+
+m.addCommand("KillSpillPlus", "nuke.createNode('KillSpillPlus')", index=8)
+m.addCommand("L_Despill", "nuke.createNode('L_Despill_v05')", index=9)
+
 
 ##########################################################################################
 m=toolbar.addMenu("Merge")
@@ -256,13 +284,17 @@ m.addCommand("Wave Distortion", "nuke.createNode('WaveDistortion')", index=31)
 m=toolbar.addMenu("3D")
 
 # The 3d menu
-import CopyCamForProj_v003_r01
 import addconstraintab
+import CopyCamForProj_v003_r01
+import createExrCamVray
 import panAndTile
 import SourceGeoFolder
 #import TargetCamera
 #import vrayCameraAttributes
 #nuke.load('vrayCameraAttributes.py')
+
+
+m.addCommand("Create Camera from EXR", "createExrCamVray.createExrCamVray(nuke.selectedNode())")
 
 m.addCommand("CopyCam", "CopyCamForProj_v003_r01.copyCamForProj()", "Shift+v", index=1)
 m.addCommand("CopyGeo", "nuke.createNode('CopyGeo')", index=2)
@@ -279,7 +311,7 @@ m.addCommand("Geometry/ReadGeo Folder", "SourceGeoFolder.SourceGeoFolder()", ico
 #m.addCommand("Geometry/ReadGeoPlus", "nuke.createNode('ReadGeoPlus')")
 #m.addMenu("3D").addCommand("Target Camera", "TargetCamera.TargetCamera()") don't really need this right now
 #m.addCommand("Geometry/ReadGeo", "nuke.nodes.ReadGeo2();nuke.tcl('VCard');nuke.selectedNode().knob('display').setFlag(0)") #modify readGeo to have vcard
-if ( nuke.NUKE_VERSION_MAJOR <= 7):
+if ( nuke.NUKE_VERSION_MAJOR < 7):
 	m.addCommand('ReLight', 'nuke.createNode("ReLight")', index=17)#unhide unsupported built in tool
 	m.addCommand('Position To Points', 'nuke.createNode("PositionToPoints")', index=16)#unhide unsupported built in tool	
 
@@ -374,8 +406,8 @@ m=menubar.addMenu("File")
 m=menubar.addMenu("Edit")
 
 #Edit Menu
-import renamenodes
-menubar.addCommand("Edit/Rename Nodes", "renamenodes.renamenodes()", 'F2', index=1 )
+#import renamenodes
+#menubar.addCommand("Edit/Rename Nodes", "renamenodes.renamenodes()", 'F2', index=1 )
 
 #howard & diogo's cool bookmarks
 #later put these in the top menu
@@ -531,6 +563,24 @@ m=menubar.addMenu("Render")
                  
 #nuke.addBeforeRender(createWriteDir)
 
+#this is the create write directories script from Frank on the nuke alpha list
+import os
+import nuke
+def createOutDir (outFile):
+    """Create parent directory for outFile if it doesn't exist"""
+    fileDir = os.path.dirname(outFile)
+    osdir = nuke.callbacks.filenameFilter( fileDir )
+    if not os.path.isdir( osdir ):
+        print 'creating output dir', osdir
+        os.makedirs( osdir )
+        return osdir
+    else:
+        pass
+
+def outDirCB():
+    print 'preparing output for', nuke.thisNode().name()
+    print 'output is:', nuke.filename( nuke.thisNode() )
+    return createOutDir( nuke.filename( nuke.thisNode() ) )
 
 ##########################################################################################
 if ( nuke.NUKE_VERSION_MAJOR >= 6) and ( nuke.NUKE_VERSION_MINOR >= 3 ):#this gets rid of the cache menu from showing up in 6.2
@@ -585,22 +635,24 @@ def addSRPanel():
 paneMenu.addCommand('SearchReplace', addSRPanel, "ctrl+alt+s")#THIS LINE WILL ADD THE NEW ENTRY TO THE PANE MENU
 nukescripts.registerPanel('com.ohufx.SearchReplace', addSRPanel)#THIS LINE WILL REGISTER THE PANEL SO IT CAN BE RESTORED WITH LAYOUTS
 
-#add frank's icon panels
-import IconPanel
-def addIconPanel():
-    global iconPanel
-    iconPanel = IconPanel.IconPanel()
-    return iconPanel.addToPane()
-paneMenu.addCommand('Universal Icons', addIconPanel, "ctrl+alt+i")
-nukescripts.registerPanel('com.ohufx.IconPanel', addIconPanel)
+#add frank's icon panels, not coming up for some reason, will investigate later
+
+#import IconPanel
+#def addIconPanel():
+#    global iconPanel
+#    iconPanel = IconPanel.IconPanel()
+#    return iconPanel.addToPane()
+#paneMenu.addCommand('Universal Icons', addIconPanel, "ctrl+alt+i")
+#nukescripts.registerPanel('com.ohufx.IconPanel', addIconPanel)
 
 #frank's fovCalculator, not coming up for some reason, will investigate later
-import FovCalculator
-def addFovCalc():
-	fovCalc = FovCalculator.FovCalculator()
-	return fovCalc.addToPane()
-paneMenu.addCommand('Fov Calculator', addFovCalc, "ctrl+alt+f" )
-nukescripts.registerPanel('com.ohufx.FovCalculator', addFovCalc )
+#import FovCalculator
+#def addFovCalc():
+#   fovCalc = FovCalculator.FovCalculator()
+#   return fovCalc.addToPane()
+#paneMenu.addCommand('Fov Calculator', addFovCalc, "ctrl+alt+f" )
+#nukescripts.registerPanel('com.ohufx.FovCalculator', addFovCalc )
+
 
 
 ##########################################################################################
@@ -623,7 +675,7 @@ nuke.knobDefault("Write.channels", "rgba")
 nuke.knobDefault("Write.file_type","jpg") 
 nuke.knobDefault("Write._jpeg_quality", "1")
 nuke.knobDefault("Write._jpeg_sub_sampling", "1")
-nuke.knobDefault('Write.beforeRender' , 'readList.updatereadList()')
+#nuke.knobDefault('Write.beforeRender' , 'readList.updatereadList()')
 
 ##################   3D DEFAULTS   ##################
 toolbar.addCommand("3D/Camera", "nuke.createNode('Camera2');addconstraintab.constrain();nuke.selectedNode().knob('display').setFlag(0)") #modify camera to have Add Constrain Tab
@@ -678,6 +730,13 @@ import goToPlus #name of the package where goToPlus.py is installed
 nukescripts.goto_frame = goToPlus.goToPlus
 
 #nuke.knobDefault("Text.font",nuke.defaultFontPathname())#[python {nuke.defaultFontPathname()}]
+#set default font so we don't run into the issue of it picking the wrong one on different operating systems, fix this in a bit
+#def mydefaultFontPath():
+#    return '/Library/Fonts/Arial.ttf'
+#nuke.defaultFontPathname = mydefaultFontPath
+#nuke.knobDefault('Text.font', mydefaultFontPath())
+
+
 
 import nuke
 import tabtabtab
